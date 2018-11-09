@@ -1,0 +1,8 @@
+{
+  "name": "KundeApp",
+  "app_id": "5fa5bc46",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
