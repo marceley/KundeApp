@@ -1,0 +1,60 @@
+<!--
+  Generated template for the DetailsMealboxPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{details?.Name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div padding>
+  <h1>{{details?.Name}}</h1>
+  <p style="white-space: pre-line">{{details?.ShortDescription}}</p>
+  <div>{{details?.PersonRange}} {{details?.DayRange}} {{details?.Preparation}}</div>
+</div>
+  <div padding>
+    <h4>Menu</h4>
+    <ul>
+      <li *ngFor="let recipe of details?.Recipes">{{recipe.Name}}</li>
+    </ul>
+  </div>
+
+  <div padding>
+    <h4>Kokkene bag {{details?.Name}}</h4>
+    <ul>
+      <li *ngFor="let chef of details?.Chefs">
+          <div>{{chef.Name}}</div>
+          <div>{{chef.Title}}</div>
+        </li>
+    </ul>
+  </div>
+
+  <div padding>
+      <h4>Beskrivelse</h4>
+      <div [innerHTML]="details?.Description" style="white-space: pre-line"></div>
+  </div>
+
+  <div>
+    <ion-list>
+        <ion-list-header>Ingredienser</ion-list-header>
+        <ion-item *ngFor="let ingredient of ingredients">
+          <h5>{{ingredient.Amount}} {{ingredient.Name}}</h5>
+          <div>{{ingredient.Title}}</div>
+          <button ion-button small color="light" (click)="showIngredientDetails(ingredient)">i</button>
+        </ion-item>
+    </ion-list>
+  </div>
+
+  <div padding>
+    <div>Pris fra</div>
+    <div><span [innerHTML]="details?.PriceDetail.PriceFrom"></span> <span>{{details?.PriceDetail.PlatePrice}}</span></div>
+    <button ion-button small>Vælg</button>
+  </div>
+</ion-content>

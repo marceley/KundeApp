@@ -1,19 +1,24 @@
+import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { NowPage } from '../now/now';
+import { BoxesPage } from '../boxes/boxes';
+import { MealboxesPage } from '../mealboxes/mealboxes';
+import { ExtrasPage } from '../extras/extras';
+import { AccountPage } from '../account/account';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tab1Root = NowPage;
+  tab2Root = BoxesPage;
+  tab3Root = MealboxesPage;
+  tab4Root = ExtrasPage;
+  tab5Root = AccountPage;
 
-  constructor() {
-
+  constructor(public apiProvider: ApiProvider) {
+    this.apiProvider.tryAutoLogin();
   }
 }
