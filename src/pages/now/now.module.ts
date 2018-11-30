@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 import { NowPage } from './now';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { NowPage } from './now';
   ],
   imports: [
     IonicPageModule.forChild(NowPage),
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    IonicImageLoader
   ],
 })
 export class NowPageModule {}

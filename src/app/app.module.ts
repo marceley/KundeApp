@@ -6,24 +6,24 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//import { NativeStorage } from '@ionic-native/native-storage';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { NowPage } from './../pages/now/now';
-import { BoxesPage } from '../pages/boxes/boxes';
-import { MealboxesPage } from '../pages/mealboxes/mealboxes';
-import { AccountPage } from './../pages/account/account';
-import { ExtrasPage } from './../pages/extras/extras';
-import { TabsPage } from '../pages/tabs/tabs';
-import { ProductsPage } from './../pages/products/products';
-import { DetailsPage } from './../pages/details/details';
-import { DetailsMealboxPage } from './../pages/details-mealbox/details-mealbox';
-import { DetailsIngredientPage } from './../pages/details-ingredient/details-ingredient';
-import { OrderPage } from './../pages/order/order';
-import { ModalLoginPage } from './../pages/modal-login/modal-login';
-import { SettingsPage } from './../pages/settings/settings';
-import { MealboxConfiguratorOptionsPage } from './../pages/mealbox-configurator-options/mealbox-configurator-options';
-import { MealboxConfiguratorPage } from './../pages/mealbox-configurator/mealbox-configurator';
+import { TabsPageModule } from '../pages/tabs/tabs.module';
+
+import { NowPageModule  } from './../pages/now/now.module';
+import { BoxesPageModule } from '../pages/boxes/boxes.module';
+import { MealboxesPageModule } from '../pages/mealboxes/mealboxes.module';
+import { ExtrasPageModule } from './../pages/extras/extras.module';
+import { AccountPageModule } from './../pages/account/account.module';
+import { ProductsPageModule } from './../pages/products/products.module';
+import { DetailsPageModule } from './../pages/details/details.module';
+import { DetailsMealboxPageModule } from './../pages/details-mealbox/details-mealbox.module';
+import { DetailsIngredientPageModule } from './../pages/details-ingredient/details-ingredient.module';
+import { OrderPageModule } from './../pages/order/order.module';
+import { ModalLoginPageModule } from './../pages/modal-login/modal-login.module';
+import { SettingsPageModule } from './../pages/settings/settings.module';
+import { MealboxConfiguratorOptionsPageModule } from './../pages/mealbox-configurator-options/mealbox-configurator-options.module';
+import { MealboxConfiguratorPageModule } from './../pages/mealbox-configurator/mealbox-configurator.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,63 +37,77 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    NowPage,
-    BoxesPage,
-    MealboxesPage,
-    ExtrasPage,
-    AccountPage,
-    TabsPage,
-    DetailsPage,
-    ProductsPage,
-    OrderPage,
-    DetailsMealboxPage,
-    DetailsIngredientPage,
-    ModalLoginPage,
-    SettingsPage,
-    MealboxConfiguratorPage,
-    MealboxConfiguratorOptionsPage
+    //NowPage,
+    //BoxesPage,
+    //MealboxesPage,
+    //ExtrasPage,
+    //AccountPage,
+    //TabsPage,
+    //DetailsPage,
+    //ProductsPage,
+    //OrderPage,
+    //DetailsMealboxPage,
+    //DetailsIngredientPage,
+    //ModalLoginPage,
+    //SettingsPage,
+    //MealboxConfiguratorPage,
+    //MealboxConfiguratorOptionsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    IonicStorageModule.forRoot(),
     IonicImageLoader.forRoot(),
     IonicModule.forRoot(MyApp, {
       backButtonText: ''
     }),
-    IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    TabsPageModule,
+    NowPageModule,
+    BoxesPageModule,
+    MealboxesPageModule,
+    ExtrasPageModule,
+    AccountPageModule,
+    DetailsPageModule,
+    ProductsPageModule,
+    OrderPageModule,
+    DetailsMealboxPageModule,
+    DetailsIngredientPageModule,
+    ModalLoginPageModule,
+    SettingsPageModule,
+    MealboxConfiguratorPageModule,
+    MealboxConfiguratorOptionsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    NowPage,
-    BoxesPage,
-    MealboxesPage,
-    ExtrasPage,
-    AccountPage,
-    TabsPage,
-    DetailsPage,
-    ProductsPage,
-    OrderPage,
-    DetailsMealboxPage,
-    DetailsIngredientPage,
-    ModalLoginPage,
-    SettingsPage,
-    MealboxConfiguratorPage,
-    MealboxConfiguratorOptionsPage
+    //NowPage,
+    //BoxesPage,
+    //MealboxesPage,
+    //ExtrasPage,
+    //AccountPage,
+    //TabsPage,
+    //DetailsPage,
+    //ProductsPage,
+    //OrderPage,
+    //DetailsMealboxPage,
+    //DetailsIngredientPage,
+    //ModalLoginPage,
+    //SettingsPage,
+    //MealboxConfiguratorPage,
+    //MealboxConfiguratorOptionsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiProvider,
-    //NativeStorage
+    ApiProvider
   ]
 })
 export class AppModule {}
