@@ -1,0 +1,60 @@
+<!--
+  Generated template for the MealboxConfiguratorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">Annuller</button> 
+    </ion-buttons>
+    <ion-title>{{details?.Name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div padding>
+    <h2>Personer</h2>
+    <div *ngIf="!selectedPersons">Vælg antal personer</div>
+    <div *ngIf="selectedPersons" >{{selectedPersons}} person(er) valgt</div>
+    <div>
+      <button ion-button medium *ngFor="let person of persons" (click)="getDaysForPersons(person)">{{person}}</button>
+    </div>
+  </div>
+
+  <div padding *ngIf="daysForPersons.length > 0">
+    <h2>Dage</h2>
+    <div *ngIf="!selectedDays">Vælg antal dage</div>
+    <div *ngIf="selectedDays">{{selectedDays}} dag(e) valgt</div>
+    <div>
+      <button ion-button medium *ngFor="let day of daysForPersons" (click)="getAddonsForPersonsAndDays(day)">{{day}}</button>
+    </div>
+  </div>   
+  
+  <h2>Få lidt ekstra i din kasse</h2>
+  <p *ngIf="addOns.length === 0">Vælg antal dage for at se vores varianter</p>
+  <p *ngIf="addOns.length > 0">Vælg den sammensætning af varianter der passer perfekt til dig.</p>
+
+  <div *ngIf="addOns.length > 0">
+    <h2 padding>Tilvalg</h2>
+    <ion-list>
+      <ion-item *ngFor="let addon of addOns" (click)="selectAddOn(addon); calculatePrice()">
+          {{addon.ShortDescription}}
+        </ion-item> 
+    </ion-list>
+  </div>
+
+  <!--<div style="display: none;">{{details | json}}</div>-->
+
+</ion-content>
+
+<ion-footer padding no-shadow>
+    <div>Pris fra</div>
+    <div><span [innerHTML]="calculatedPrice"></span></div>
+    <button ion-button medium (click)="getDeliveryOptions()">Vælg</button>
+</ion-footer>

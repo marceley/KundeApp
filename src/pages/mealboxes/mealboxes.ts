@@ -23,14 +23,26 @@ export class MealboxesPage {
   selectedPersons = 3;
   products: any;
 
+  loading: Boolean = true;
+
+  error: Boolean = false;
+  errorMessage: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
   }
 
   getMealboxes() {
-    this.apiProvider.getMealboxes()
-    .subscribe(data => {
+    this.apiProvider.getMealboxes().subscribe(data => {
       this.categories = data["d"].Categories;
+      console.log("---", this.categories);
       this.getProducts(this.selectedPersons);
+      this.loading = false;
+      this.error = false;
+    }, error => {
+      console.log("getNewItems() - error", error);
+      this.loading = false;
+      this.error = true;
+      this.errorMessage = error;
     });
   }
 
@@ -41,6 +53,7 @@ export class MealboxesPage {
   }
 
   showDetails(product){
+    //console.log("ccc", product);
     this.navCtrl.push(DetailsMealboxPage, { product: product });
   }
   

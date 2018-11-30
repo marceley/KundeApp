@@ -7,26 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Måltider</ion-title>
+    <ion-title>{{ 'tabTitleMealboxes' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
+
+  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+  <div class="loading" *ngIf="loading">Henter...</div>
+
   <div padding>
     <span *ngFor="let category of categories">
-        <button ion-button small (click)="getProducts(category.Persons)">{{category.Name}}</button>
+      <button ion-button small (click)="getProducts(category.Persons)">{{category.Name}}</button>
     </span>
   </div>
 
   <div padding>
-    <div *ngFor="let product of products" style="margin-bottom: 2rem;background-color: #dddddd; border:1px solid #cccccc; padding: 1rem;" (click)="showDetails(product)">
-        <h3>{{product.Name}}</h3>
-        <div><button ion-button small color="light">Se menu</button></div>
-        <div [innerHTML]="product.PriceDetail.PriceFromShort"></div>
-        <div>{{product.PersonRange}} {{product.DayRange}} {{product.PreperationTime}}</div>
+    <div *ngFor="let product of products" class="mealbox" (click)="showDetails(product)">
+      <div class="mealbox__upper" [ngStyle]="{'background-image': 'url(https://assetsv2.aarstiderne.com/configurator/' + product.ParentGroupAlias + '-mo-1320-0-50.jpg)'}">
+        <h1 class="mealbox__header">{{product.Name}}</h1>
+        <div class="mealbox__menu-btn"><button ion-button small color="light">Se menu</button></div>
+        <div class="mealbox__price" [innerHTML]="product.PriceDetail.PriceFromShort"></div>
       </div>
+      <div class="mealbox__meta">
+        <span>{{product.Persons}} pers.</span> <span>{{product.Days}} dage</span> <span>{{product.PreperationTime}} mins.</span></div>
+    </div>
   </div>
 
 </ion-content>

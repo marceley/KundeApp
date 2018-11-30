@@ -8,6 +8,6 @@ import { DetailsMealboxPage } from './details-mealbox';
   ],
   imports: [
     IonicPageModule.forChild(DetailsMealboxPage),
-  ],
+  ]
 })
 export class DetailsMealboxPageModule {}

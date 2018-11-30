@@ -21,7 +21,7 @@ export class DetailsIngredientPage {
   }
 
   showIngredientDetails(ingredient){
-    console.log(ingredient);
+    //console.log(ingredient);
     this.navCtrl.push(DetailsIngredientPage, ingredient);
   }
 

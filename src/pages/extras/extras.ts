@@ -20,19 +20,30 @@ export class ExtrasPage {
 
   categories: any;
 
+  loading: Boolean = true;
+
+  error: Boolean = false;
+  errorMessage: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
   }
 
   getExtras() {
-    this.apiProvider.getExtras()
-    .subscribe(data => {
+    this.apiProvider.getExtras().subscribe(data => {
       this.categories = data["d"].Categories;
+      this.loading = false;
+      this.error = false;
+    }, error => {
+      console.log("getExtras() - error", error);
+      this.loading = false;
+      this.error = true;
+      this.errorMessage = error;
     });
   }
   
-  showProducts(products) {
-    console.log("showProducts -> Extra", products);
-    this.navCtrl.push(ProductsPage, { products: products });
+  showProducts(category) {
+    console.log("showProducts -> Extra", category);
+    this.navCtrl.push(ProductsPage, { category: category.Name, products: category.Products });
   }
 
   ionViewDidLoad() {

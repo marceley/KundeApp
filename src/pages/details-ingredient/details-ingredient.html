@@ -5,56 +5,60 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{ingredient?.Name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-list *ngIf="!ingredient?.Children">
+    <ion-list-header>Information</ion-list-header>
+    <ion-item>
+      <div class="ingredient-key">Mængde</div>
+      <div class="ingredient-value" item-end>{{ingredient?.Amount}}</div>
+    </ion-item>
+    <ion-item *ngIf="ingredient?.Manufacturer">
+      <div class="ingredient-key">Producent</div>
+      <div class="ingredient-value" item-end>{{ingredient?.Manufacturer}}</div>
+    </ion-item>
+    <ion-item *ngIf="ingredient?.Durability">
+      <div class="ingredient-key">Holdbarhed</div>
+      <div class="ingredient-value" item-end>{{ingredient?.Durability}}</div>
+    </ion-item>
+  </ion-list>
 
-      <ion-list *ngIf="!ingredient?.Children">
-        <ion-list-header>Information</ion-list-header>
-        <ion-item *ngIf="ingredient?.Amount">
-            <div>Mængde {{ingredient?.Amount}}</div>
-          </ion-item>
-          <ion-item *ngIf="ingredient?.Manufacturer">
-          <div>Producent {{ingredient?.Manufacturer}}</div>
-            </ion-item>
-          <ion-item *ngIf="ingredient?.Durability">
-            <div>Holdbarhed {{ingredient?.Durability}}</div>
-          </ion-item>
-        </ion-list>
+  <ion-list *ngIf="ingredient?.Nutritions?.length > 0">
+    <ion-list-header>Ernæringsindhold pr. 100g/ml</ion-list-header>
+    <ion-item *ngFor="let nutrition of ingredient?.Nutritions">
+      <div class="ingredient-key">{{nutrition?.Description}}</div>
+      <div class="ingredient-value" item-end>{{nutrition?.Value}}</div>
+      <div *ngIf="nutrition?.Children?.length > 0">
+        <div *ngFor="let child of nutrition.Children" class="ingredient-key">{{child?.Description}}</div>
+        <div class="ingredient-value" item-end>{{child?.Value}}</div>
+      </div>
+    </ion-item>
+  </ion-list>
 
-        <ion-list *ngIf="ingredient?.Nutritions?.length > 0">
-            <ion-list-header>Ernæringsindhold pr. 100g/ml</ion-list-header>
-            <ion-item *ngFor="let nutrition of ingredient?.Nutritions">
-              <div>{{nutrition.Description}} {{nutrition.Value}}</div>
-              <div *ngIf="nutrition.Children?.length > 0">
-                  <div *ngFor="let child of nutrition.Children">{{child.Description}} {{child.Value}}</div>
-              </div>
-            </ion-item>
-        </ion-list>
-    
-        <ion-list *ngIf="ingredient?.Components?.length > 0">
-            <ion-list-header>Ingredienser</ion-list-header>
-            <ion-item *ngFor="let component of ingredient?.Components">
-              <div>{{component.Name}}</div>
-              <div><span *ngIf="component.Eco">Økologisk</span> <span *ngIf="component.Allergen">Indeholder allergener</span></div>
-              <div *ngIf="component.Children?.length > 0">
-                <button ion-button small color="light" (click)="showIngredientDetails(component)">i</button>
-              </div>
-            </ion-item>
-        </ion-list>
-    
-        <ion-list *ngIf="ingredient?.Children?.length > 0">
-            <ion-list-header>Ingredienser</ion-list-header>
-            <ion-item *ngFor="let component of ingredient?.Children">
-              <div>{{component.Name}}</div>
-              <div><span *ngIf="component.Eco">Økologisk</span> <span *ngIf="component.Allergen">Indeholder allergener</span></div>
-            </ion-item>
-        </ion-list>
-    
-    </ion-content>
+  <!-- Level 1 ingredients !-->
+  <ion-list *ngIf="ingredient?.Components?.length > 0">
+    <ion-list-header>Ingredienser</ion-list-header>
+    <ion-item *ngFor="let component of ingredient?.Components">
+      <div class="ingredient-key-dark">{{component.Name}}</div>
+      <div class="ingredient-note"><span *ngIf="component.Eco">Økologisk</span> <span *ngIf="component.Allergen">/
+          Indeholder allergener</span></div>
+      <ion-icon name="ios-information-circle-outline" item-end *ngIf="component.Children?.length > 0" (click)="showIngredientDetails(component)"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <!-- Level 2 ingredients !-->
+  <ion-list *ngIf="ingredient?.Children?.length > 0">
+    <ion-list-header>Ingredienser</ion-list-header>
+    <ion-item *ngFor="let component of ingredient?.Children">
+      <div class="ingredient-key-dark">{{component.Name}}</div>
+      <div class="ingredient-note"><span *ngIf="component.Eco">Økologisk</span> <span *ngIf="component.Allergen">/
+          Indeholder allergener</span></div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -8,56 +8,62 @@
 
   <ion-navbar>
     <ion-buttons left *ngIf="loggedIn">
-      <button ion-button (click)="logout()">Log ud</button> 
+      <button ion-button (click)="logout()">Log ud</button>
     </ion-buttons>
-    <ion-title>Min Side</ion-title>
+    <ion-title>{{ 'tabTitleAccount' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content>
 
-  <div>{{loggedIn}}, {{lines}}, {{username}}, {{password}}</div>
-
-  <div *ngIf="error">{{  errorMessage | json }}</div>
+  <div *ngIf="error">{{ errorMessage | json }}</div>
 
   <div *ngIf="loggedIn">
 
-    <div padding>[Settings: TODO]</div>
+    <ion-list>
+      <button ion-item (click)="getSettings()">Indstillinger</button>
+    </ion-list>
 
     <div *ngIf="lines?.length === 0" padding>
       Du har ingen bestillinger
     </div>
-    
+
     <ion-list *ngIf="lines?.length > 0">
-      <ion-item-sliding #item *ngFor="let line of lines" (click)="showDetails(line)">
-        <ion-item>
-        <div *ngIf="!line.Fee; else fee">
-            <div>{{line.ShipmentDate | date:"EEEE 'd.' d. LLLL"}}</div>
-            <h4>{{line.Description}}</h4>
-            <div>{{line.SubTitle}}</div>
-            <div>{{line.Amount}}</div>
-            <div><span *ngIf="line.PriceDetail.DiscountPrice">Rabat pris: {{line.PriceDetail.DiscountPrice}}</span> <span>Normal pris: {{line.PriceDetail.NormalPrice}}</span></div>
+      <ion-item-sliding #item *ngFor="let line of lines">
+        <ion-item class="list-item list-item--pushdown" (click)="showDetails(line)" *ngIf="!line.Fee">
+          <div class="list-image" item-start>
+            <img-loader class="tile-image" src="{{line.ImageUri}}" useImg="true" spinner="false"></img-loader>
           </div>
-        <ng-template #fee>
-          {{line.Description}} {{line.LinePrice}}
-        </ng-template>
-        <ion-item-options side="right">
-            <button ion-button color="danger" (click)="delete(line)">Slet</button>
-          </ion-item-options>
+          <h2 class="list-header">{{line.Description}}</h2>
+          <div class="list-subtitle">{{line.SubTitle}}</div>
+          <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
+          <div class="list-price">
+            <span class="discount-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
+            <span class="">{{line.PriceDetail.NormalPrice}}</span>
+          </div>
         </ion-item>
-        </ion-item-sliding>
+        <ion-item class="list-item" *ngIf="line.Fee">
+          <div class="list-header">{{line.Description}}</div>
+          <div class="list-price-not-positioned" item-end>{{line.LinePrice}}</div>
+        </ion-item>
+        <ion-item-options side="right" *ngIf="!line.IsReadOnly">
+          <button ion-button color="danger" (click)="deleteLine(line)">Fjern</button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
 
   </div>
+
+  <div>User loggedIn?: {{loggedIn}}</div>
 
   <form #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!loggedIn" autocomplete="off">
     <ion-row>
       <ion-col>
         <ion-list inset>
           <ion-item>
-            <ion-input placeholder="Email" name="username" id="loginField" type="email" required [(ngModel)]="username" #email></ion-input>
+            <ion-input placeholder="Email" name="username" id="loginField" type="email" required [(ngModel)]="username"
+              #email></ion-input>
           </ion-item>
           <ion-item>
             <ion-input placeholder="Password" name="password" id="passwordField" type="password" required [(ngModel)]="password"></ion-input>

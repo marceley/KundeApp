@@ -1,3 +1,4 @@
+import { IonicImageLoader } from 'ionic-image-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,14 +20,15 @@ import { DetailsPage } from './../pages/details/details';
 import { DetailsMealboxPage } from './../pages/details-mealbox/details-mealbox';
 import { DetailsIngredientPage } from './../pages/details-ingredient/details-ingredient';
 import { OrderPage } from './../pages/order/order';
+import { ModalLoginPage } from './../pages/modal-login/modal-login';
+import { SettingsPage } from './../pages/settings/settings';
+import { MealboxConfiguratorOptionsPage } from './../pages/mealbox-configurator-options/mealbox-configurator-options';
+import { MealboxConfiguratorPage } from './../pages/mealbox-configurator/mealbox-configurator';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ApiProvider } from '../providers/api/api';
-
-//import { HTTP } from '@ionic-native/http';
-//import { ApiProvider } from '../providers/api/api.native';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,12 +47,19 @@ export function createTranslateLoader(http: HttpClient) {
     ProductsPage,
     OrderPage,
     DetailsMealboxPage,
-    DetailsIngredientPage
+    DetailsIngredientPage,
+    ModalLoginPage,
+    SettingsPage,
+    MealboxConfiguratorPage,
+    MealboxConfiguratorOptionsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicImageLoader.forRoot(),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: ''
+    }),
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -73,7 +82,11 @@ export function createTranslateLoader(http: HttpClient) {
     ProductsPage,
     OrderPage,
     DetailsMealboxPage,
-    DetailsIngredientPage
+    DetailsIngredientPage,
+    ModalLoginPage,
+    SettingsPage,
+    MealboxConfiguratorPage,
+    MealboxConfiguratorOptionsPage
   ],
   providers: [
     StatusBar,

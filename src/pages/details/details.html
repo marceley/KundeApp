@@ -1,35 +1,50 @@
 <!--
-  Generated template for the DetailsPage page.
+	Generated template for the DetailsPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+	See http://ionicframework.com/docs/components/#navigation for more info on
+	Ionic pages and navigation.
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Detaljer</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>Detaljer</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <div padding>
-    <h1>{{ details?.Name }}</h1>
-    <h4>Beskrivelse</h4>
-    <div style="white-space: pre-line">{{ details?.Description }}</div>
-</div>
 
-<div padding>
-    <h4>Ingredienser</h4>
-  </div>
-    <ion-list>
-        <ion-item *ngFor="let ingredient of ingredients">
-          <h5>{{ingredient.Amount}} {{ingredient.Name}}</h5>
-          <div>{{ingredient.Title}}</div>
-          <button ion-button small color="light" (click)="showIngredientDetails(ingredient)">i</button>
-        </ion-item>
-    </ion-list>
+	<div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+	<div class="loading" *ngIf="loading">Henter...</div>
 
-    <button (click)="order(details)" ion-button full>Videre til bestilling</button>
+	<div ion-list *ngIf="details">
+		<div class="details-image">
+			<img-loader src="{{details?.Image}}" useImg="true" spinner="false"></img-loader>
+			<h1 class="details-header">{{ details?.Name }}</h1>
+		</div>
+
+		<ion-list>
+			<ion-list-header>Beskrivelse</ion-list-header>
+			<ion-item>
+				<div class="details-description system-font">{{ details?.Description }}</div>
+			</ion-item>
+		</ion-list>
+
+		<ion-list *ngIf="ingredients?.length > 0">
+			<ion-list-header>Indhold {{details?.WeekNumber}}</ion-list-header>
+			<ion-item *ngFor="let ingredient of ingredients">
+				<div class="system-font">{{ingredient.Amount}} {{ingredient.Name}}</div>
+				<ion-icon name="ios-information-circle-outline" item-end (click)="showIngredientDetails(ingredient)"></ion-icon>
+			</ion-item>
+		</ion-list>
+
+		<div>User auth: {{isAuthenticated}}</div>
+	</div>
 </ion-content>
+
+<ion-footer>
+	<ion-toolbar color="action-bright">
+		<button (click)="order(details)" class="details-cta">Videre til bestilling</button>
+	</ion-toolbar>
+</ion-footer>

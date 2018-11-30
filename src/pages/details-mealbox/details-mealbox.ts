@@ -1,6 +1,8 @@
+import { ModalLoginPage } from './../modal-login/modal-login';
+import { MealboxConfiguratorPage } from './../mealbox-configurator/mealbox-configurator';
 import { DetailsIngredientPage } from './../details-ingredient/details-ingredient';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 
@@ -20,25 +22,106 @@ export class DetailsMealboxPage {
 
   details: any; 
   ingredients: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService ) {
+
+  personsRange: Array<number> = [];
+  daysRange: Array<number> = [];
+
+  personsRangeAsString: string = "";
+  daysRangeAsString: string = "";
+
+  loading: Boolean = true;
+
+  error: Boolean = false;
+  errorMessage: any;
+
+  isAuthenticated: boolean = false;
+
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService ) {
     
   }
 
   getDetails(product) {
     this.apiProvider.getDetails(product).subscribe(data => {
-      //console.log("¤¤¤details-mealbox.ts: getDetails", data["d"]);
+      console.log("¤¤¤details-mealbox.ts: getDetails", data["d"]);
       this.details = data["d"];
-      //console.log("!!!!!", this.details.Ingredients);
+      this.loading = false;
+      this.error = false;
+
+      this.personsRange = this.calcPersonsRange();
+      this.daysRange = this.calcDaysRange();
+
+      this.personsRangeAsString = this.getPersonsRangeAsString();
+      this.daysRangeAsString = this.getDaysRangeAsString();
+
       this.apiProvider.getIngredients(this.details.Ingredients).subscribe(data => {
-        //console.log("details-mealbox.ts: getIngredients", data["d"]);
         this.ingredients = data["d"].Ingredients;
       });
+    }, error => {
+      console.log("getDetails() - error", error);
+      this.loading = false;
+      this.error = true;
+      this.errorMessage = error;
     });
   }
 
+  calcPersonsRange(){
+    let persons = [];
+    this.details.MealboxOptions.filter(element => {
+      if(persons.indexOf(element.Persons) == -1){
+        persons.push(element.Persons);
+      }
+    });
+    return persons.sort();
+  }
+
+  calcDaysRange(){
+    let days = [];
+    this.details.MealboxOptions.filter(element => {
+      if(days.indexOf(element.Days) == -1){
+        days.push(element.Days);
+      }
+    });
+    return days.sort();
+  }
+
+  getPersonsRangeAsString(){
+    return this.personsRange[0] + "-" + this.personsRange[this.personsRange.length - 1];
+  }
+
+  getDaysRangeAsString(){
+    return this.daysRange.join(" / ");
+  }
+
   showIngredientDetails(ingredient){
-    console.log(ingredient);
+    //console.log(ingredient);
     this.navCtrl.push(DetailsIngredientPage, ingredient);
+  }
+
+  presentLoginModal() {
+    let loginModal = this.modalCtrl.create(ModalLoginPage);
+    loginModal.onDidDismiss(data => {
+      console.log(data);
+      if(data && data.reload){
+        this.apiProvider.setUserUnauthenticated(true)
+        this.isAuthenticated = true;
+      }
+    });
+    loginModal.present();
+  }
+
+  showConfigurator(details){
+    console.log("mealbox details - showConfigurator()", details);
+
+      if(this.isAuthenticated){
+        const modal = this.modalCtrl.create(MealboxConfiguratorPage, { details: details });
+        modal.onDidDismiss(data => {
+          
+        });
+        modal.present();
+        } else {
+          this.presentLoginModal();
+      }
+  
   }
 
   ionViewDidLoad() {

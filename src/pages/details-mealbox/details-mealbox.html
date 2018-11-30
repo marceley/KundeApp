@@ -12,49 +12,87 @@
 
 </ion-header>
 
+<ion-content [ngStyle]="{'background-image': 'url(https://mobileapi.aarstiderne.com/v7/image/mealbox/background/lowcarbkassen/md)' }">
 
-<ion-content>
-  <div padding>
-  <h1>{{details?.Name}}</h1>
-  <p style="white-space: pre-line">{{details?.ShortDescription}}</p>
-  <div>{{details?.PersonRange}} {{details?.DayRange}} {{details?.Preparation}}</div>
-</div>
-  <div padding>
-    <h4>Menu</h4>
-    <ul>
-      <li *ngFor="let recipe of details?.Recipes">{{recipe.Name}}</li>
-    </ul>
-  </div>
+  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+  <div class="loading" *ngIf="loading">Henter...</div>
 
-  <div padding>
-    <h4>Kokkene bag {{details?.Name}}</h4>
-    <ul>
-      <li *ngFor="let chef of details?.Chefs">
-          <div>{{chef.Name}}</div>
-          <div>{{chef.Title}}</div>
-        </li>
-    </ul>
-  </div>
+  <div class="mealbox" *ngIf="details">
 
-  <div padding>
-      <h4>Beskrivelse</h4>
-      <div [innerHTML]="details?.Description" style="white-space: pre-line"></div>
-  </div>
+    <div class="mealbox__top">
+      <h1 class="mealbox__header">{{details?.Name}}</h1>
+      <p class="mealbox__short-description">{{details?.ShortDescription}}</p>
+    </div>
 
-  <div>
-    <ion-list>
-        <ion-list-header>Ingredienser</ion-list-header>
+    <div class="mealbox__bottom">
+      <div class="mealbox__meta">
+        <span>{{personsRangeAsString}} pers.</span> 
+        <span>{{daysRangeAsString}} dage</span>
+        <span>{{details?.Preparation}}</span>
+      </div>
+
+      <div class="mealbox__menu">
+        <ion-list-header class="mealbox__menu-header">Menu</ion-list-header>
+        <div class="mealbox__menu-slider">[Menuslider]</div>
+        <div class="mealbox__menu-list">
+          <ul>
+            <li *ngFor="let recipe of details?.Recipes; let i = index">
+              <span>{{i + 1}}</span>
+              <span>{{recipe.Name}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mealbox__chef">
+        <ion-list-header>
+          <span *ngIf="details?.Chefs.length === 1">Kokken bag {{details?.Name}}</span>
+          <span *ngIf="details?.Chefs.length > 1">Kokkene bag {{details?.Name}}</span>
+        </ion-list-header>
+        <div class="mealbox__chef-list">
+          <ul>
+            <li *ngFor="let chef of details?.Chefs" ion-item>
+              <div class="mealbox__chef-image" item-start>
+                <img-loader src="{{chef.Image}}" useImg="true" spinner="false"></img-loader>
+              </div>
+              <div class="mealbox__chef-name">{{chef.Name}}</div>
+              <div class="mealbox__chef-title">{{chef.Title}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mealbox__description">
+        <ion-list-header>Beskrivelse</ion-list-header>
+        <div class="mealbox__description-text system-font" [innerHTML]="details?.Description"></div>
+      </div>
+
+      <ion-list *ngIf="ingredients?.length > 0">
+        <ion-list-header>Indhold {{details?.WeekNumber}}</ion-list-header>
         <ion-item *ngFor="let ingredient of ingredients">
-          <h5>{{ingredient.Amount}} {{ingredient.Name}}</h5>
-          <div>{{ingredient.Title}}</div>
-          <button ion-button small color="light" (click)="showIngredientDetails(ingredient)">i</button>
+          <div class="system-font">{{ingredient.Amount}} {{ingredient.Name}}</div>
+          <ion-icon name="ios-information-circle-outline" item-end (click)="showIngredientDetails(ingredient)"></ion-icon>
         </ion-item>
-    </ion-list>
+      </ion-list>
+    </div>
   </div>
 
-  <div padding>
+  <div class="mealbox__cta">
+    <div ion-item>
+      <div>Pris fra</div>
+      <div><span [innerHTML]="details?.PriceDetail.PriceFrom"></span> <span>{{details?.PriceDetail.PlatePrice}}</span></div>
+      <button (click)="showConfigurator(details)" ion-button item-end small>Vælg</button>
+    </div>
+  </div>
+
+</ion-content>
+<!--
+<ion-footer padding no-shadow>
+  <div ion-buttons>
     <div>Pris fra</div>
     <div><span [innerHTML]="details?.PriceDetail.PriceFrom"></span> <span>{{details?.PriceDetail.PlatePrice}}</span></div>
-    <button ion-button small>Vælg</button>
+    <button (click)="showConfigurator(details)" ion-button item-end medium>Vælg</button>
   </div>
-</ion-content>
+</ion-footer>
+
+-->

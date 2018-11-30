@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
-
 /**
  * Generated class for the OrderPage page.
  *
@@ -23,12 +22,13 @@ export class OrderPage {
   selectedDeliveryDay: null;
   selectedFrequency: null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService ) {
-    
+  isAuthenticated: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
+
   }
 
   getOrderingOptions(details) {
-    console.log("0000", details);
     this.apiProvider.getOrderingOptions(details.OrderingOptions).subscribe(data => {
       console.log("order.ts: getOrderingOptions", data["d"]);
       this.details = details;
@@ -55,16 +55,17 @@ export class OrderPage {
     this.apiProvider.placeOrder(order).subscribe(data => {
       console.log("Ha! bought a product", data);
       console.warn("TODO: make success message");
-    })
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderPage');
+    });
   }
 
   ionViewWillEnter(){
-    console.log(this.navParams);
-   this.getOrderingOptions(this.navParams["data"]);
+    console.log('ionViewWillEnter OrderPage', this.apiProvider.userIsAuthenticated());
+    if(this.apiProvider.userIsAuthenticated()){
+      this.isAuthenticated = true;
+      this.getOrderingOptions(this.navParams["data"]);
+    } else {
+      this.isAuthenticated = false;
+    }
   }
 
 }

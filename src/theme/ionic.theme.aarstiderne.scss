@@ -1,0 +1,126 @@
+.error {
+    color: red;
+}
+
+.loading {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    height: calc(100vh - 49px - 40px); //100vh;
+}
+
+.system-font {
+    font-family: $font-family-standard;
+}
+
+.list {
+    &-item {
+        position: relative;
+        &--pushdown {
+            margin-bottom: 1rem;
+        }
+    }
+    &-image {
+        width: 75px;
+        height: 75px;
+    }
+    &-name {
+        font-size: 18px;
+        color: color($colors, "text-dark");
+    }
+    &-name-large {
+        font-size: 20px;
+        color: color($colors, "text-dark");
+    }
+    &-subtitle {
+        font-size: 16px;
+        color: color($colors, "text-light");
+    }
+    &-price {
+        text-align: right;
+        font-size: 16px;
+        font-weight: bold;
+        color: color($colors, "theme-dark");
+        position: absolute;
+        right: 16px;
+        bottom: 5px;
+    }
+    &-price-not-positioned {
+        text-align: right;
+        font-size: 16px;
+        font-weight: bold;
+        color: color($colors, "theme-dark");
+    }
+    &-count {
+        font-size: 18px;
+        color: color($colors, "text-light");
+    }
+}
+
+.ingredient {
+    &-key {
+        color: color($colors, "text-light");
+    }
+
+    &-key-dark {
+        color: color($colors, "text-dark");
+    }
+
+    &-value {
+        color: color($colors, "text-dark");
+    }
+
+    &-note {
+        color: color($colors, "text-light");
+    }
+}
+.details-cta {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    border: 0;
+    appearance: none;
+    color: #fff;
+    text-align: center;
+    background-color: transparent;
+    line-height: 2;
+}
+
+.btn-order-date {
+    background-color: #fff;
+    border: .55px solid color($colors, "sand-border");
+    text-align: center;
+    padding: 1rem;
+    width: calc(100% - 8px);
+    margin: 4px;
+    font-size: 14px;
+    border-radius: 6px;
+
+    &__day {
+        font-size: 16px;
+        color: color($colors, "action-bright");
+        &.selected {
+            color: #fff;
+        }
+    }
+    &__date {
+        font-size: 14px;
+        color: color($colors, "text-dark");
+        &.selected {
+            color: #fff;
+        }
+    }
+    &.selected {
+        background-color: color($colors, "theme-dark");
+    }
+    &.disabled {
+
+    }
+}
+
+.discount-price {
+    color: color($colors, "action-bright");
+    text-decoration: line-through;
+}

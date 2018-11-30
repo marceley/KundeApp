@@ -7,16 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Ekstravarer</ion-title>
+    <ion-title>{{ 'tabTitleExtra' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content> 
+
+  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+  <div class="loading" *ngIf="loading">Henter...</div>
+
   <ion-list>
-    <ion-item *ngFor="let category of categories" (click)="showProducts(category.Products)"> 
-      <h2>{{category.Name}}</h2>
+    <ion-item class="list-item" *ngFor="let category of categories" (click)="showProducts(category)"> 
+      <div class="list-image" item-start>
+        <img-loader class="tile-image" src="{{category.Image}}" useImg="true" spinner="false"></img-loader>
+      </div>
+      <div class="list-name-large">{{category.Name}}</div>
+      <div class="list-count" item-end>{{category.Products.length}}</div>
     </ion-item>
   </ion-list>
+
 </ion-content>

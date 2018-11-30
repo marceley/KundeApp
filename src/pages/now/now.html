@@ -7,18 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ 'nowTitle' | translate }}</ion-title>
+    <ion-title>{{ 'tabTitleNow' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-  <div class="loading" *ngIf="loading">Henter...</div>
-  <ion-list *ngIf="products">
-    <ion-item *ngFor="let product of products" (click)="showDetails(product)"> 
-      <h2>{{product.Name}}</h2>
-      <div>{{product.Price}}</div>
-    </ion-item>
-  </ion-list>
+
+
+  <div ion-text color="danger" *ngIf="error">{{ errorMessage | json }}</div>
+  <div ion-text color="dark" class="loading" *ngIf="loading">Henter...</div>
+  
+  <div class="tile-grid">
+    <div ion-grid no-padding>
+      <div ion-row>
+        <div ion-col align-items-stretch col-6 *ngFor="let product of products" (click)="showDetails(product)">
+          <div class="tile">
+            <img-loader class="tile-image" src="{{product.Image}}" useImg="true" spinner="false"></img-loader>
+            <div class="tile-name">{{product.Name}}</div>
+            <div class="tile-price">{{product.Price}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </ion-content>

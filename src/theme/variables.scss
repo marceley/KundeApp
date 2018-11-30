@@ -14,7 +14,6 @@ $app-direction: ltr;
 
 @import "ionic.globals";
 
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -33,20 +32,55 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-$colors: (
+/*$colors: (
   primary:    #488aff,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
+);*/
+
+$colors: (
+  primary:    #00884a,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  theme-light: #00884a,
+  theme-dark: #0d7548,
+  action-light: #f05050,
+  action-dark: #D94848,
+  action-bright: #e84141,
+  sand-background: #f7f7f4,
+  sand-border: #eeeeee,
+  white: #ffffff,
+  black: #000000,
+  text-light: #aaaaaa,
+  text-dark: #000000,
 );
 
+$font-family-base: "Gotham Rounded A", "Gotham Rounded B", -apple-system, Helvetica, sans-serif;
+$font-family-standard: -apple-system, Helvetica, sans-serif;
+
+$background-color: color($colors, sand-background);
+
+$list-background-color: color($colors, white);
+$list-border-color: color($colors, sand-border);
+
+$toolbar-background: color($colors, theme-dark);
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
+$list-ios-header-text-transform: none;
+$list-ios-header-color: color($colors, theme-dark);
+$list-ios-header-letter-spacing: 0;
+$list-ios-header-font-size: 1.5rem;
+$list-ios-header-font-weight: 500;
 
+$item-ios-body-text-font-size: 1.5rem;
+$toolbar-ios-title-font-weight: 400;
 
 
 // App Material Design Variables
@@ -70,7 +104,7 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-@import "ionic.theme.default";
+@import "ionic.theme.aarstiderne";
 
 
 // Ionicons

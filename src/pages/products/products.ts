@@ -16,6 +16,7 @@ import { DetailsPage } from './../details/details';
 })
 export class ProductsPage {
 
+  title: any;
   products: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -28,6 +29,7 @@ export class ProductsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsPage');
+    this.title = this.navParams.data.category;
     this.products = this.navParams.data.products;    
   }
 

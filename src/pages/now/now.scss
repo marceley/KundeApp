@@ -1,3 +1,38 @@
 page-now {
+    .tile-grid {
+        background-color: transparent;
+        margin: .5rem;
+    }
+
+    .tile {
+        background-color: #fff;
+        border: 1px solid color($colors, "sand-border");
+        padding: 1rem;
+        font-size: 14px;
+        margin: .5rem;
+        height: calc(100% - 1rem);
+        display: flex;
+        flex-flow: column;
+    
+        &-image {
+            display: block;
+            min-height: 150px; //calc(100vw - (7 * 1rem));
+            flex: 1 0 auto;
+            img {
+                display: block;
+                margin-bottom: 1rem;
+                min-height: 150px; //calc(100vw - (7 * 1rem));
+            }
+        }
+
+        &-name {
+
+        }
+
+        &-price {
+            font-weight: 500;
+            color: color($colors, "theme-light");
+        }
+    }
 
 }

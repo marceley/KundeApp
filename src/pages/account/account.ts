@@ -1,3 +1,4 @@
+import { SettingsPage } from '../settings/settings';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -60,6 +61,7 @@ export class AccountPage {
     this.apiProvider.getSales().subscribe(data => {
       console.log("account getSales()", data["d"]);
       this.lines = data["d"].Lines;
+      console.log(this.lines[1]);
     }, error => {
       console.error(error);
       this.error = error;
@@ -73,8 +75,14 @@ export class AccountPage {
     });
   }
 
-  delete (line){
+  deleteLine (line){
+    this.apiProvider.deleteLine(line).subscribe(data => {
+      this.getSales();
+    });
+  }
 
+  getSettings(){
+      this.navCtrl.push(SettingsPage);
   }
 
   ionViewDidLoad() {
@@ -82,10 +90,6 @@ export class AccountPage {
   }
 
   ionViewWillEnter(){ // will always reload the view compared to ionViewDidLoad
-
-  }
-
-  ionViewDidEnter(){
     if(this.apiProvider.userIsAuthenticated()){
       this.loggedIn = true;
       this.getSales();

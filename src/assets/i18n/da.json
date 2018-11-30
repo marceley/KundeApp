@@ -1,3 +1,7 @@
 {
-    "nowTitle": "Dette er en test"
+    "tabTitleNow": "Netop nu",
+    "tabTitleBoxes": "Kasser",
+    "tabTitleMealboxes": "Måltider",
+    "tabTitleExtra": "Ekstra",
+    "tabTitleAccount": "Min side"
 }

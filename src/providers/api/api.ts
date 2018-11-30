@@ -156,4 +156,36 @@ export class ApiProvider {
     });
   }
 
+  deleteLine(line){
+    return this.http.delete(this.proxyApiUrl + '/v7/sales/' + line.LineId, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getPushMessages(){
+    var token = "token"; // TODO where does this token come from?
+    return this.http.get(this.proxyApiUrl + '/v7/pushmessageslist/' + token, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  calculatePrice(products){
+    return this.http.post(this.proxyApiUrl + '/v7/sales/calculateprice', products, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getAddOns(itemNo, unitCode){
+    // /v7/addonsbyid/115192/STK
+    return this.http.get(this.proxyApiUrl + '/v7/addonsbyid/' + itemNo + "/" + unitCode, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getMealboxOrderingOptions(products){
+    return this.http.post(this.proxyApiUrl + '/v7/sales/multipleorderingoptionscombined', products, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
 }

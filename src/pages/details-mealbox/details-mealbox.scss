@@ -1,3 +1,88 @@
 page-details-mealbox {
 
+    ion-content {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-y: $toolbar-ios-height; // TODO: this is not exactly right on iphone x
+    }
+
+    .mealbox {
+
+        &__top {
+            margin: 75px 0 150px;
+            padding: 0 32px;
+        }
+        &__header {
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+            color: #ffffff;
+        }
+        &__short-description {
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-line;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+
+    .mealbox {
+        &__bottom {
+            background-color: #f7f7f4;
+            //padding: 16px;
+        }
+        &__menu-slider {
+
+        }
+        &__menu-list {
+            padding: 16px;
+            background-color: #ffffff;
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    .mealbox {
+        &__chef-image {
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        &__chef-list {
+            background-color: #ffffff;
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    .mealbox {
+        &__description-header {
+
+        }
+        &__description-text {
+            padding: 16px;
+            white-space: pre-line;
+            background-color: #ffffff;
+        }
+    }
+    
+    .mealbox {
+        &__cta {
+            position: sticky;
+            bottom: 16px;
+            left: 0;
+            width: calc(100% - 24px);
+            border-radius: 6px;
+            background-color: #fff;
+            margin: 12px;
+            padding: 4px 8px;
+            box-shadow: 1px 1px 15px #b9b9b9;
+        }
+    }
 }

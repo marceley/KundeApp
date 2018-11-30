@@ -7,19 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Kasser</ion-title>
+    <ion-title>{{ 'tabTitleBoxes' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
 
+    <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+    <div class="loading" *ngIf="loading">Henter...</div>
+
     <ion-list *ngFor="let category of categories">
       <ion-list-header>{{category.Name}}</ion-list-header>
-      <ion-item *ngFor="let product of category.Products" (click)="showDetails(product)">
-        <h2>{{product.Name}}</h2>
-        <div>{{product.SubTitle}}</div>
-        <div>{{product.Price}}</div>
+      <ion-item class="list-item" *ngFor="let product of category.Products" (click)="showDetails(product)">
+        <div class="list-image" item-start>
+          <img-loader class="tile-image" src="{{product.Image}}" useImg="true" spinner="false"></img-loader>
+        </div>
+        <h2 class="list-header">{{product.Name}}</h2>
+        <div class="list-subtitle">{{product.SubTitle}}</div>
+        <div class="list-price">{{product.Price}}</div>
       </ion-item>    
     </ion-list>
 
