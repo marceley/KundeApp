@@ -26,19 +26,19 @@
 
     <div class="mealbox__bottom">
       <div class="mealbox__meta">
-        <span>{{personsRangeAsString}} pers.</span> 
-        <span>{{daysRangeAsString}} dage</span>
-        <span>{{details?.Preparation}}</span>
+        <span><ion-icon name="alert-outline" class="mealbox__meta-icon"></ion-icon>{{personsRangeAsString}} pers.</span> 
+        <span><ion-icon name="alert-outline" class="mealbox__meta-icon"></ion-icon>{{daysRangeAsString}} dage</span>
+        <span><ion-icon name="alert-outline" class="mealbox__meta-icon"></ion-icon>{{details?.Preparation}}</span>
       </div>
 
       <div class="mealbox__menu">
         <ion-list-header class="mealbox__menu-header">Menu</ion-list-header>
-        <div class="mealbox__menu-slider">[Menuslider]</div>
+        <!--<div class="mealbox__menu-slider">[Menuslider]</div>-->
         <div class="mealbox__menu-list">
           <ul>
             <li *ngFor="let recipe of details?.Recipes; let i = index">
-              <span>{{i + 1}}</span>
-              <span>{{recipe.Name}}</span>
+              <span class="mealbox__menu-index">{{i + 1}}.</span>
+              <span class="mealbox__menu-title">{{recipe.Name}}</span>
             </li>
           </ul>
         </div>
@@ -78,7 +78,7 @@
   </div>
 
   <div class="mealbox__cta">
-    <div ion-item>
+    <div ion-item no-lines>
       <div>Pris fra</div>
       <div><span [innerHTML]="details?.PriceDetail.PriceFrom"></span> <span>{{details?.PriceDetail.PlatePrice}}</span></div>
       <button (click)="showConfigurator(details)" ion-button item-end small>Vælg</button>
@@ -86,13 +86,3 @@
   </div>
 
 </ion-content>
-<!--
-<ion-footer padding no-shadow>
-  <div ion-buttons>
-    <div>Pris fra</div>
-    <div><span [innerHTML]="details?.PriceDetail.PriceFrom"></span> <span>{{details?.PriceDetail.PlatePrice}}</span></div>
-    <button (click)="showConfigurator(details)" ion-button item-end medium>Vælg</button>
-  </div>
-</ion-footer>
-
--->

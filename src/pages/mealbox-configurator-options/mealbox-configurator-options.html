@@ -20,33 +20,44 @@
   <div>User auth: {{isAuthenticated}}</div>
 
   <div *ngIf="!isAuthenticated">
-      Du skal være logget ind for at bestille varer.
-    </div>
+    Du skal være logget ind for at bestille varer.
+  </div>
 
   <div *ngIf="isAuthenticated">
     <ion-list>
-      <ion-item> 
-          <h2>{{details?.Name}}</h2>
-          <div>{{details?.SubTitle}}</div>
-        </ion-item>
+      <ion-item>
+        <h2>{{details?.Name}}</h2>
+        <div>{{details?.SubTitle}}</div>
+      </ion-item>
     </ion-list>
 
-    <div>
-      <h2>Leveringsinterval</h2>
-      <button ion-button small *ngFor="let frequency of options?.Frequency" (click)="setFrequency(frequency)"> 
+    <div class="configurator__panel">
+      <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
+      <div class="configurator__label">Leveringsinterval</div>
+      <button ion-button small *ngFor="let frequency of options?.Frequency" (click)="setFrequency(frequency)">
         {{frequency?.Name}}
       </button>
     </div>
-  
-    <div>
-        <h2>Leveringsdato</h2>
-        <button ion-button small *ngFor="let option of options?.Options" (click)="setDeliveryDay(option.ShipmentDate)"> 
-          {{option?.DateText}}
+
+    <div class="configurator__panel">
+      <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
+      <div class="configurator__label">Leveringsdato</div>
+      <button ion-button small *ngFor="let option of options?.Options" (click)="setDeliveryDay(option.ShipmentDate)">
+        {{option?.DateText}}
       </button>
     </div>
 
-    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button full>Bestil for {{details?.PriceDetail.NormalPrice}}</button>
 
   </div>
 
-  </ion-content>
+</ion-content>
+
+<ion-footer>
+  <ion-item>
+    <div>Pris {{details?.PriceDetail.NormalPrice}}</div>
+    <div><span [innerHTML]="calculatedPrice"></span></div>
+    <div>{{details?.SubTitle}}</div>
+    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button full>Bestil
+      </button>
+  </ion-item>
+</ion-footer>

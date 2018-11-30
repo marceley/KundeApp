@@ -8,7 +8,7 @@
 
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button (click)="dismiss()">Annuller</button> 
+      <button ion-button (click)="dismiss()">Annuller</button>
     </ion-buttons>
     <ion-title>{{details?.Name}}</ion-title>
   </ion-navbar>
@@ -18,34 +18,41 @@
 
 <ion-content>
 
-  <div padding>
-    <h2>Personer</h2>
-    <div *ngIf="!selectedPersons">Vælg antal personer</div>
-    <div *ngIf="selectedPersons" >{{selectedPersons}} person(er) valgt</div>
+  <div class="configurator__panel">
+    <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
+    <div class="configurator__label" *ngIf="!selectedPersons">Vælg antal personer</div>
+    <div class="configurator__label" *ngIf="selectedPersons">{{selectedPersons}} <span *ngIf="selectedPersons === 1">person</span><span
+        *ngIf="selectedPersons > 1">personer</span> valgt</div>
     <div>
-      <button ion-button medium *ngFor="let person of persons" (click)="getDaysForPersons(person)">{{person}}</button>
+      <button class="configurator__btn-circle" *ngFor="let person of persons" [ngClass]="{ 'selected': person === selectedPersons }"
+        (click)="getDaysForPersons(person)">{{person}}</button>
     </div>
   </div>
 
-  <div padding *ngIf="daysForPersons.length > 0">
-    <h2>Dage</h2>
-    <div *ngIf="!selectedDays">Vælg antal dage</div>
-    <div *ngIf="selectedDays">{{selectedDays}} dag(e) valgt</div>
+  <div class="configurator__panel" *ngIf="daysForPersons.length > 0">
+    <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
+    <div class="configurator__label" *ngIf="!selectedDays">Vælg antal dage</div>
+    <div class="configurator__label" *ngIf="selectedDays">{{selectedDays}} <span *ngIf="selectedDays === 1">dag</span><span
+        *ngIf="selectedDays > 1">dage</span> valgt</div>
     <div>
-      <button ion-button medium *ngFor="let day of daysForPersons" (click)="getAddonsForPersonsAndDays(day)">{{day}}</button>
+      <button class="configurator__btn-circle" *ngFor="let day of daysForPersons" [ngClass]="{ 'selected': day === selectedDays }"
+        (click)="getAddonsForPersonsAndDays(day)">{{day}}</button>
     </div>
-  </div>   
-  
-  <h2>Få lidt ekstra i din kasse</h2>
-  <p *ngIf="addOns.length === 0">Vælg antal dage for at se vores varianter</p>
-  <p *ngIf="addOns.length > 0">Vælg den sammensætning af varianter der passer perfekt til dig.</p>
+  </div>
+
+  <div class="configurator__panel-addons">
+    <h2>Få lidt ekstra i din kasse</h2>
+    <p class="configurator__label" *ngIf="addOns.length === 0">Vælg antal dage for at se vores varianter</p>
+    <p class="configurator__label" *ngIf="addOns.length > 0">Vælg den sammensætning af varianter der passer perfekt til
+      dig.</p>
+  </div>
 
   <div *ngIf="addOns.length > 0">
     <h2 padding>Tilvalg</h2>
     <ion-list>
       <ion-item *ngFor="let addon of addOns" (click)="selectAddOn(addon); calculatePrice()">
-          {{addon.ShortDescription}}
-        </ion-item> 
+        {{addon.ShortDescription}}
+      </ion-item>
     </ion-list>
   </div>
 
@@ -53,8 +60,10 @@
 
 </ion-content>
 
-<ion-footer padding no-shadow>
+<ion-footer>
+  <ion-item>
     <div>Pris fra</div>
     <div><span [innerHTML]="calculatedPrice"></span></div>
-    <button ion-button medium (click)="getDeliveryOptions()">Vælg</button>
+    <button ion-button item-end medium (click)="getDeliveryOptions()">Vælg</button>
+  </ion-item>
 </ion-footer>

@@ -1,3 +1,24 @@
 page-mealbox-configurator-options {
+    .configurator {
+        &__panel {
+            background-color: #fff;
+            box-shadow: 1px 1px 15px #b9b9b9;
+            margin: 16px;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 3px;
+        }
+        &__icon {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        &__label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 1em;
+        }
+    }
+
 
 }

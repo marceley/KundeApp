@@ -1,3 +1,41 @@
 page-mealbox-configurator {
 
+    .configurator {
+        &__panel {
+            background-color: #fff;
+            box-shadow: 1px 1px 15px #b9b9b9;
+            margin: 16px;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 3px;
+        }
+        &__panel-addons {
+            text-align: center;
+        }
+        &__icon {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        &__label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 1em;
+        }
+        &__btn-circle {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            line-height: 39px;
+            font-size: 18px;
+            background-color: #f7f7f4;
+            border-radius: 50%;
+            margin: 0 8px;
+            &.selected {
+                background: #00884a;
+                color: #fff;
+            }
+        }
+    }
+
 }

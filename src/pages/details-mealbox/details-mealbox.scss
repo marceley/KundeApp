@@ -28,12 +28,26 @@ page-details-mealbox {
     }
 
     .mealbox {
+        &__meta {
+            font-family: $font-family-standard;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            padding: 2rem 3rem;
+            border-bottom: 1px solid #eee;
+        }
+        &__meta-icon {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+    }
+    .mealbox {
         &__bottom {
             background-color: #f7f7f4;
-            //padding: 16px;
         }
         &__menu-slider {
-
+            // TODO
         }
         &__menu-list {
             padding: 16px;
@@ -43,6 +57,20 @@ page-details-mealbox {
                 margin: 0;
                 padding: 0;
             }
+            li {
+                position: relative;
+                margin-bottom: 1em;
+            }
+        }
+        &__menu-index {
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #ccc;
+        }
+        &__menu-title {
+            display: block;
+            padding-left: 20px;
         }
     }
     .mealbox {
