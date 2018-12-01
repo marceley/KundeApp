@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
 <ion-header>
 
   <ion-navbar>
@@ -17,19 +18,11 @@
 
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
   <div class="loading" *ngIf="loading">Henter...</div>
-  <div>User auth: {{isAuthenticated}}</div>
-
   <div *ngIf="!isAuthenticated">
     Du skal være logget ind for at bestille varer.
   </div>
 
   <div *ngIf="isAuthenticated">
-    <ion-list>
-      <ion-item>
-        <h2>{{details?.Name}}</h2>
-        <div>{{details?.SubTitle}}</div>
-      </ion-item>
-    </ion-list>
 
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
@@ -50,6 +43,16 @@
 
   </div>
 
+  <ion-list>
+    <ion-item>
+      <h2>{{details?.Name}}</h2>
+      <div>{{details?.SubTitle}}</div>
+    </ion-item>
+  </ion-list>
+
+  <div>User auth: {{isAuthenticated}}</div>
+
+
 </ion-content>
 
 <ion-footer>
@@ -57,7 +60,7 @@
     <div>Pris {{details?.PriceDetail.NormalPrice}}</div>
     <div><span [innerHTML]="calculatedPrice"></span></div>
     <div>{{details?.SubTitle}}</div>
-    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button full>Bestil
-      </button>
+    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button large full>Bestil
+    </button>
   </ion-item>
 </ion-footer>
