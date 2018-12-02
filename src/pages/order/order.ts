@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
+import { AccountPage } from './../account/account';
+
 /**
  * Generated class for the OrderPage page.
  *
@@ -16,28 +18,48 @@ import { ApiProvider } from './../../providers/api/api';
 })
 export class OrderPage {
 
+  creatingOrder: Boolean = false;
+  error: Boolean = false;
+  errorMessage: any;
+ 
+  gettingOrderingOptions: Boolean = false;
+  errorGettingOrderingOptions: Boolean = false;
+  errorMessageGettingOrderingOptions: any;
+ 
   details: any;
   options: any;
 
-  selectedDeliveryDay: null;
-  selectedFrequency: null;
+  selectedDeliveryDay: String;
+  selectedFrequency: Number;
 
-  isAuthenticated: boolean;
+  isAuthenticated: Boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
+  showSuccess: Boolean = false;
+
+  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
 
   }
 
   getOrderingOptions(details) {
+    this.gettingOrderingOptions = true;
     this.apiProvider.getOrderingOptions(details.OrderingOptions).subscribe(data => {
       console.log("order.ts: getOrderingOptions", data["d"]);
+      this.errorGettingOrderingOptions = false;
+      this.errorMessageGettingOrderingOptions = "";
+      this.gettingOrderingOptions = false;
       this.details = details;
       this.options = data["d"];
+    }, error => {
+      console.log(error);
+      this.errorGettingOrderingOptions = true;
+      this.errorMessageGettingOrderingOptions = error;
+      this.gettingOrderingOptions = false;
     });
   }
 
   setFrequency(frequency){
-    this.selectedFrequency = frequency;
+    console.log("???", frequency);
+    this.selectedFrequency = frequency || 0;
   }
 
   setDeliveryDay(deliveryDay){
@@ -45,6 +67,10 @@ export class OrderPage {
   }
 
   placeOrder(){
+    console.log("Placing order", this.selectedFrequency, this.selectedDeliveryDay);
+    
+    this.creatingOrder = true;
+
     var order = {
       ItemNo: this.details.Id,
       SalesUnit: "STK",
@@ -52,9 +78,26 @@ export class OrderPage {
       Frequency: this.selectedFrequency,
       //Voucher: ""
     };
+
     this.apiProvider.placeOrder(order).subscribe(data => {
       console.log("Ha! bought a product", data);
-      console.warn("TODO: make success message");
+      this.error = false;
+      this.errorMessage = "";
+      this.creatingOrder = false;
+      this.showSuccess = true;
+    }, error => {
+      console.log(error);
+      this.error = true;
+      this.errorMessage = error;
+      this.creatingOrder = false;
+      this.showSuccess = false;
+    });
+  }
+
+  goToAccount(){
+    // clear navigation and go to account page
+    this.navCtrl.popToRoot().then(() => {
+      this.appCtrl.getRootNav().push(AccountPage);
     });
   }
 

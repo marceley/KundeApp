@@ -16,28 +16,37 @@
 
 <ion-content>
 
-  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-  <div class="loading" *ngIf="loading">Henter...</div>
-  <div *ngIf="!isAuthenticated">
+  <div padding *ngIf="!isAuthenticated">
     Du skal være logget ind for at bestille varer.
   </div>
+
+  <div padding *ngIf="showSuccess">
+    <ion-icon name="alert"></ion-icon> <button (click)="goToAccount()">Gå til mine leveringer</button>
+  </div>
+
+  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+
+  <div class="loading" *ngIf="loading">Henter...</div>
 
   <div *ngIf="isAuthenticated">
 
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsinterval</div>
-      <button ion-button small *ngFor="let frequency of options?.Frequency" (click)="setFrequency(frequency)">
+      {{options?.Frequency | json}}
+      <span class="button" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
+        (click)="setFrequency(frequency.Number)">
         {{frequency?.Name}}
-      </button>
+      </span>
     </div>
 
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsdato</div>
-      <button ion-button small *ngFor="let option of options?.Options" (click)="setDeliveryDay(option.ShipmentDate)">
+      <span class="button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
+        (click)="setDeliveryDay(option.ShipmentDate)">
         {{option?.DateText}}
-      </button>
+      </span>
     </div>
 
 

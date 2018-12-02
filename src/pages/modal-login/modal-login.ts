@@ -16,8 +16,8 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class ModalLoginPage {
 
-  username: string = "mae@aarstiderne.com";
-  password: string = "gulerod";
+  username: string = "";
+  password: string = "";
 
   error: Boolean = true;
   errorMessage: any;

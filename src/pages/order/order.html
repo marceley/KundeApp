@@ -14,54 +14,85 @@
 
 
 <ion-content>
-    <div padding *ngIf="!isAuthenticated">
-      Du skal være logget ind for at bestille varer.
+
+  <div padding *ngIf="!isAuthenticated">
+    Du skal være logget ind for at bestille varer.
+  </div>
+
+  <div padding *ngIf="showSuccess">
+    <ion-icon name="alert"></ion-icon> <button (click)="goToAccount()">Gå til mine leveringer</button>
+  </div>
+
+  <div *ngIf="gettingOrderingOptions">
+    Henter leveringsoplysninger...
+  </div>
+
+  <div padding *ngIf="errorGettingOrderingOptions">
+    <span *ngIf="errorMessageGettingOrderingOptions.error.ErrorType === 'ProductNotAvaliableForPurchaseException'">
+      <strong>{{errorMessageGettingOrderingOptions.error.Header}}</strong>
+      {{errorMessageGettingOrderingOptions.error.Text}}
+    </span>
+  </div>
+
+  <div *ngIf="creatingOrder">
+    Vent...
+  </div>
+
+  <div padding *ngIf="error">
+    <span *ngIf="errorMessage.error.ErrorType === 'OrderNotCreatedException'">
+      <strong>{{errorMessage.error.Header}}</strong>
+      {{errorMessage.error.Text}}
+    </span>
+  </div>
+
+  <div *ngIf="isAuthenticated && details && !error">
+
+    <ion-list>
+      <ion-item class="list-item">
+        <div class="list-image" item-start>
+          <img-loader class="tile-image" src="{{details?.Image}}" useImg="true" spinner="false"></img-loader>
+        </div>
+        <h2 class="list-header">{{details?.Name}}</h2>
+        <div class="list-subtitle">{{details?.SubTitle}}</div>
+        <div class="list-price">{{details?.Price}}</div>
+      </ion-item>
+    </ion-list>
+
+    <div padding>
+      <span class="frequency" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
+        (click)="setFrequency(frequency.Number)">
+        {{frequency?.Name}}
+      </span>
     </div>
 
-    <div *ngIf="isAuthenticated">
-
-      <ion-list>
-        <ion-item class="list-item">
-            <div class="list-image" item-start>
-              <img-loader class="tile-image" src="{{details?.Image}}" useImg="true" spinner="false"></img-loader>
-            </div>
-            <h2 class="list-header">{{details?.Name}}</h2>
-            <div class="list-subtitle">{{details?.SubTitle}}</div>
-            <div class="list-price">{{details?.Price}}</div>
-          </ion-item>    
-      </ion-list>
-
-      <div padding>
-        <!--<h2>Leveringsinterval</h2>-->
-        <button ion-button small *ngFor="let frequency of options?.Frequency" (click)="setFrequency(frequency)"> 
-          {{frequency?.Name}}
-        </button>
-      </div>
-    
-      <ion-list-header>Vælg leveringsdato</ion-list-header>
-      <div class="tile-grid">
-          <div ion-grid no-padding>
-            <div ion-row>
-              <div ion-col col-6 *ngFor="let option of options?.Options">
-                  <button class="btn-order-date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }" (click)="setDeliveryDay(option.ShipmentDate)"> 
-                      <div class="btn-order-date__day" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate | date: 'EEEE' }}</div>
-                      <div class="btn-order-date__date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate | date: 'd. LLL' }}</div>
-                  </button>
-                </div>
-            </div>
+    <ion-list-header>Vælg leveringsdato</ion-list-header>
+    <div class="tile-grid">
+      <div ion-grid no-padding>
+        <div ion-row>
+          <div ion-col col-6 *ngFor="let option of options?.Options">
+            <button class="btn-order-date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }"
+              (click)="setDeliveryDay(option.ShipmentDate)">
+              <div class="btn-order-date__day" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate
+                | date: 'EEEE' }}</div>
+              <div class="btn-order-date__date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate
+                | date: 'd. LLL' }}</div>
+            </button>
           </div>
         </div>
-        <div padding *ngIf="options?.Options.length === 0">
-            Vi kunne desværre ikke finde nogen leveringsdage.
-        </div>
-      
+      </div>
     </div>
+    <div padding *ngIf="options?.Options.length === 0">
+      Vi kunne desværre ikke finde nogen leveringsdage.
+    </div>
+
+  </div>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="action-bright">
-    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" class="details-cta">Bestil for {{details?.PriceDetail.NormalPrice}}</button>
+    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" class="details-cta">
+      Bestil for {{details?.PriceDetail.NormalPrice}}
+    </button>
   </ion-toolbar>
 </ion-footer>
-  

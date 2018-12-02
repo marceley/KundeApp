@@ -73,8 +73,8 @@ export class ApiProvider {
   }
 
   placeOrder(order){
-    console.log(">>>", order);
     var url = this.proxyApiUrl + "/v7/sales";
+    console.log(">>>", order, url);
     return this.http.post(url, order, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });

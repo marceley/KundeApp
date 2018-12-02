@@ -102,7 +102,7 @@ export class DetailsMealboxPage {
     loginModal.onDidDismiss(data => {
       console.log(data);
       if(data && data.reload){
-        this.apiProvider.setUserUnauthenticated(true)
+        this.apiProvider.setUserUnauthenticated(true);
         this.isAuthenticated = true;
       }
     });
@@ -128,6 +128,9 @@ export class DetailsMealboxPage {
     console.log('ionViewDidLoad DetailsMealboxPage');
     var params = this.navParams.data; 
     this.getDetails(params.product);
-  }
+    if(this.apiProvider.userIsAuthenticated()){
+      this.isAuthenticated = true;
+    }
+}
 
 }

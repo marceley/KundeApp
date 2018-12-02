@@ -40,12 +40,12 @@ export class NowPage {
   getNewItems() {
     this.apiProvider.getNewitems()
       .subscribe(data => {
-        console.log("getNewItems() - data", data);
+        //console.log("getNewItems() - data", data);
         this.products = data["d"].Categories[0].Products;
         this.loading = false;
         this.error = false;
       }, error => {
-        console.log("getNewItems() - error", error);
+        //console.log("getNewItems() - error", error);
         this.loading = false;
         this.error = true;
         this.errorMessage = error;
@@ -53,7 +53,7 @@ export class NowPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NowPage');
+    //console.log('ionViewDidLoad NowPage');
     this.getNewItems();
   }
 

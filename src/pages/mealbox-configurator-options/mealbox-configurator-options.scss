@@ -20,5 +20,18 @@ page-mealbox-configurator-options {
         }
     }
 
+    .button {
+        font-size: 12px;
+        text-align: center;
+        padding: 1em;
+        display: inline-block;
+        border-radius: 3px;
+        background-color: #f7f7f4;
+        margin: 0 4px 1rem 4px;
+        &.selected {
+            background: #00884a;
+            color: #fff;
+        }
+    }
 
 }
