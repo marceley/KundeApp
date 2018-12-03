@@ -33,7 +33,6 @@
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsinterval</div>
-      {{options?.Frequency | json}}
       <span class="button" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
         (click)="setFrequency(frequency.Number)">
         {{frequency?.Name}}
@@ -49,15 +48,15 @@
       </span>
     </div>
 
-
   </div>
 
+  <!--
   <ion-list>
     <ion-item>
       <h2>{{details?.Name}}</h2>
       <div>{{details?.SubTitle}}</div>
     </ion-item>
-  </ion-list>
+  </ion-list>-->
 
   <div>User auth: {{isAuthenticated}}</div>
 

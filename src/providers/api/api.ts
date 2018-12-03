@@ -162,13 +162,6 @@ export class ApiProvider {
     });
   }
 
-  getPushMessages(){
-    var token = "token"; // TODO where does this token come from?
-    return this.http.get(this.proxyApiUrl + '/v7/pushmessageslist/' + token, {
-      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
-    });
-  }
-
   calculatePrice(products){
     return this.http.post(this.proxyApiUrl + '/v7/sales/calculateprice', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
@@ -176,7 +169,6 @@ export class ApiProvider {
   }
 
   getAddOns(itemNo, unitCode){
-    // /v7/addonsbyid/115192/STK
     return this.http.get(this.proxyApiUrl + '/v7/addonsbyid/' + itemNo + "/" + unitCode, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
@@ -186,6 +178,38 @@ export class ApiProvider {
     return this.http.post(this.proxyApiUrl + '/v7/sales/multipleorderingoptionscombined', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
+  }
+
+
+
+
+
+
+  // icoud token https://ionicframework.com/docs/native/cloud-settings/
+  private icloudToken: string = "7CD4F20C376420B1670CCC8FC7CDF81CC43B79B99D94A492349C61760863EE7C";
+
+  getPushMessages(){
+    return this.http.get(this.proxyApiUrl + '/v7/pushmessageslist/' + this.icloudToken, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getPushMessageGroups() {
+    return this.http.get(this.proxyApiUrl + "/v7/pushmessagelist/" + this.icloudToken, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  setPushMessage(type) {
+    return this.http.post(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  deletePushMessage(type) {
+      this.http.delete(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
+        headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+      });
   }
 
 }
