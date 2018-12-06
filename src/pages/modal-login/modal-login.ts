@@ -33,10 +33,17 @@ export class ModalLoginPage {
         this.apiProvider.addUserToStorage(this.username, this.password);
         this.apiProvider.setUserUnauthenticated(true);
         this.viewCtrl.dismiss({ reload: true });
-      }
+      } else {
+        console.log(JSON.stringify(apiUser["d"]));
+        this.error = true;
+        this.errorMessage = "Forkert brugernavn eller kodeord. Prøv igen";
+        this.apiProvider.removeAuthorizationHeaderValue();
+        this.apiProvider.setUserUnauthenticated(false);        }
     },
     error => {
       console.log("account.ts:login() - error", error);
+      this.error = true;
+      this.errorMessage = error.message;
       this.apiProvider.removeAuthorizationHeaderValue();
       this.apiProvider.setUserUnauthenticated(false);
     });
@@ -46,6 +53,11 @@ export class ModalLoginPage {
   dismiss() {
     //let data = { 'foo': 'bar' };
     this.viewCtrl.dismiss();
+  }
+
+  // TODO implement
+  createUser(){
+    console.log("create user");
   }
 
   ionViewDidLoad() {

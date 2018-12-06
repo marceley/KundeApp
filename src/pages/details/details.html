@@ -7,7 +7,7 @@
 <ion-header>
 
 	<ion-navbar>
-		<ion-title>Detaljer</ion-title>
+		<ion-title>{{ 'tabTitleDetails' | translate }}</ion-title>
 	</ion-navbar>
 
 </ion-header>
@@ -16,7 +16,7 @@
 <ion-content>
 
 	<div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-	<div class="loading" *ngIf="loading">Henter...</div>
+	<div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
 	<div ion-list *ngIf="details">
 		<div class="details-image">
@@ -25,21 +25,21 @@
 		</div>
 
 		<ion-list>
-			<ion-list-header>Beskrivelse</ion-list-header>
+			<ion-list-header>{{ 'pageDetails.headerDescription' | translate }}</ion-list-header>
 			<ion-item>
 				<div class="details-description system-font">{{ details?.Description }}</div>
 			</ion-item>
 		</ion-list>
 
 		<ion-list *ngIf="ingredients?.length > 0">
-			<ion-list-header>Indhold {{details?.WeekNumber}}</ion-list-header>
+			<ion-list-header>{{ 'pageDetails.headerContent' | translate }} {{details?.WeekNumber}}</ion-list-header>
 			<ion-item *ngFor="let ingredient of ingredients">
 				<div class="system-font">{{ingredient.Amount}} {{ingredient.Name}}</div>
 				<ion-icon name="ios-information-circle-outline" item-end (click)="showIngredientDetails(ingredient)"></ion-icon>
 			</ion-item>
 		</ion-list>
 
-		<div>User auth: {{isAuthenticated}}</div>
+		<!--<div>User auth: {{isAuthenticated}}</div>-->
 	</div>
 </ion-content>
 

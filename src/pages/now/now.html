@@ -16,7 +16,7 @@
 
 
   <div ion-text color="danger" *ngIf="error">{{ errorMessage | json }}</div>
-  <div ion-text color="dark" class="loading" *ngIf="loading">Henter...</div>
+  <div ion-text color="dark" class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
   
   <div class="tile-grid">
     <div ion-grid no-padding>

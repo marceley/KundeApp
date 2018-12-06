@@ -18,7 +18,7 @@ export class ApiProvider {
 
   username: string = "";
   password: string = "";
-  
+
   isAuthenticated: boolean = false;
 
   auth: string = "";
@@ -29,7 +29,7 @@ export class ApiProvider {
 
   getNewitems() {
     return this.http.get(this.proxyApiUrl + '/v7/products/newitems', {
-        headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
@@ -72,37 +72,50 @@ export class ApiProvider {
     });
   }
 
-  placeOrder(order){
+  getAddOnTypes() {
+    return this.http.get(this.proxyApiUrl + '/v7/products/addontypes', {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  placeOrderCombined(orders) {
+    var url = this.proxyApiUrl + "/v7/sales/createmultiple";
+    return this.http.post(url, orders, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  placeOrder(order) {
     var url = this.proxyApiUrl + "/v7/sales";
-    console.log(">>>", order, url);
+    //console.log(">>>", order, url);
     return this.http.post(url, order, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
-  removeAuthorizationHeaderValue(){
+  removeAuthorizationHeaderValue() {
     this.auth = "";
   }
 
-  setAuthorizationHeaderValue(username, password){
+  setAuthorizationHeaderValue(username, password) {
     this.auth = "Basic " + btoa(username + ":" + password);
   }
 
-  removeUserFromStorage(){
+  removeUserFromStorage() {
     this.storage.remove("user");
   }
 
-  addUserToStorage(username, password){
+  addUserToStorage(username, password) {
     this.storage.set("user", { username: username, password: password });
   }
 
-  tryAutoLogin(){
+  tryAutoLogin() {
     console.log("Running autologin()");
     this.storage.get('user').then(user => {
-      if(user && user.username && user.password){
+      if (user && user.username && user.password) {
         console.log("- autologin(): have user in storage...");
         this.login(user.username, user.password).subscribe(apiUser => {
-          if(apiUser["d"].Status === "Authenticated"){
+          if (apiUser["d"].Status === "Authenticated") {
             console.log("- autologin(): user is authenticated...", apiUser);
             this.addUserToStorage(this.username, this.password);
             this.isAuthenticated = true;
@@ -113,12 +126,12 @@ export class ApiProvider {
             this.isAuthenticated = false;
           }
         },
-        error => {
-          console.log("api.ts:login() - error", error);
-          this.removeAuthorizationHeaderValue();
-          this.removeUserFromStorage();
-          this.isAuthenticated = false;
-        });
+          error => {
+            console.log("api.ts:login() - error", error);
+            this.removeAuthorizationHeaderValue();
+            this.removeUserFromStorage();
+            this.isAuthenticated = false;
+          });
       } else {
         console.log("Cant autologin. Have no user in storage!");
         this.removeAuthorizationHeaderValue();
@@ -128,7 +141,7 @@ export class ApiProvider {
     });
   }
 
-  login(username, password){
+  login(username, password) {
     console.log("Running api.ts:login()");
     this.setAuthorizationHeaderValue(username, password);
     return this.http.get(this.proxyApiUrl + '/v7/user', {
@@ -136,17 +149,17 @@ export class ApiProvider {
     });
   }
 
-  logout(){
+  logout() {
     this.removeAuthorizationHeaderValue();
     this.removeUserFromStorage();
     this.isAuthenticated = false;
   }
 
-  setUserUnauthenticated(auth: boolean){
+  setUserUnauthenticated(auth: boolean) {
     this.isAuthenticated = auth;
   }
 
-  userIsAuthenticated(){
+  userIsAuthenticated() {
     return this.isAuthenticated;
   }
 
@@ -156,25 +169,25 @@ export class ApiProvider {
     });
   }
 
-  deleteLine(line){
+  deleteLine(line) {
     return this.http.delete(this.proxyApiUrl + '/v7/sales/' + line.LineId, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
-  calculatePrice(products){
+  calculatePrice(products) {
     return this.http.post(this.proxyApiUrl + '/v7/sales/calculateprice', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
-  getAddOns(itemNo, unitCode){
+  getAddOns(itemNo, unitCode) {
     return this.http.get(this.proxyApiUrl + '/v7/addonsbyid/' + itemNo + "/" + unitCode, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
-  getMealboxOrderingOptions(products){
+  getMealboxOrderingOptions(products) {
     return this.http.post(this.proxyApiUrl + '/v7/sales/multipleorderingoptionscombined', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
@@ -188,7 +201,7 @@ export class ApiProvider {
   // icoud token https://ionicframework.com/docs/native/cloud-settings/
   private icloudToken: string = "7CD4F20C376420B1670CCC8FC7CDF81CC43B79B99D94A492349C61760863EE7C";
 
-  getPushMessages(){
+  getPushMessages() {
     return this.http.get(this.proxyApiUrl + '/v7/pushmessageslist/' + this.icloudToken, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
@@ -207,9 +220,9 @@ export class ApiProvider {
   }
 
   deletePushMessage(type) {
-      this.http.delete(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
-        headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
-      });
+    this.http.delete(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
   }
 
 }

@@ -82,6 +82,11 @@ $list-ios-header-font-weight: 500;
 $item-ios-body-text-font-size: 1.5rem;
 $toolbar-ios-title-font-weight: 400;
 
+$tabs-ios-tab-icon-color-active: color($colors, action-bright);
+$tabs-ios-tab-icon-color: #8c8c8c;
+
+$tabs-ios-tab-text-color-active: color($colors, action-bright);
+$tabs-ios-tab-text-color: #8c8c8c;
 
 // App Material Design Variables
 // --------------------------------------------------

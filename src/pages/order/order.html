@@ -23,7 +23,7 @@
     <ion-icon name="alert"></ion-icon> <button (click)="goToAccount()">Gå til mine leveringer</button>
   </div>
 
-  <div *ngIf="gettingOrderingOptions">
+  <div padding *ngIf="gettingOrderingOptions">
     Henter leveringsoplysninger...
   </div>
 
@@ -58,6 +58,7 @@
       </ion-item>
     </ion-list>
 
+    <ion-list-header>Vælg hvor ofte</ion-list-header>
     <div padding>
       <span class="frequency" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
         (click)="setFrequency(frequency.Number)">
@@ -81,15 +82,20 @@
         </div>
       </div>
     </div>
+
     <div padding *ngIf="options?.Options.length === 0">
       Vi kunne desværre ikke finde nogen leveringsdage.
+    </div>
+
+    <div padding *ngIf="options?.Message" class="note">
+      {{options.Message.Text}}
     </div>
 
   </div>
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!errorGettingOrderingOptions">
   <ion-toolbar color="action-bright">
     <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" class="details-cta">
       Bestil for {{details?.PriceDetail.NormalPrice}}

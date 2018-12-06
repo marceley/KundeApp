@@ -124,3 +124,7 @@
     color: color($colors, "action-bright");
     text-decoration: line-through;
 }
+
+.tab-button-text {
+    font-family: $font-family-standard;
+}

@@ -3,6 +3,7 @@ import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { ThrowStmt } from '@angular/compiler';
 
 /**
  * Generated class for the MealboxConfiguratorPage page.
@@ -22,13 +23,15 @@ export class MealboxConfiguratorPage {
 
   persons: Array<number> = [];
   daysForPersons: Array<number> = [];
-  addOns: Array<Object> = [];
+
+  addOns: Array<any> = [];
+  addOnTypes: Array<any> = [];
 
   selectedPersons: number;
   selectedDays: number;
 
   mealboxMatch: Array<{}> = [];
-  selectedAddOns: Array<{}> = [];
+  selectedAddOns: Array<string> = [];
 
   calculatedPrice: string = "";
 
@@ -105,39 +108,55 @@ export class MealboxConfiguratorPage {
 
     if (this.mealboxMatch.length === 1) {
       this.apiProvider.getAddOns(this.mealboxMatch[0], "STK").subscribe(data => {
-        //console.log("<<<", data["d"]);
+        //console.log("addons for match", data["d"]);
         this.addOns = data["d"];
-        this.calculatePrice();
+        this.apiProvider.getAddOnTypes().subscribe(data => {
+          //console.log("all addontypes:", data["d"]);
+          this.addOnTypes = data["d"];
+          // decorate addons with more data
+          this.addOns.forEach(addOn => {
+            //console.log("addon for match:", addOn);
+            this.addOnTypes.forEach(type => {
+              //console.log("---", type);
+              if(type.Alias === addOn.AddonSetting.AddonType){
+                //console.log(type);
+                addOn._Type = type;
+              }
+            });
+          });
+          this.calculatePrice();
+        });
       });
     }
   }
 
-  // Click on addon link
-  selectAddOn(addon) {
-    //console.log("???", addon.Id);
-    if (this.selectedAddOns.indexOf(addon.Id) !== -1) {
-      const index = this.selectedAddOns.indexOf(addon.Id, 0);
-      if (index > -1) {
-        this.selectedAddOns.splice(index, 1);
-      }
+  // Click on addon checkbox
+  selectAddOn(index, addon) {
+    //console.log("???", addon.Id, addon.AddonSetting.AddonType);
+    if (this.selectedAddOns[index] != null) {
+      this.selectedAddOns[index] = null;
     } else {
-      this.selectedAddOns.push(addon.Id);
+      this.selectedAddOns[index] = addon.Id;
     }
-    //console.log("??? selectedAddOns", this.selectedAddOns);
+    //console.log("+++ selectedAddOns", this.selectedAddOns);
+    this.calculatePrice();
   }
 
   gatherSelectedProducts() {
+    //console.log("1---", this.mealboxMatch, this.selectedAddOns);
     var products = this.mealboxMatch.concat(this.selectedAddOns);
-    //console.log("---", products);
+    //console.log("2---", products);
 
     // Create post payload to send to server
     let data = [];
     products.forEach(element => {
-      data.push({
-        "ShipmentDate": null,
-        "UnitCode": "STK",
-        "ItemNo": element
-      });
+      if (element != null) {
+        data.push({
+          "ShipmentDate": null,
+          "UnitCode": "STK",
+          "ItemNo": element
+        });
+      }
     });
     return data;
   }
@@ -145,7 +164,7 @@ export class MealboxConfiguratorPage {
   calculatePrice() {
     let products = this.gatherSelectedProducts();
     this.apiProvider.calculatePrice(products).subscribe(data => {
-      //console.log("$$$", data["d"]);
+      console.log("Calc $$$", data["d"]);
       if (data && data["d"] && data["d"].TotalPrice) {
         this.calculatedPrice = data["d"].TotalPrice;
       }
@@ -167,6 +186,7 @@ export class MealboxConfiguratorPage {
     this.details = this.navParams.data.details;
     if (this.details && this.details.MealboxOptions) {
       this.getPersons();
+      this.calculatePrice();
     }
   }
 }

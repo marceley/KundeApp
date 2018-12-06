@@ -10,7 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage() 
+@IonicPage()
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html',
@@ -23,6 +23,8 @@ export class AccountPage {
   loggedIn: boolean = false;
 
   lines: any;
+  dates: Array<Object> = [];
+  groups: any;
 
   loading: Boolean = true;
 
@@ -33,9 +35,9 @@ export class AccountPage {
 
   }
 
-  login(){
+  login() {
     this.apiProvider.login(this.username, this.password).subscribe(apiUser => {
-      if(apiUser["d"].Status === "Authenticated"){
+      if (apiUser["d"].Status === "Authenticated") {
         console.log("YES!! user authenticated!", apiUser);
         this.apiProvider.addUserToStorage(this.username, this.password);
         this.apiProvider.setUserUnauthenticated(true);
@@ -43,15 +45,15 @@ export class AccountPage {
         this.getSales();
       }
     },
-    error => {
-      console.log("account.ts:login() - error", error);
-      this.apiProvider.removeAuthorizationHeaderValue();
-      this.apiProvider.setUserUnauthenticated(false);
-    });
-    
+      error => {
+        console.log("account.ts:login() - error", error);
+        this.apiProvider.removeAuthorizationHeaderValue();
+        this.apiProvider.setUserUnauthenticated(false);
+      });
+
   }
 
-  logout(){
+  logout() {
     this.apiProvider.logout();
     this.loggedIn = false;
     this.lines = null;
@@ -60,37 +62,47 @@ export class AccountPage {
   getSales() {
     this.apiProvider.getSales().subscribe(data => {
       console.log("account getSales()", data["d"]);
+
       this.lines = data["d"].Lines;
-      console.log(this.lines[1]);
+
+      let groupedByDates = this.lines.reduce((h, a) => Object.assign(h, { [a.ShipmentDate]: (h[a.ShipmentDate] || []).concat(a) }), {});
+      
+      let dateKeys = Object.keys(groupedByDates);
+      let groups = [];
+      dateKeys.forEach(element => {
+        groups.push({ "date": element, "lines": groupedByDates[element]});
+      });
+      this.groups = groups;
+
     }, error => {
       console.error(error);
       this.error = error;
     });
   }
 
-  showDetails(line){
+  showDetails(line) {
     console.log(line);
     this.apiProvider.getDetails(line).subscribe(data => {
       console.log(data["d"]);
     });
   }
 
-  deleteLine (line){
+  deleteLine(line) {
     this.apiProvider.deleteLine(line).subscribe(data => {
       this.getSales();
     });
   }
 
-  getSettings(){
-      this.navCtrl.push(SettingsPage);
+  getSettings() {
+    this.navCtrl.push(SettingsPage);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountPage');
   }
 
-  ionViewWillEnter(){ // will always reload the view compared to ionViewDidLoad
-    if(this.apiProvider.userIsAuthenticated()){
+  ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
+    if (this.apiProvider.userIsAuthenticated()) {
       this.loggedIn = true;
       this.getSales();
     }

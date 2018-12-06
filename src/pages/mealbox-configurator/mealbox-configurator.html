@@ -48,12 +48,16 @@
   </div>
 
   <div *ngIf="addOns.length > 0">
-    <h2 padding>Tilvalg</h2>
     <ion-list>
-      <ion-item *ngFor="let addon of addOns" (click)="selectAddOn(addon); calculatePrice()">
-        {{addon.ShortDescription}}
+      <ion-item *ngFor="let addon of addOns; let i = index" text-wrap>
+        <ion-checkbox checked="false" (ionChange)="selectAddOn(i, addon)"></ion-checkbox>
+        <ion-label>
+          <h2>{{addon._Type?.Name}}</h2>
+          <div>{{addon._Type?.Description}}</div>
+        </ion-label>
       </ion-item>
     </ion-list>
+    <!--{{addOns | json}}-->
   </div>
 
   <!--<div style="display: none;">{{details | json}}</div>-->

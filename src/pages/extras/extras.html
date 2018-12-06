@@ -16,10 +16,10 @@
 <ion-content> 
 
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-  <div class="loading" *ngIf="loading">Henter...</div>
+  <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
   <ion-list>
-    <ion-item class="list-item" *ngFor="let category of categories" (click)="showProducts(category)"> 
+    <ion-item class="list-item" text-wrap *ngFor="let category of categories" (click)="showProducts(category)"> 
       <div class="list-image" item-start>
         <img-loader class="tile-image" src="{{category.Image}}" useImg="true" spinner="false"></img-loader>
       </div>

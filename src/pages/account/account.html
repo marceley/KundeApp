@@ -29,9 +29,10 @@
       Du har ingen bestillinger
     </div>
 
-    <ion-list *ngIf="lines?.length > 0">
-      <ion-item-sliding #item *ngFor="let line of lines">
-        <ion-item class="list-item list-item--pushdown" (click)="showDetails(line)" *ngIf="!line.Fee">
+    <ion-list *ngFor="let group of groups">
+      <ion-list-header>{{group.date | date }}</ion-list-header>
+      <ion-item-sliding #item *ngFor="let line of group.lines">
+        <ion-item class="list-item list-item--pushdown" *ngIf="!line.Fee" text-wrap>
           <div class="list-image" item-start>
             <img-loader class="tile-image" src="{{line.ImageUri}}" useImg="true" spinner="false"></img-loader>
           </div>
@@ -40,7 +41,7 @@
           <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
           <div class="list-price">
             <span class="discount-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
-            <span class="">{{line.PriceDetail.NormalPrice}}</span>
+            <span class="price">{{line.PriceDetail.NormalPrice}}</span>
           </div>
         </ion-item>
         <ion-item class="list-item" *ngIf="line.Fee">
@@ -55,7 +56,7 @@
 
   </div>
 
-  <div>User loggedIn?: {{loggedIn}}</div>
+  <!-- <div>User loggedIn?: {{loggedIn}}</div>-->
 
   <form #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!loggedIn" autocomplete="off">
     <ion-row>

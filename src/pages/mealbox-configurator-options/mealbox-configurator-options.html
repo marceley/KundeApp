@@ -26,14 +26,14 @@
 
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
 
-  <div class="loading" *ngIf="loading">Henter...</div>
+  <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
   <div *ngIf="isAuthenticated">
 
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsinterval</div>
-      <span class="button" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
+      <span class="aars-button" [ngClass]="{ 'selected': frequency.Number === selectedFrequency }" *ngFor="let frequency of options?.Frequency"
         (click)="setFrequency(frequency.Number)">
         {{frequency?.Name}}
       </span>
@@ -42,7 +42,7 @@
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsdato</div>
-      <span class="button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
+      <span class="aars-button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
         (click)="setDeliveryDay(option.ShipmentDate)">
         {{option?.DateText}}
       </span>
@@ -50,16 +50,9 @@
 
   </div>
 
-  <!--
-  <ion-list>
-    <ion-item>
-      <h2>{{details?.Name}}</h2>
-      <div>{{details?.SubTitle}}</div>
-    </ion-item>
-  </ion-list>-->
+  <div padding>{{products | json }}</div>
 
   <div>User auth: {{isAuthenticated}}</div>
-
 
 </ion-content>
 
@@ -68,7 +61,6 @@
     <div>Pris {{details?.PriceDetail.NormalPrice}}</div>
     <div><span [innerHTML]="calculatedPrice"></span></div>
     <div>{{details?.SubTitle}}</div>
-    <button [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button large full>Bestil
-    </button>
+    <button type="submit" [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button large full>Bestil</button>
   </ion-item>
 </ion-footer>

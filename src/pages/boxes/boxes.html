@@ -15,7 +15,7 @@
 <ion-content>
 
     <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-    <div class="loading" *ngIf="loading">Henter...</div>
+    <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
     <ion-list *ngFor="let category of categories">
       <ion-list-header>{{category.Name}}</ion-list-header>

@@ -15,7 +15,7 @@
 <ion-content [ngStyle]="{'background-image': 'url(https://mobileapi.aarstiderne.com/v7/image/mealbox/background/lowcarbkassen/md)' }">
 
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-  <div class="loading" *ngIf="loading">Henter...</div>
+  <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
   <div class="mealbox" *ngIf="details">
 

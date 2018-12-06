@@ -18,6 +18,7 @@ import { AccountPage } from './../account/account';
 export class MealboxConfiguratorOptionsPage {
 
   details: any;
+  products: any;
   options: any;
 
   selectedDeliveryDay: String;
@@ -36,18 +37,18 @@ export class MealboxConfiguratorOptionsPage {
   constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
   }
 
-  setFrequency(frequency){
+  setFrequency(frequency) {
     this.selectedFrequency = frequency || 0;
   }
 
-  setDeliveryDay(deliveryDay){
+  setDeliveryDay(deliveryDay) {
     this.selectedDeliveryDay = deliveryDay;
   }
 
-  getMealboxOrderingOptions(products){
+  getMealboxOrderingOptions(products) {
     this.apiProvider.getMealboxOrderingOptions(products).subscribe(data => {
       console.log("!!!!", data["d"], data["d"].DefaultFrequency);
-      if(data && data["d"]){
+      if (data && data["d"]) {
         this.options = data["d"];
         this.loading = false;
         this.selectedFrequency = this.options.DefaultFrequency;
@@ -55,23 +56,27 @@ export class MealboxConfiguratorOptionsPage {
     });
   }
 
-  placeOrder(){
+  placeOrder() {
     console.log("Placing order", this.selectedFrequency, this.selectedDeliveryDay);
-    
+
     this.creatingOrder = true;
 
-    var order = {
-      ItemNo: this.details.Id,
-      SalesUnit: "STK",
-      ShipmentDate: this.selectedDeliveryDay,
-      Frequency: this.selectedFrequency,
-      //Voucher: ""
-    };
+    // Create models for sending multiple products to order endpoint
+    let orders = [];
+    this.products.forEach(element => {
+      let order = {
+        "Voucher": null, // todo
+        "Frequency": this.selectedFrequency,
+        "ShipmentDate": this.selectedDeliveryDay,
+        "ItemNo": element.ItemNo,
+        "SalesUnit": element.UnitCode
+      };
+      orders.push(order);
+    });
+    //console.log("ordering: ", orders);
 
-    console.log(order);
-
-    this.apiProvider.placeOrder(order).subscribe(data => {
-      console.log("Ha! bought a product", data);
+    this.apiProvider.placeOrderCombined(orders).subscribe(data => {
+      console.log("Ha! bought multiple products", data);
       this.error = false;
       this.errorMessage = "";
       this.creatingOrder = false;
@@ -85,20 +90,21 @@ export class MealboxConfiguratorOptionsPage {
     });
   }
 
-  goToAccount(){
+  goToAccount() {
     // clear navigation and go to account page
-    this.navCtrl.popToRoot();
+    this.navCtrl.popToRoot(); // TODO make work in modals
     this.appCtrl.getRootNav().push(AccountPage);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MealboxConfiguratorOptionsPage');
-    if(this.apiProvider.userIsAuthenticated()){
+    if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
       this.details = this.navParams.data.details;
-      let products = this.navParams.data.products;
-      if(products){
-        this.getMealboxOrderingOptions(products);
+      this.products = this.navParams.data.products;
+      //console.log(this.products);
+      if (this.products) {
+        this.getMealboxOrderingOptions(this.products);
       }
     } else {
       this.isAuthenticated = false;

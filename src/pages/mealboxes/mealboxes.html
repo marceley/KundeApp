@@ -16,11 +16,11 @@
 <ion-content>
 
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
-  <div class="loading" *ngIf="loading">Henter...</div>
+  <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
   <div padding>
     <span *ngFor="let category of categories">
-      <button ion-button small (click)="getProducts(category.Persons)">{{category.Name}}</button>
+      <button class="aars-button" [ngClass]="{ 'selected': category.Persons === selectedPersons }" ion-button small (click)="getProducts(category.Persons)">{{category.Name}}</button>
     </span>
   </div>
 

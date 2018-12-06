@@ -3,5 +3,11 @@
     "tabTitleBoxes": "Kasser",
     "tabTitleMealboxes": "Måltider",
     "tabTitleExtra": "Ekstra",
-    "tabTitleAccount": "Min side"
+    "tabTitleAccount": "Min side",
+    "tabTitleDetails": "Detaljer",
+    "loadingText": "Henter...",
+    "pageDetails": {
+        "headerDescription": "Beskrivelse",
+        "headerContent": "Indhold"
+    }
 }

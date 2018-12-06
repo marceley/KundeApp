@@ -1,3 +1,19 @@
 page-modal-login {
+    .content-ios {
+        background-color: rgba(0, 0, 0, .35);
+        backdrop-filter: blur(6px);
+    }
+    .scroll-content{
+        overflow-y: hidden;
+    }
 
+    .login-form {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - 32px);
+    }
+    .list {
+        margin-bottom: 0;
+    }
 }
