@@ -24,8 +24,8 @@ export class ProductsPage {
 
   showDetails(product) {
     console.log("showdetails -> Products", product);
-    this.appCtrl.getRootNav().push(DetailsPage, { product: product })
-    //this.navCtrl.push(DetailsPage, { product: product });
+    //this.appCtrl.getRootNav().push(DetailsPage, { product: product })
+    this.navCtrl.push(DetailsPage, { product: product });
   }
 
   ionViewDidLoad() {
