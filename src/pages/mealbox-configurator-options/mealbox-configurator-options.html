@@ -50,7 +50,7 @@
 
   </div>
 
-  <div padding>{{products | json }}</div>
+  <!--<div padding>{{products | json }}</div>-->
 
   <div>User auth: {{isAuthenticated}}</div>
 
@@ -60,7 +60,7 @@
   <ion-item>
     <div>Pris {{details?.PriceDetail.NormalPrice}}</div>
     <div><span [innerHTML]="calculatedPrice"></span></div>
-    <div>{{details?.SubTitle}}</div>
+    <!--<div>{{details?.SubTitle}}</div>-->
     <button type="submit" [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button large full>Bestil</button>
   </ion-item>
 </ion-footer>

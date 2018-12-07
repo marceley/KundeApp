@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 
 import { DetailsPage } from './../details/details';
 /**
@@ -19,12 +19,13 @@ export class ProductsPage {
   title: any;
   products: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   showDetails(product) {
     console.log("showdetails -> Products", product);
-    this.navCtrl.push(DetailsPage, { product: product });
+    this.appCtrl.getRootNav().push(DetailsPage, { product: product })
+    //this.navCtrl.push(DetailsPage, { product: product });
   }
 
   ionViewDidLoad() {

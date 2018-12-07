@@ -3,7 +3,6 @@ import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { ThrowStmt } from '@angular/compiler';
 
 /**
  * Generated class for the MealboxConfiguratorPage page.
@@ -34,8 +33,6 @@ export class MealboxConfiguratorPage {
   selectedAddOns: Array<string> = [];
 
   calculatedPrice: string = "";
-
-  isAuthenticated = true;
 
   constructor(
     public appCtrl: App,
@@ -172,7 +169,6 @@ export class MealboxConfiguratorPage {
   }
 
   getDeliveryOptions() {
-    //console.log("hallo");
     let products = this.gatherSelectedProducts();
     this.navCtrl.push(MealboxConfiguratorOptionsPage, { details: this.details, products: products });
   }
@@ -184,9 +180,11 @@ export class MealboxConfiguratorPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MealboxConfiguratorPage');
     this.details = this.navParams.data.details;
+    console.log(">>>>", this.details);
     if (this.details && this.details.MealboxOptions) {
       this.getPersons();
-      this.calculatePrice();
+      //this.gatherSelectedProducts();
+      //this.calculatePrice();
     }
   }
 }

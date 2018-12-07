@@ -1,3 +1,4 @@
+import { ModalSelectPersonsPageModule } from './../pages/modal-select-persons/modal-select-persons.module';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -80,6 +81,7 @@ export function createTranslateLoader(http: HttpClient) {
     DetailsMealboxPageModule,
     DetailsIngredientPageModule,
     ModalLoginPageModule,
+    ModalSelectPersonsPageModule,
     SettingsPageModule,
     MealboxConfiguratorPageModule,
     MealboxConfiguratorOptionsPageModule

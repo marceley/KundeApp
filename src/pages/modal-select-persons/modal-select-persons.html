@@ -1,0 +1,14 @@
+<!--
+  Generated template for the ModalSelectPersonsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content padding>
+  <h2>Vælg personer</h2>
+
+  <button class="configurator__btn-circle" *ngFor="let category of categories" [ngClass]="{ 'selected': category.Persons === selectedPersons }"
+    (click)="selectPersons(category.Persons)">{{category.Persons}}</button>
+
+</ion-content>

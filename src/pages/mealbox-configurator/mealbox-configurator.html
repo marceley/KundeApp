@@ -21,8 +21,7 @@
   <div class="configurator__panel">
     <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
     <div class="configurator__label" *ngIf="!selectedPersons">Vælg antal personer</div>
-    <div class="configurator__label" *ngIf="selectedPersons">{{selectedPersons}} <span *ngIf="selectedPersons === 1">person</span><span
-        *ngIf="selectedPersons > 1">personer</span> valgt</div>
+    <div class="configurator__label" *ngIf="selectedPersons">{{selectedPersons}} <span *ngIf="selectedPersons === 1">person</span><span *ngIf="selectedPersons > 1">personer</span> valgt</div>
     <div>
       <button class="configurator__btn-circle" *ngFor="let person of persons" [ngClass]="{ 'selected': person === selectedPersons }"
         (click)="getDaysForPersons(person)">{{person}}</button>
@@ -53,7 +52,7 @@
         <ion-checkbox checked="false" (ionChange)="selectAddOn(i, addon)"></ion-checkbox>
         <ion-label>
           <h2>{{addon._Type?.Name}}</h2>
-          <div>{{addon._Type?.Description}}</div>
+          <ion-label>{{addon._Type?.Description}}</ion-label>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -64,10 +63,14 @@
 
 </ion-content>
 
+
 <ion-footer>
-  <ion-item>
-    <div>Pris fra</div>
-    <div><span [innerHTML]="calculatedPrice"></span></div>
-    <button ion-button item-end medium (click)="getDeliveryOptions()">Vælg</button>
-  </ion-item>
+  <ion-toolbar color="white">
+    <ion-item no-lines>
+      <div class="price-label">Pris fra</div>
+      <div class="price-fat"><span [innerHTML]="calculatedPrice"></span></div>
+      <div *ngIf="!calculatedPrice"><span class="price-fat" [innerHTML]="details?.PriceDetail.PriceFrom"></span></div>
+      <button class="btn" [disabled]="mealboxMatch.length == 0" ion-button item-end small (click)="getDeliveryOptions()">Vælg</button>
+    </ion-item>
+  </ion-toolbar>
 </ion-footer>

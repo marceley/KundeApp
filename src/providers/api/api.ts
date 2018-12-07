@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-//import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 
 /*
@@ -109,14 +108,20 @@ export class ApiProvider {
     this.storage.set("user", { username: username, password: password });
   }
 
+  fakeUser(){
+    console.warn("FAKING USER LOGIN!")
+    this.storage.set('user', { "username": "mae@aarstiderne.com", "password": "gulerod"});
+  }
+
   tryAutoLogin() {
     console.log("Running autologin()");
+    this.fakeUser();
     this.storage.get('user').then(user => {
       if (user && user.username && user.password) {
         console.log("- autologin(): have user in storage...");
         this.login(user.username, user.password).subscribe(apiUser => {
           if (apiUser["d"].Status === "Authenticated") {
-            console.log("- autologin(): user is authenticated...", apiUser);
+            console.log("- autologin(): user is authenticated...", JSON.stringify(apiUser));
             this.addUserToStorage(this.username, this.password);
             this.isAuthenticated = true;
           } else {
