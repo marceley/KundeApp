@@ -42,7 +42,7 @@
         <!--<div class="mealbox__menu-slider">[Menuslider]</div>-->
         <div class="mealbox__menu-list">
           <ul>
-            <li *ngFor="let recipe of details?.Recipes; let i = index">
+            <li *ngFor="let recipe of details?.Recipes; let i = index" (click)="showRecipe(recipe)">
               <span class="mealbox__menu-index">{{i + 1}}.</span>
               <span class="mealbox__menu-title">{{recipe.Name}}</span>
             </li>
@@ -57,7 +57,7 @@
         </ion-list-header>
         <div class="mealbox__chef-list">
           <ul>
-            <li *ngFor="let chef of details?.Chefs" ion-item>
+            <li *ngFor="let chef of details?.Chefs" ion-item (click)="showChef(chef)">
               <div class="mealbox__chef-image" item-start>
                 <img-loader src="{{chef.Image}}" useImg="true" spinner="false"></img-loader>
               </div>

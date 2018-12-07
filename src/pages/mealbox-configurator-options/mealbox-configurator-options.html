@@ -24,7 +24,10 @@
     <ion-icon name="alert"></ion-icon> <button (click)="goToAccount()">Gå til mine leveringer</button>
   </div>
 
-  <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
+  <div class="error" *ngIf="error">
+    <h2>{{ errorMessage.error.Header}}</h2>
+    <div>{{ errorMessage.error.Text}}</div>
+  </div>
 
   <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 

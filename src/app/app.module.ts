@@ -1,4 +1,3 @@
-import { ModalSelectPersonsPageModule } from './../pages/modal-select-persons/modal-select-persons.module';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -25,6 +24,9 @@ import { ModalLoginPageModule } from './../pages/modal-login/modal-login.module'
 import { SettingsPageModule } from './../pages/settings/settings.module';
 import { MealboxConfiguratorOptionsPageModule } from './../pages/mealbox-configurator-options/mealbox-configurator-options.module';
 import { MealboxConfiguratorPageModule } from './../pages/mealbox-configurator/mealbox-configurator.module';
+import { ChefPageModule } from './../pages/chef/chef.module';
+import { RecipePageModule } from './../pages/recipe/recipe.module';
+import { ModalSelectPersonsPageModule } from './../pages/modal-select-persons/modal-select-persons.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,22 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    MyApp,
-    //NowPage,
-    //BoxesPage,
-    //MealboxesPage,
-    //ExtrasPage,
-    //AccountPage,
-    //TabsPage,
-    //DetailsPage,
-    //ProductsPage,
-    //OrderPage,
-    //DetailsMealboxPage,
-    //DetailsIngredientPage,
-    //ModalLoginPage,
-    //SettingsPage,
-    //MealboxConfiguratorPage,
-    //MealboxConfiguratorOptionsPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -84,26 +71,13 @@ export function createTranslateLoader(http: HttpClient) {
     ModalSelectPersonsPageModule,
     SettingsPageModule,
     MealboxConfiguratorPageModule,
-    MealboxConfiguratorOptionsPageModule
+    MealboxConfiguratorOptionsPageModule,
+    RecipePageModule,
+    ChefPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    //NowPage,
-    //BoxesPage,
-    //MealboxesPage,
-    //ExtrasPage,
-    //AccountPage,
-    //TabsPage,
-    //DetailsPage,
-    //ProductsPage,
-    //OrderPage,
-    //DetailsMealboxPage,
-    //DetailsIngredientPage,
-    //ModalLoginPage,
-    //SettingsPage,
-    //MealboxConfiguratorPage,
-    //MealboxConfiguratorOptionsPage
+    MyApp
   ],
   providers: [
     StatusBar,

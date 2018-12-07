@@ -26,7 +26,7 @@ export class ModalSelectPersonsPage {
   }
 
   selectPersons(persons) {
-    console.log("---", persons);
+    //console.log("---", persons);
     this.selectedPersons = persons;
     this.dismiss();
   }
@@ -37,7 +37,7 @@ export class ModalSelectPersonsPage {
     this.categories = this.navParams.get("categories");
     this.selectedPersons = this.navParams.get("selectedPersons");
 
-    console.log("???", this.categories, this.selectedPersons);
+    //console.log("???", this.categories, this.selectedPersons);
 
   }
 

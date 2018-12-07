@@ -1,3 +1,5 @@
+import { RecipePage } from '../recipe/recipe';
+import { ChefPage } from './../chef/chef';
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { MealboxConfiguratorPage } from './../mealbox-configurator/mealbox-configurator';
 import { DetailsIngredientPage } from './../details-ingredient/details-ingredient';
@@ -124,6 +126,16 @@ export class DetailsMealboxPage {
   
   }
 
+  showRecipe(recipe){
+    console.log("aaa", recipe);
+    this.navCtrl.push(RecipePage, { recipe: recipe });
+  }
+  
+  showChef(chef){
+    console.log("bbb", chef);
+    this.navCtrl.push(ChefPage, { chef: chef });
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsMealboxPage');
     var params = this.navParams.data; 

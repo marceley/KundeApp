@@ -108,9 +108,9 @@ export class ApiProvider {
     this.storage.set("user", { username: username, password: password });
   }
 
-  fakeUser(){
+  fakeUser() {
     console.warn("FAKING USER LOGIN!")
-    this.storage.set('user', { "username": "mae@aarstiderne.com", "password": "gulerod"});
+    this.storage.set('user', { "username": "mae@aarstiderne.com", "password": "gulerod" });
   }
 
   tryAutoLogin() {
@@ -199,7 +199,19 @@ export class ApiProvider {
   }
 
 
+  getChef(url) {
+    var url = url.replace(this.aarsApiUrl, this.proxyApiUrl);
+    return this.http.get(url, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
 
+  getRecipe(url) {
+    var url = url.replace(this.aarsApiUrl, this.proxyApiUrl);
+    return this.http.get(url, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
 
 
 

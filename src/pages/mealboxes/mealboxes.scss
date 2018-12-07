@@ -52,7 +52,7 @@ page-mealboxes {
     .aars-button {
         font-size: 12px;
         text-align: center;
-        padding: 1em;
+        padding: .5em 1em;
         display: inline-block;
         border-radius: 3px;
         background-color: #fff;
@@ -66,5 +66,7 @@ page-mealboxes {
 
     .chooser {
         background: color($colors, theme-dark);
+        text-align: center;
+        padding: .75em 0 0;
     }
 }

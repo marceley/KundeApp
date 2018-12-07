@@ -20,10 +20,6 @@
 
   <div class="chooser">
     <button class="aars-button" (click)="presentSelectPersonsModal(categories)">{{selectedCategory?.Name}}</button>
-
-    <span *ngFor="let category of categories">
-      <button class="aars-button" [ngClass]="{ 'selected': category.Persons === selectedPersons }" ion-button small (click)="setSelectedCategory(); getProductsByPersons(category.Persons)">{{category.Name}}</button>
-    </span>
   </div>
 
   <div padding>

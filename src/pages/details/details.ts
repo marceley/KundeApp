@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
-
 /**
  * Generated class for the DetailsPage page.
  *
@@ -31,7 +30,12 @@ export class DetailsPage {
   error: Boolean = false;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService, public modalCtrl: ModalController ) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider, 
+    public translate: TranslateService, 
+    public modalCtrl: ModalController ) {
     
   }
 
