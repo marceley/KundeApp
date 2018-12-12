@@ -2,7 +2,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { IonicImageLoader } from 'ionic-image-loader';
 
 /**
  * Generated class for the RecipePage page.

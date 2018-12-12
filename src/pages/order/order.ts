@@ -44,11 +44,15 @@ export class OrderPage {
     this.gettingOrderingOptions = true;
     this.apiProvider.getOrderingOptions(details.OrderingOptions).subscribe(data => {
       console.log("order.ts: getOrderingOptions", data["d"]);
+      //HACK - the server data does not contain a Number prop for "single delivery", so add it before the data is added to the model to make it easier to control.
+      data["d"].Frequency[0].Number = 0;
+      // END HACK
       this.errorGettingOrderingOptions = false;
       this.errorMessageGettingOrderingOptions = "";
       this.gettingOrderingOptions = false;
       this.details = details;
       this.options = data["d"];
+      this.selectedFrequency = this.options.DefaultFrequency;
     }, error => {
       console.log(error);
       this.errorGettingOrderingOptions = true;
