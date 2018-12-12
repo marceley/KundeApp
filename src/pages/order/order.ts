@@ -3,6 +3,7 @@ import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 import { AccountPage } from './../account/account';
+import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 
 /**
  * Generated class for the OrderPage page.
@@ -62,7 +63,6 @@ export class OrderPage {
   }
 
   setFrequency(frequency){
-    console.log("???", frequency);
     this.selectedFrequency = frequency || 0;
   }
 
@@ -88,7 +88,10 @@ export class OrderPage {
       this.error = false;
       this.errorMessage = "";
       this.creatingOrder = false;
-      this.showSuccess = true;
+      //this.showSuccess = true; // TODO remove in favour of modal page
+
+      this.navCtrl.push(ModalOrderCompletePage, { success: true });
+
     }, error => {
       console.log(error);
       this.error = true;

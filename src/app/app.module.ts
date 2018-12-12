@@ -27,6 +27,7 @@ import { MealboxConfiguratorPageModule } from './../pages/mealbox-configurator/m
 import { ChefPageModule } from './../pages/chef/chef.module';
 import { RecipePageModule } from './../pages/recipe/recipe.module';
 import { ModalSelectPersonsPageModule } from './../pages/modal-select-persons/modal-select-persons.module';
+import { ModalOrderCompletePageModule } from './../pages/modal-order-complete/modal-order-complete.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -69,6 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
     DetailsIngredientPageModule,
     ModalLoginPageModule,
     ModalSelectPersonsPageModule,
+    ModalOrderCompletePageModule,
     SettingsPageModule,
     MealboxConfiguratorPageModule,
     MealboxConfiguratorOptionsPageModule,

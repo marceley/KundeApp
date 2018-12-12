@@ -26,6 +26,12 @@ export class ApiProvider {
     console.log('Hello ApiProvider Provider');
   }
 
+  //getRoot() {
+  //  return this.http.get(this.proxyApiUrl + '/v7/root', {
+  //    headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+  //  });
+  //}
+
   getNewitems() {
     return this.http.get(this.proxyApiUrl + '/v7/products/newitems', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
@@ -92,6 +98,8 @@ export class ApiProvider {
     });
   }
 
+
+  
   // TODO: implement in mealboxes.ts
   setDefaultPersons(persons) {
     this.storage.set("selectedPersons", persons);
