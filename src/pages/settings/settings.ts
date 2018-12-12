@@ -35,6 +35,7 @@ export class SettingsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+    //this.getPushMessages(); // TODO: where to get token?
   }
 
 }
