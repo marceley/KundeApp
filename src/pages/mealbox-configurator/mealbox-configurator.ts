@@ -177,8 +177,8 @@ export class MealboxConfiguratorPage {
     this.viewCtrl.dismiss();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MealboxConfiguratorPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter MealboxConfiguratorPage');
     this.details = this.navParams.data.details;
     console.log(">>>>", this.details);
     if (this.details && this.details.MealboxOptions) {

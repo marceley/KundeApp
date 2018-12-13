@@ -99,8 +99,8 @@ export class MealboxConfiguratorOptionsPage {
     this.appCtrl.getRootNav().push(AccountPage);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MealboxConfiguratorOptionsPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter MealboxConfiguratorOptionsPage');
     if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
       this.details = this.navParams.data.details;

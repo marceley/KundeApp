@@ -68,5 +68,9 @@ page-mealboxes {
         background: color($colors, theme-dark);
         text-align: center;
         padding: .75em 0 0;
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
 }

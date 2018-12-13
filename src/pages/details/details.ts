@@ -84,15 +84,16 @@ export class DetailsPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailsPage');
-    var params = this.navParams.data; 
-    this.getDetails(params.product);
-  }
+  //ionViewDidLoad() {
+  //  console.log('ionViewDidLoad DetailsPage');
+  //}
 
   ionViewWillEnter(){ // will always reload the view compared to ionViewDidLoad
     console.log('ionViewWillEnter DetailsPage', this.apiProvider.userIsAuthenticated());
     //console.log("just checking", this.apiProvider.userIsAuthenticated());
+    var params = this.navParams.data; 
+    this.getDetails(params.product);
+
     if(this.apiProvider.userIsAuthenticated()){
       this.isAuthenticated = true;
     } else {

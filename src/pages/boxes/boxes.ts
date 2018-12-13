@@ -46,8 +46,8 @@ export class BoxesPage {
     });
   }
   
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BoxesPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter BoxesPage');
     this.getBoxes();
   }
 

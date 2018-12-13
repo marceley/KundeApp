@@ -54,6 +54,11 @@ export class NowPage {
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad NowPage');
+    //this.getNewItems();
+  }
+
+  ionViewWillEnter() {
+    //console.log('ionViewWillEnter NowPage');
     this.getNewItems();
   }
 
