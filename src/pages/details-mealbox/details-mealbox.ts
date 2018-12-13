@@ -22,7 +22,7 @@ import { ApiProvider } from './../../providers/api/api';
 })
 export class DetailsMealboxPage {
 
-  details: any; 
+  details: any;
   ingredients: any;
 
   personsRange: Array<number> = [];
@@ -38,13 +38,13 @@ export class DetailsMealboxPage {
 
   isAuthenticated: boolean = false;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService ) {
-    
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
+
   }
 
   getDetails(product) {
     this.apiProvider.getDetails(product).subscribe(data => {
-      console.log("¤¤¤details-mealbox.ts: getDetails", data["d"]);
+      //console.log("¤¤¤details-mealbox.ts: getDetails", data["d"]);
       this.details = data["d"];
       this.loading = false;
       this.error = false;
@@ -66,35 +66,35 @@ export class DetailsMealboxPage {
     });
   }
 
-  calcPersonsRange(){
+  calcPersonsRange() {
     let persons = [];
     this.details.MealboxOptions.filter(element => {
-      if(persons.indexOf(element.Persons) == -1){
+      if (persons.indexOf(element.Persons) == -1) {
         persons.push(element.Persons);
       }
     });
     return persons.sort();
   }
 
-  calcDaysRange(){
+  calcDaysRange() {
     let days = [];
     this.details.MealboxOptions.filter(element => {
-      if(days.indexOf(element.Days) == -1){
+      if (days.indexOf(element.Days) == -1) {
         days.push(element.Days);
       }
     });
     return days.sort();
   }
 
-  getPersonsRangeAsString(){
+  getPersonsRangeAsString() {
     return this.personsRange[0] + "-" + this.personsRange[this.personsRange.length - 1];
   }
 
-  getDaysRangeAsString(){
+  getDaysRangeAsString() {
     return this.daysRange.join(" / ");
   }
 
-  showIngredientDetails(ingredient){
+  showIngredientDetails(ingredient) {
     //console.log(ingredient);
     this.navCtrl.push(DetailsIngredientPage, ingredient);
   }
@@ -103,7 +103,7 @@ export class DetailsMealboxPage {
     let loginModal = this.modalCtrl.create(ModalLoginPage);
     loginModal.onDidDismiss(data => {
       console.log(data);
-      if(data && data.reload){
+      if (data && data.reload) {
         this.apiProvider.setUserUnauthenticated(true);
         this.isAuthenticated = true;
       }
@@ -111,38 +111,41 @@ export class DetailsMealboxPage {
     loginModal.present();
   }
 
-  showConfigurator(details){
+  showConfigurator(details) {
     console.log("mealbox details - showConfigurator()", details);
 
-      if(this.isAuthenticated){
-        const modal = this.modalCtrl.create(MealboxConfiguratorPage, { details: details });
-        modal.onDidDismiss(data => {
-          
-        });
-        modal.present();
-        } else {
-          this.presentLoginModal();
-      }
-  
+    if (this.isAuthenticated) {
+      this.navCtrl.push(MealboxConfiguratorPage, { details: details });
+
+      // TODO: ionic 3 doesn't navigate correctly to subpages in modals
+      /*const modal = this.modalCtrl.create(MealboxConfiguratorPage, { details: details });
+      modal.onDidDismiss(data => {
+
+      });
+      modal.present();*/
+    } else {
+      this.presentLoginModal();
+    }
+
   }
 
-  showRecipe(recipe){
+  showRecipe(recipe) {
     console.log("aaa", recipe);
     this.navCtrl.push(RecipePage, { recipe: recipe });
   }
-  
-  showChef(chef){
+
+  showChef(chef) {
     console.log("bbb", chef);
     this.navCtrl.push(ChefPage, { chef: chef });
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsMealboxPage');
-    var params = this.navParams.data; 
+    var params = this.navParams.data;
     this.getDetails(params.product);
-    if(this.apiProvider.userIsAuthenticated()){
+    if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
     }
-}
+  }
 
 }

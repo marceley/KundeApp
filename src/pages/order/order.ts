@@ -3,6 +3,7 @@ import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 import { AccountPage } from './../account/account';
+import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 
 /**
  * Generated class for the OrderPage page.
@@ -44,11 +45,15 @@ export class OrderPage {
     this.gettingOrderingOptions = true;
     this.apiProvider.getOrderingOptions(details.OrderingOptions).subscribe(data => {
       console.log("order.ts: getOrderingOptions", data["d"]);
+      //HACK - the server data does not contain a Number prop for "single delivery", so add it before the data is added to the model to make it easier to control.
+      data["d"].Frequency[0].Number = 0;
+      // END HACK
       this.errorGettingOrderingOptions = false;
       this.errorMessageGettingOrderingOptions = "";
       this.gettingOrderingOptions = false;
       this.details = details;
       this.options = data["d"];
+      this.selectedFrequency = this.options.DefaultFrequency;
     }, error => {
       console.log(error);
       this.errorGettingOrderingOptions = true;
@@ -58,7 +63,6 @@ export class OrderPage {
   }
 
   setFrequency(frequency){
-    console.log("???", frequency);
     this.selectedFrequency = frequency || 0;
   }
 
@@ -84,7 +88,10 @@ export class OrderPage {
       this.error = false;
       this.errorMessage = "";
       this.creatingOrder = false;
-      this.showSuccess = true;
+      //this.showSuccess = true; // TODO remove in favour of modal page
+
+      this.navCtrl.push(ModalOrderCompletePage, { success: true });
+
     }, error => {
       console.log(error);
       this.error = true;

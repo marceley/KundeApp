@@ -57,7 +57,7 @@ export class MealboxConfiguratorPage {
 
     this.persons = this.persons.sort();
 
-    this.storage.get("preferredPersons").then(data => {
+    this.storage.get("selectedPersonsInStorage").then(data => {
       //console.log(">> persons in storage", data);
       if (data) {
         this.selectedPersons = data;
@@ -69,7 +69,7 @@ export class MealboxConfiguratorPage {
   }
 
   savePersonsChoice() {
-    this.storage.set("preferredPersons", this.selectedPersons);
+    this.storage.set("selectedPersonsInStorage", this.selectedPersons);
   }
 
   // Click on person link

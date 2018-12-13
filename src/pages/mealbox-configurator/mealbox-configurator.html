@@ -7,9 +7,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons left>
-      <button ion-button (click)="dismiss()">Annuller</button>
+    <!--<ion-buttons left>
+       TODO: hide this button untill navigation in modals functions correctly<button ion-button (click)="dismiss()">Annuller</button>
     </ion-buttons>
+    -->
     <ion-title>{{details?.Name}}</ion-title>
   </ion-navbar>
 
@@ -52,7 +53,7 @@
         <ion-checkbox checked="false" (ionChange)="selectAddOn(i, addon)"></ion-checkbox>
         <ion-label>
           <h2>{{addon._Type?.Name}}</h2>
-          <ion-label>{{addon._Type?.Description}}</ion-label>
+          <p>{{addon._Type?.Description}}</p>
         </ion-label>
       </ion-item>
     </ion-list>

@@ -26,6 +26,12 @@ export class ApiProvider {
     console.log('Hello ApiProvider Provider');
   }
 
+  //getRoot() {
+  //  return this.http.get(this.proxyApiUrl + '/v7/root', {
+  //    headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+  //  });
+  //}
+
   getNewitems() {
     return this.http.get(this.proxyApiUrl + '/v7/products/newitems', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
@@ -92,6 +98,22 @@ export class ApiProvider {
     });
   }
 
+
+  
+  // TODO: implement in mealboxes.ts
+  setDefaultPersons(persons) {
+    this.storage.set("selectedPersons", persons);
+  }
+
+  // TODO: implement in mealboxes.ts
+  getDefaultPersons(persons) {
+    this.storage.get("selectedPersons");
+  }
+
+
+
+
+  // USERS API
   removeAuthorizationHeaderValue() {
     this.auth = "";
   }
@@ -115,7 +137,7 @@ export class ApiProvider {
 
   tryAutoLogin() {
     console.log("Running autologin()");
-    this.fakeUser();
+    //this.fakeUser();
     this.storage.get('user').then(user => {
       if (user && user.username && user.password) {
         console.log("- autologin(): have user in storage...");

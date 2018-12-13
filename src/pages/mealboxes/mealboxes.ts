@@ -66,6 +66,9 @@ export class MealboxesPage {
     var index = this.selectedPersons - 1;
     this.products = this.categories[index].Products;
     this.setSelectedCategory(this.categories[index]);
+    this.storage.set("selectedPersonsInStorage", this.selectedPersons).then(resp => {
+      console.log(">>>> set ", this.selectedPersons);
+    });
   }
 
   showDetails(product){
@@ -74,7 +77,7 @@ export class MealboxesPage {
   }
   
   presentSelectPersonsModal(categories) {
-    console.log(">>>", "presentSelectPersonsModal", categories, this.selectedPersons);
+    //console.log(">>>", "presentSelectPersonsModal", categories, this.selectedPersons);
     let selectPersonsModal = this.modalCtrl.create(ModalSelectPersonsPage, { "categories": categories, "selectedPersons": this.selectedPersons });
     selectPersonsModal.onDidDismiss(data => {
       console.log("# I got this back:", data);

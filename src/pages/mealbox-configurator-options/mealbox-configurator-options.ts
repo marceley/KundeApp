@@ -49,6 +49,9 @@ export class MealboxConfiguratorOptionsPage {
     this.apiProvider.getMealboxOrderingOptions(products).subscribe(data => {
       console.log("!!!!", data["d"], data["d"].DefaultFrequency);
       if (data && data["d"]) {
+        //HACK - the server data does not contain a Number prop for "single delivery", so add it before the data is added to the model to make it easier to control.
+        data["d"].Frequency[0].Number = 0;
+        // END HACK
         this.options = data["d"];
         this.loading = false;
         this.selectedFrequency = this.options.DefaultFrequency;
