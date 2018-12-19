@@ -28,21 +28,21 @@
     }
     &-name {
         font-size: 18px;
-        color: color($colors, "text-dark");
+        color: $c-text-dark;
     }
     &-name-large {
         font-size: 20px;
-        color: color($colors, "text-dark");
+        color: $c-text-dark;
     }
     &-subtitle {
         font-size: 16px;
-        color: color($colors, "text-light");
+        color: $c-text-light;
     }
     &-price {
         text-align: right;
         font-size: 16px;
         font-weight: bold;
-        color: color($colors, "theme-dark");
+        color: $c-text-dark;
         position: absolute;
         right: 16px;
         bottom: 5px;
@@ -51,31 +51,35 @@
         text-align: right;
         font-size: 16px;
         font-weight: bold;
-        color: color($colors, "theme-dark");
+        color: $c-text-dark;
     }
     &-count {
         font-size: 18px;
-        color: color($colors, "text-light");
+        color: $c-text-light;
     }
 }
 
 .ingredient {
     &-key {
-        color: color($colors, "text-light");
+        color: $c-text-light;
     }
 
     &-key-dark {
-        color: color($colors, "text-dark");
+        color: $c-text-dark;
     }
 
     &-value {
-        color: color($colors, "text-dark");
+        color: $c-text-dark;
     }
 
     &-note {
-        color: color($colors, "text-light");
+        color: $c-text-light;
     }
 }
+.bg-cta {
+    background-color: $c-action-bright;
+}
+
 .details-cta {
     font-size: 18px;
     display: block;
@@ -90,7 +94,7 @@
 
 .btn-order-date {
     background-color: #fff;
-    border: .55px solid color($colors, "sand-border");
+    border: .55px solid $c-sand-border;
     text-align: center;
     padding: 1rem;
     width: calc(100% - 8px);
@@ -100,20 +104,20 @@
 
     &__day {
         font-size: 16px;
-        color: color($colors, "action-bright");
+        color: $c-action-bright;
         &.selected {
             color: #fff;
         }
     }
     &__date {
         font-size: 14px;
-        color: color($colors, "text-dark");
+        color: $c-text-dark;
         &.selected {
             color: #fff;
         }
     }
     &.selected {
-        background-color: color($colors, "theme-dark");
+        background-color: $c-theme-dark;
     }
     &.disabled {
 
@@ -121,7 +125,7 @@
 }
 
 .discount-price {
-    color: color($colors, "action-bright");
+    color: $c-action-bright;
     text-decoration: line-through;
 }
 

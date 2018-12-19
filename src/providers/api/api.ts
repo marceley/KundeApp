@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Storage } from '@ionic/storage';
+import { Globalization } from '@ionic-native/globalization';
 
 /*
   Generated class for the ApiProvider provider.
@@ -9,6 +10,19 @@ import { Storage } from '@ionic/storage';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+/*
+Svensk request: 
+Accept-Language: sv-DK;q=1, en-DK;q=0.9, da-DK;q=0.8
+
+English storbritannien:
+Accept-Language: en-GB;q=1, sv-DK;q=0.9, en-DK;q=0.8, da-DK;q=0.7
+
+
+Dansk med engelsk som andetsprog:
+Accept-Language: da-DK;q=1, en-DK;q=0.9
+*/
+
 @Injectable()
 export class ApiProvider {
 
@@ -22,15 +36,22 @@ export class ApiProvider {
 
   auth: string = "";
 
-  constructor(public http: HttpClient, private storage: Storage) {
+  constructor(public http: HttpClient, private storage: Storage, private globalization: Globalization) {
     console.log('Hello ApiProvider Provider');
   }
 
-  //getRoot() {
-  //  return this.http.get(this.proxyApiUrl + '/v7/root', {
-  //    headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
-  //  });
-  //}
+  getLocaleName() {
+    return this.globalization.getLocaleName();
+  }
+  getPreferredLanguage() {
+    return this.globalization.getPreferredLanguage();
+  }
+
+  getRoot() {
+    return this.http.get(this.proxyApiUrl + '/v7/root', {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl, 'Accept-Language': 'da-DK;q=1, en-DK;q=0.9' })
+    });
+  }
 
   getNewitems() {
     return this.http.get(this.proxyApiUrl + '/v7/products/newitems', {
@@ -99,7 +120,7 @@ export class ApiProvider {
   }
 
 
-  
+
   // TODO: implement in mealboxes.ts
   setDefaultPersons(persons) {
     this.storage.set("selectedPersons", persons);
@@ -216,6 +237,12 @@ export class ApiProvider {
 
   getMealboxOrderingOptions(products) {
     return this.http.post(this.proxyApiUrl + '/v7/sales/multipleorderingoptionscombined', products, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getHasSubscriptions(){
+    return this.http.get(this.proxyApiUrl + '/v7/sales/hassubscriptions', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }

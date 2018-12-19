@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-nativestorage" spec="~2.3.2" />
     <plugin name="cordova-plugin-advanced-http" spec="~2.0.1" />
     <engine name="ios" spec="^4.5.5" />
+    <plugin name="cordova-plugin-globalization" spec="~1.11.0" />
 </widget>

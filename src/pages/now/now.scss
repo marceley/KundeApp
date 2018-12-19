@@ -6,7 +6,7 @@ page-now {
 
     .tile {
         background-color: #fff;
-        border: 1px solid color($colors, "sand-border");
+        border: 1px solid $c-sand-border;
         padding: 1rem;
         font-size: 14px;
         margin: .5rem;
@@ -31,7 +31,7 @@ page-now {
 
         &-price {
             font-weight: 500;
-            color: color($colors, "theme-light");
+            color: $c-theme-light;
         }
     }
 

@@ -47,15 +47,20 @@
       <div class="configurator__label">Leveringsdato</div>
       <span class="aars-button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
         (click)="setDeliveryDay(option.ShipmentDate)">
-        {{option?.DateText}}
+        <div>{{option?.DayText}}</div>
+        <div>{{option?.DateText}}</div>
+        <div class="note" *ngIf="option.Note">{{option?.Note}}</div>
       </span>
     </div>
-
+    <div class="popup" padding>
+      <h2>{{options?.DeviationTitle}}</h2>
+      <div>{{options?.DeviationText}}</div>
+    </div>
   </div>
 
   <!--<div padding>{{products | json }}</div>-->
 
-  <div>User auth: {{isAuthenticated}}</div>
+  <!--<div>User auth: {{isAuthenticated}}</div>-->
 
 </ion-content>
 

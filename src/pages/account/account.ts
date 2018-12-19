@@ -26,6 +26,11 @@ export class AccountPage {
   lines: any;
   dates: Array<Object> = [];
   groups: any;
+  subscriptions: any;
+
+  rootData: any;
+  deviceLocale: any;
+  deviceLanguage: any;
 
   loading: Boolean = true;
 
@@ -40,16 +45,28 @@ export class AccountPage {
     this.apiProvider.getSales().subscribe(data => {
       console.log("account getSales()", data["d"]);
 
-      this.lines = data["d"].Lines;
+      const lines = data["d"].Lines;
+      console.log(lines);
+      if (lines.length > 0) {
 
-      let groupedByDates = this.lines.reduce((h, a) => Object.assign(h, { [a.ShipmentDate]: (h[a.ShipmentDate] || []).concat(a) }), {});
-      
-      let dateKeys = Object.keys(groupedByDates);
-      let groups = [];
-      dateKeys.forEach(element => {
-        groups.push({ "date": element, "lines": groupedByDates[element]});
-      });
-      this.groups = groups;
+        this.lines = lines;
+
+        let groupedByDates = this.lines.reduce((h, a) => Object.assign(h, { [a.ShipmentDate]: (h[a.ShipmentDate] || []).concat(a) }), {});
+
+        let dateKeys = Object.keys(groupedByDates);
+        let groups = [];
+        dateKeys.forEach(element => {
+          groups.push({ "date": element, "lines": groupedByDates[element] });
+        });
+        this.groups = groups;
+      } else {
+        this.apiProvider.getHasSubscriptions().subscribe(subscriptions => {
+          this.subscriptions = subscriptions["d"];
+          console.log(this.subscriptions);
+        }, e => {
+          console.log(e);
+        });
+      }
 
     }, error => {
       console.error(error);
@@ -78,7 +95,7 @@ export class AccountPage {
     let loginModal = this.modalCtrl.create(ModalLoginPage);
     loginModal.onDidDismiss(data => {
       console.log(data);
-      if(data && data.reload){
+      if (data && data.reload) {
         this.apiProvider.setUserUnauthenticated(true)
         this.isAuthenticated = true;
         this.getSales();
@@ -93,11 +110,22 @@ export class AccountPage {
     this.lines = null;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountPage');
+  getRoot() {
+    this.apiProvider.getRoot().subscribe(data => {
+      this.rootData = data;
+    });
   }
 
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
+    this.apiProvider.getLocaleName().then(locale => {
+      this.deviceLocale = locale.value;
+    }).catch(e => console.log(e));
+    this.apiProvider.getPreferredLanguage().then(lang => {
+      console.log(lang);
+      this.deviceLanguage = lang.value;
+    }).catch(e => console.log(e));
+
+    this.getRoot();
     if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
       this.getSales();

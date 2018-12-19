@@ -31,6 +31,7 @@ import { ModalOrderCompletePageModule } from './../pages/modal-order-complete/mo
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Globalization } from '@ionic-native/globalization';
 
 import { ApiProvider } from '../providers/api/api';
 
@@ -84,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
+    Globalization,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiProvider
   ]

@@ -73,10 +73,10 @@
           <div ion-col col-6 *ngFor="let option of options?.Options">
             <button class="btn-order-date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }"
               (click)="setDeliveryDay(option.ShipmentDate)">
-              <div class="btn-order-date__day" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate
-                | date: 'EEEE' }}</div>
-              <div class="btn-order-date__date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">{{option.ShipmentDate
-                | date: 'd. LLL' }}</div>
+              <div class="btn-order-date__day" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">
+                {{option.DayText}}</div>
+              <div class="btn-order-date__date" [ngClass]="{ 'selected': selectedDeliveryDay === option.ShipmentDate }">
+                {{option.DateText}}</div>
             </button>
           </div>
         </div>

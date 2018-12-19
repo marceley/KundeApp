@@ -45,36 +45,38 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222,
-  theme-light: #00884a,
-  theme-dark: #0d7548,
-  action-light: #f05050,
-  action-dark: #D94848,
-  action-bright: #e84141,
-  sand-background: #f3f2ee,
-  sand-border: #dfdfdf,
-  white: #ffffff,
-  black: #000000,
-  text-light: #aaaaaa,
-  text-dark: #000000,
+  dark:       #222
 );
+
+
+$c-theme-light: #00884a;
+$c-theme-dark: #0d7548;
+$c-action-light: #f05050;
+$c-action-dark: #D94848;
+$c-action-bright: #e84141;
+$c-sand-background: #f3f2ee;
+$c-sand-border: #dfdfdf;
+$c-white: #ffffff;
+$c-black: #000000;
+$c-text-light: #aaaaaa;
+$c-text-dark: #000000;
 
 $font-family-base: "Gotham Rounded A", "Gotham Rounded B", -apple-system, Helvetica, sans-serif;
 $font-family-standard: -apple-system, Helvetica, sans-serif;
 
-$background-color: color($colors, sand-background);
+$background-color: $c-sand-background;
 
-$list-background-color: color($colors, white);
-$list-border-color: color($colors, sand-border);
+$list-background-color: $c-white;
+$list-border-color: $c-sand-border;
 
-$toolbar-background: color($colors, theme-dark);
+$toolbar-background: $c-theme-dark;
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
 $list-ios-header-text-transform: none;
-$list-ios-header-color: color($colors, theme-dark);
+$list-ios-header-color: $c-theme-dark;
 $list-ios-header-letter-spacing: 0;
 $list-ios-header-font-size: 1.5rem;
 $list-ios-header-font-weight: 500;
@@ -83,14 +85,14 @@ $item-ios-body-text-font-size: 1.6rem;
 $toolbar-ios-title-font-weight: 400;
 
 /* Color bottom tabs icon + text */
-$tabs-md-tab-icon-color-active: color($colors, action-bright);
+$tabs-md-tab-icon-color-active: $c-action-bright;
 $tabs-md-tab-icon-color: #8c8c8c;
-$tabs-md-tab-text-color-active: color($colors, action-bright);
+$tabs-md-tab-text-color-active: $c-action-bright;
 $tabs-md-tab-text-color: #8c8c8c;
 
-$tabs-ios-tab-icon-color-active: color($colors, action-bright);
+$tabs-ios-tab-icon-color-active: $c-action-bright;
 $tabs-ios-tab-icon-color: #8c8c8c;
-$tabs-ios-tab-text-color-active: color($colors, action-bright);
+$tabs-ios-tab-text-color-active: $c-action-bright;
 $tabs-ios-tab-text-color: #8c8c8c;
 /* /Color bottom tabs icon + text */
 
@@ -134,5 +136,5 @@ $img-placeholder-background: #fff;
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
+//@import "roboto";
+//@import "noto-sans";

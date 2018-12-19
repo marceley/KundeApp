@@ -45,7 +45,7 @@ page-mealbox-configurator {
     .price-fat {
         font-size: 18px;
         font-weight: 500;
-        color: color($colors, theme-light);
+        color: $c-theme-light;
     }
     .btn {
         padding: .75em 1em;
