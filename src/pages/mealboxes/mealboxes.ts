@@ -86,7 +86,7 @@ export class MealboxesPage {
     selectPersonsModal.present();
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     console.log('ionViewWillEnter MealboxesPage');
     this.getMealboxes();
   }

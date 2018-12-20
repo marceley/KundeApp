@@ -46,7 +46,7 @@ export class ExtrasPage {
     this.navCtrl.push(ProductsPage, { category: category.Name, products: category.Products });
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     console.log('ionViewWillEnter ExtrasPage');
     this.getExtras();
   }

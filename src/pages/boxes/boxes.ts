@@ -46,9 +46,13 @@ export class BoxesPage {
     });
   }
   
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter BoxesPage');
-    this.getBoxes();
+  ionViewDidLoad(){
+    this.getBoxes();   
   }
+
+  //ionViewWillEnter() {
+  //  console.log('ionViewWillEnter BoxesPage');
+  //  this.getBoxes();
+  //}
 
 }
