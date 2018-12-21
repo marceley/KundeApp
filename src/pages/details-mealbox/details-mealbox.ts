@@ -55,9 +55,12 @@ export class DetailsMealboxPage {
       this.personsRangeAsString = this.getPersonsRangeAsString();
       this.daysRangeAsString = this.getDaysRangeAsString();
 
-      this.apiProvider.getIngredients(this.details.Ingredients).subscribe(data => {
-        this.ingredients = data["d"].Ingredients;
-      });
+      if (this.details.Ingredients) {
+        this.apiProvider.getIngredients(this.details.Ingredients).subscribe(data => {
+          this.ingredients = data["d"].Ingredients;
+        });
+      }
+
     }, error => {
       console.log("getDetails() - error", error);
       this.loading = false;
@@ -102,7 +105,7 @@ export class DetailsMealboxPage {
   presentLoginModal() {
     let loginModal = this.modalCtrl.create(ModalLoginPage);
     loginModal.onDidDismiss(data => {
-      console.log(data);
+      //console.log(data);
       if (data && data.reload) {
         this.apiProvider.setUserUnauthenticated(true);
         this.isAuthenticated = true;
@@ -130,12 +133,10 @@ export class DetailsMealboxPage {
   }
 
   showRecipe(recipe) {
-    console.log("aaa", recipe);
     this.navCtrl.push(RecipePage, { recipe: recipe });
   }
 
   showChef(chef) {
-    console.log("bbb", chef);
     this.navCtrl.push(ChefPage, { chef: chef });
   }
 

@@ -45,12 +45,14 @@
     <div class="configurator__panel">
       <ion-icon name="alert-outline" class="configurator__icon"></ion-icon>
       <div class="configurator__label">Leveringsdato</div>
-      <span class="aars-button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
+      <button [disabled]="option.Status == 'Soldout'" class="aars-button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
         (click)="setDeliveryDay(option.ShipmentDate)">
-        <div>{{option?.DayText}}</div>
+        <div *ngIf="option.Status == 'Soldout'; else dayText">Udsolgt</div> 
+        <ng-template #dayText>{{option?.DayText}}</ng-template>
+
         <div>{{option?.DateText}}</div>
         <div class="note" *ngIf="option.Note">{{option?.Note}}</div>
-      </span>
+    </button>
     </div>
     <div class="popup" padding>
       <h2>{{options?.DeviationTitle}}</h2>

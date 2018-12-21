@@ -49,7 +49,8 @@ export function createTranslateLoader(http: HttpClient) {
     IonicStorageModule.forRoot(),
     IonicImageLoader.forRoot(),
     IonicModule.forRoot(MyApp, {
-      backButtonText: ''
+      backButtonText: '',
+      swipeBackEnabled: true
     }),
     TranslateModule.forRoot({
       loader: {

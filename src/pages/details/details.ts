@@ -31,12 +31,12 @@ export class DetailsPage {
   errorMessage: any;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public apiProvider: ApiProvider, 
-    public translate: TranslateService, 
-    public modalCtrl: ModalController ) {
-    
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public apiProvider: ApiProvider,
+    public translate: TranslateService,
+    public modalCtrl: ModalController) {
+
   }
 
   getDetails(product) {
@@ -45,11 +45,13 @@ export class DetailsPage {
       this.details = data["d"];
       this.loading = false;
       this.error = false;
-      
-      this.apiProvider.getIngredients(this.details.Ingredients).subscribe(data => {
-        console.log("details.ts: getDetails", data["d"]);
-        this.ingredients = data["d"].Ingredients;
-      });
+
+      if (this.details.Ingredients) {
+        this.apiProvider.getIngredients(this.details.Ingredients).subscribe(data => {
+          console.log("details.ts: getDetails", data["d"]);
+          this.ingredients = data["d"].Ingredients;
+        });
+      }
 
     }, error => {
       console.log("getDetails() - error", error);
@@ -63,7 +65,7 @@ export class DetailsPage {
     let loginModal = this.modalCtrl.create(ModalLoginPage);
     loginModal.onDidDismiss(data => {
       console.log(data);
-      if(data && data.reload){
+      if (data && data.reload) {
         this.apiProvider.setUserUnauthenticated(true)
         this.isAuthenticated = true;
       }
@@ -71,16 +73,16 @@ export class DetailsPage {
     loginModal.present();
   }
 
-  showIngredientDetails(ingredient){
+  showIngredientDetails(ingredient) {
     console.log(ingredient);
     this.navCtrl.push(DetailsIngredientPage, ingredient);
   }
 
-  order(details){
-    if(this.isAuthenticated){
+  order(details) {
+    if (this.isAuthenticated) {
       this.navCtrl.push(OrderPage, details);
     } else {
-        this.presentLoginModal();
+      this.presentLoginModal();
     }
   }
 
@@ -88,13 +90,13 @@ export class DetailsPage {
   //  console.log('ionViewDidLoad DetailsPage');
   //}
 
-  ionViewWillEnter(){ // will always reload the view compared to ionViewDidLoad
+  ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
     console.log('ionViewWillEnter DetailsPage', this.apiProvider.userIsAuthenticated());
     //console.log("just checking", this.apiProvider.userIsAuthenticated());
-    var params = this.navParams.data; 
+    var params = this.navParams.data;
     this.getDetails(params.product);
 
-    if(this.apiProvider.userIsAuthenticated()){
+    if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
     } else {
       this.isAuthenticated = false;

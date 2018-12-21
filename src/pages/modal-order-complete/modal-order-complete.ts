@@ -1,5 +1,6 @@
+import { AccountPage } from './../account/account';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, ViewController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the ModalOrderCompletePage page.
@@ -15,11 +16,14 @@ import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angul
 })
 export class ModalOrderCompletePage {
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public appCtrl: App, public viewCtrl: ViewController, public navParams: NavParams) {
   }
 
   goToAccount(){
     console.log("til mine leveringer");
+    // clear navigation and go to account page
+    this.navCtrl.popToRoot(); // TODO make work in modals
+    this.appCtrl.getRootNav().push(AccountPage);
   }
 
   dismiss(){

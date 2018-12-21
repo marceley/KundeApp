@@ -77,10 +77,21 @@
     }
 }
 
-.details-cta-bg {
+// Make bottom toolbar red on so buttons are red
+.footer .toolbar--action .toolbar-background,
+.footer .toolbar--action .toolbar-background-ios {
     background-color: $c-action-bright;
+}
+.footer .toolbar--white .toolbar-background,
+.footer .toolbar--white .toolbar-background-ios {
+    background-color: #fff;
+}
+
+// Make bottom toolbar red on so buttons are red
+.toolbar-ios.no-padding  {
     padding: 0;
 }
+
 .details-cta {
     font-size: 18px;
     display: block;
@@ -89,7 +100,7 @@
     appearance: none;
     color: #fff;
     text-align: center;
-    background-color: $c-action-bright;
+    background-color: transparent;
     line-height: 2;
     padding: 0;
     margin: 0;
