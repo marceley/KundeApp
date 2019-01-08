@@ -64,7 +64,7 @@
           <ul>
             <li *ngFor="let chef of details?.Chefs" ion-item (click)="showChef(chef)">
               <div class="mealbox__chef-image" item-start>
-                <img-loader src="{{chef.Image}}" useImg="true" spinner="false"></img-loader>
+                <img src="{{chef.Image}}" />
               </div>
               <div class="mealbox__chef-name">{{chef.Name}}</div>
               <div class="mealbox__chef-title">{{chef.Title}}</div>

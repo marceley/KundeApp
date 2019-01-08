@@ -50,9 +50,4 @@ export class BoxesPage {
     this.getBoxes();   
   }
 
-  //ionViewWillEnter() {
-  //  console.log('ionViewWillEnter BoxesPage');
-  //  this.getBoxes();
-  //}
-
 }

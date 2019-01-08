@@ -41,8 +41,8 @@
     &-price {
         text-align: right;
         font-size: 16px;
-        font-weight: bold;
-        color: $c-text-dark;
+        font-weight: 500;
+        color: $c-theme-light;
         position: absolute;
         right: 16px;
         bottom: 5px;
@@ -50,7 +50,7 @@
     &-price-not-positioned {
         text-align: right;
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 500;
         color: $c-text-dark;
     }
     &-count {
@@ -145,4 +145,15 @@
 
 .tab-button-text {
     font-family: $font-family-standard;
+}
+
+.zEWidget-launcher {
+    bottom: calc(55px + env(safe-area-inset-bottom)) !important;
+}
+
+.zEWidget-webWidget {
+    &--active {
+        top: env(safe-area-inset-top) !important;
+        height: calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    }
 }

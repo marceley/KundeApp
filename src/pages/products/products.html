@@ -17,7 +17,7 @@
     <ion-list>
         <ion-item *ngFor="let product of products" text-wrap (click)="showDetails(product)"> 
           <div class="list-image" item-start>
-              <img-loader class="tile-image" src="{{product.Image}}" useImg="true" spinner="false"></img-loader>
+              <img class="tile-image" src="{{product.Image}}" />
             </div>
             <div class="list-name">{{product.Name}}</div>
             <div class="list-subtitle">{{product.SubTitle}}</div>

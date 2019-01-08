@@ -21,7 +21,7 @@
       <ion-list-header>{{category.Name}}</ion-list-header>
       <ion-item class="list-item" *ngFor="let product of category.Products" (click)="showDetails(product)">
         <div class="list-image" item-start>
-          <img-loader class="tile-image" src="{{product.Image}}" useImg="true" spinner="false"></img-loader>
+            <img class="tile-image" src="{{product.Image}}" />
         </div>
         <h2 class="list-header">{{product.Name}}</h2>
         <div class="list-subtitle">{{product.SubTitle}}</div>

@@ -20,7 +20,7 @@
 
   <div ion-list *ngIf="details">
     <div class="details-image">
-      <img-loader src="{{details?.ImageUri}}" useImg="true" spinner="false"></img-loader>
+      <img src="{{details?.ImageUri}}" />
       <h1 class="details-header">{{ details?.Name }}</h1>
     </div>
 

@@ -29,7 +29,7 @@
       <ion-item-sliding #item *ngFor="let subscription of subscriptions">
         <ion-item class="list-item list-item--pushdown" text-wrap>
           <div class="list-image" item-start>
-            <img-loader class="tile-image" src="{{subscription.Image}}" useImg="true" spinner="false"></img-loader>
+            <img class="tile-image" src="{{subscription.Image}}" />
           </div>
           <h2 class="list-header">{{subscription.Title}}</h2>
           <div class="list-subtitle">{{subscription.PersonsDaysText}}</div>
@@ -50,7 +50,7 @@
       <ion-item-sliding #item *ngFor="let line of group.lines">
         <ion-item class="list-item list-item--pushdown" *ngIf="!line.Fee" text-wrap>
           <div class="list-image" item-start>
-            <img-loader class="tile-image" src="{{line.ImageUri}}" useImg="true" spinner="false"></img-loader>
+            <img class="tile-image" src="{{line.ImageUri}}" />
           </div>
           <h2 class="list-header">{{line.Description}}</h2>
           <div class="list-subtitle">{{line.SubTitle}}</div>
@@ -85,10 +85,12 @@
   </div>
 
   <div padding>
-    <p>Build 0.0.5 (7)</p>
+    <p>Build 0.0.5 (16)</p>
     <p>Culture from server: {{rootData?.d.Culture}}</p>
     <p>Device locale: {{deviceLocale}}</p>
     <p>Device language: {{deviceLanguage}}</p>
+    <p>Device platform: {{devicePlatform}}</p>
+    <p>Device has cordova: {{deviceHasCordova}}</p>
   </div>
 
 </ion-content>

@@ -8,8 +8,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { TabsPageModule } from '../pages/tabs/tabs.module';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { Globalization } from '@ionic-native/globalization';
 
+import { Firebase } from "@ionic-native/firebase";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FirebaseMessaging } from "@ionic-native/firebase-messaging";
+
+import { TabsPageModule } from '../pages/tabs/tabs.module';
 import { NowPageModule  } from './../pages/now/now.module';
 import { BoxesPageModule } from '../pages/boxes/boxes.module';
 import { MealboxesPageModule } from '../pages/mealboxes/mealboxes.module';
@@ -29,15 +37,21 @@ import { RecipePageModule } from './../pages/recipe/recipe.module';
 import { ModalSelectPersonsPageModule } from './../pages/modal-select-persons/modal-select-persons.module';
 import { ModalOrderCompletePageModule } from './../pages/modal-order-complete/modal-order-complete.module';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { Globalization } from '@ionic-native/globalization';
-
 import { ApiProvider } from '../providers/api/api';
+import { FcmProvider } from '../providers/fcm/fcm';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const firebase = {
+  apiKey: "AIzaSyBGbxWAod0mjq7-1VENoUyfDZHNaexmHsg",
+  authDomain: "aarstiderne-96d75.firebaseapp.com",
+  databaseURL: "https://aarstiderne-96d75.firebaseio.com",
+  projectId: "aarstiderne-96d75",
+  storageBucket: "aarstiderne-96d75.appspot.com",
+  messagingSenderId: "387341916630"
+ }
 
 @NgModule({
   declarations: [
@@ -52,6 +66,8 @@ export function createTranslateLoader(http: HttpClient) {
       backButtonText: '',
       swipeBackEnabled: true
     }),
+    AngularFireModule.initializeApp(firebase), 
+    AngularFirestoreModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -88,7 +104,10 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     Globalization,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiProvider
+    ApiProvider,
+    Firebase,
+    FirebaseMessaging,
+    FcmProvider
   ]
 })
 export class AppModule {}

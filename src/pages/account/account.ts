@@ -1,3 +1,7 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
+import { Platform, ToastController } from 'ionic-angular';
+import { tap } from 'rxjs/operators';
+
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { SettingsPage } from '../settings/settings';
 import { ApiProvider } from './../../providers/api/api';
@@ -31,13 +35,22 @@ export class AccountPage {
   rootData: any;
   deviceLocale: any;
   deviceLanguage: any;
+  devicePlatform: any;
+  deviceHasCordova: any;
 
   loading: Boolean = true;
 
   error: Boolean = true;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public apiProvider: ApiProvider) {
+  constructor(
+    public fcm: FcmProvider,
+    public toastCtrl: ToastController,
+    public platform: Platform, 
+    public navCtrl: NavController, 
+    public modalCtrl: ModalController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider) {
 
   }
 
@@ -117,6 +130,9 @@ export class AccountPage {
   }
 
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
+    this.devicePlatform = this.platform.platforms().toString();
+    this.deviceHasCordova = window.hasOwnProperty('cordova');
+    
     this.apiProvider.getLocaleName().then(locale => {
       this.deviceLocale = locale.value;
     }).catch(e => console.log(e));
@@ -130,6 +146,34 @@ export class AccountPage {
       this.isAuthenticated = true;
       this.getSales();
     }
+
+
+
+
+    if (this.platform.is("cordova")) {
+      console.log("Is Cordova so will try to init Firebase push");
+
+      //TODO: fix android bug: https://angularfirebase.com/lessons/ionic-native-with-firebase-fcm-push-notifications-ios-android/
+
+      // Get a FCM token
+      this.fcm.getToken();
+ 
+      // Listen to incoming messages
+      this.fcm.listenToNotifications().pipe(
+        tap(msg => {
+          // show a toast
+          const toast = this.toastCtrl.create({
+            message: msg.body,
+            duration: 3000
+          });
+          toast.present();
+        })
+      ).subscribe();
+    }
+
+
+
+
   }
 
 }

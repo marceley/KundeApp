@@ -18,7 +18,12 @@ export class TabsPage {
   tab4Root = ExtrasPage;
   tab5Root = AccountPage;
 
-  constructor(public apiProvider: ApiProvider) {
+  constructor(
+    public apiProvider: ApiProvider) {
     this.apiProvider.tryAutoLogin();
+  }
+
+  ionViewDidLoad(){
+    
   }
 }

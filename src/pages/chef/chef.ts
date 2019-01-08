@@ -26,8 +26,8 @@ export class ChefPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter ChefPage');
+  ionViewDidLoad(){
+    console.log('ionViewDidLoad ChefPage');
 
     var chef = this.navParams.get("chef");
 

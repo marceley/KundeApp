@@ -21,7 +21,7 @@
   <ion-list>
     <ion-item class="list-item" text-wrap *ngFor="let category of categories" (click)="showProducts(category)"> 
       <div class="list-image" item-start>
-        <img-loader class="tile-image" src="{{category.Image}}" useImg="true" spinner="false"></img-loader>
+        <img class="tile-image" src="{{category.Image}}" />
       </div>
       <div class="list-name-large">{{category.Name}}</div>
       <div class="list-count" item-end>{{category.Products.length}}</div>

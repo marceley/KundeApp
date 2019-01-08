@@ -18,15 +18,16 @@ page-now {
             display: block;
             min-height: 150px; //calc(100vw - (7 * 1rem));
             flex: 1 0 auto;
-            img {
-                display: block;
-                margin: 0 auto 1rem;
-                min-height: 150px; //calc(100vw - (7 * 1rem));
-            }
+            height: auto !important;
+            //img {
+            //    display: block;
+            //    margin: 0 auto 1rem;
+            //    min-height: 150px; //calc(100vw - (7 * 1rem));
+            //}
         }
 
         &-name {
-
+            margin-top: 1em;
         }
 
         &-price {

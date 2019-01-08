@@ -47,7 +47,7 @@ export class ExtrasPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewWillEnter ExtrasPage');
+    console.log('ionViewDidLoad ExtrasPage');
     this.getExtras();
   }
 

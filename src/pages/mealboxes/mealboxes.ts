@@ -87,7 +87,7 @@ export class MealboxesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewWillEnter MealboxesPage');
+    console.log('ionViewDidLoad MealboxesPage');
     this.getMealboxes();
   }
 
