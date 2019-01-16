@@ -115,6 +115,7 @@ export class AccountPage {
         this.apiProvider.setUserUnauthenticated(true)
         this.isAuthenticated = true;
         this.getSales();
+        this.initPush();
       }
     });
     loginModal.present();
@@ -132,29 +133,7 @@ export class AccountPage {
     });
   }
 
-  ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
-
-    this.devicePlatform = this.platform.platforms().toString();
-    this.deviceHasCordova = window.hasOwnProperty('cordova');
-    
-    this.apiProvider.getLocaleName().then(locale => {
-      this.deviceLocale = locale.value;
-    }).catch(e => console.log(e));
-    this.apiProvider.getPreferredLanguage().then(lang => {
-      console.log(lang);
-      this.deviceLanguage = lang.value;
-    }).catch(e => console.log(e));
-
-    this.getRoot();
-
-    if (this.apiProvider.userIsAuthenticated()) {
-      this.isAuthenticated = true;
-      this.getSales();
-    }
-
-
-
-
+  initPush(){
     if (this.platform.is("cordova")) {
       console.log("Is Cordova so will try to init Firebase push");
 
@@ -174,9 +153,28 @@ export class AccountPage {
           toast.present();
         })
       ).subscribe();
+
     }
+  }
+  ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
 
+    this.devicePlatform = this.platform.platforms().toString();
+    this.deviceHasCordova = window.hasOwnProperty('cordova');
+    
+    this.apiProvider.getLocaleName().then(locale => {
+      this.deviceLocale = locale.value;
+    }).catch(e => console.log(e));
+    this.apiProvider.getPreferredLanguage().then(lang => {
+      console.log(lang);
+      this.deviceLanguage = lang.value;
+    }).catch(e => console.log(e));
 
+    this.getRoot();
+
+    if (this.apiProvider.userIsAuthenticated()) {
+      this.isAuthenticated = true;
+      this.getSales();
+    }
 
 
   }

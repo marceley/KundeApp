@@ -89,6 +89,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="3.0.0" />
     <allow-navigation href="http://192.168.0.42:8101" sessionid="e2419924" />
     <allow-navigation href="about:*" />
-    <engine name="ios" spec="^4.5.5" />
     <plugin name="cordova-plugin-firebase" spec="2.0.5" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>

@@ -185,7 +185,7 @@ export class ApiProvider {
             this.addUserToStorage(this.username, this.password, apiUser["d"]);
             this.isAuthenticated = true;
           } else {
-            console.log("- autologin(): Sorry! Aser is NOT authenticated...", apiUser);
+            console.log("- autologin(): Sorry! User is NOT authenticated...", apiUser);
             this.removeAuthorizationHeaderValue();
             this.removeUserFromStorage();
             this.isAuthenticated = false;

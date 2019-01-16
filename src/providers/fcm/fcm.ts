@@ -33,16 +33,13 @@ export class FcmProvider {
   // Save the token to firestore
   private saveTokenToFirestore(token) {
     if(!token) return;
+    const devicesRef = this.afs.collection("devices");
+    const docData = {
+      token,
+      userId: 'marc' // TODO: get NAV ID?
+    };
+    return devicesRef.doc(token).set(docData);
 
-    return this.api.getUserProps().then(props => {
-      console.log("props", props);
-      const devicesRef = this.afs.collection("devices");
-      const docData = {
-        token,
-        userId: 'marc' // TODO: get NAV ID?
-      };
-      return devicesRef.doc(token).set(docData);
-    });
   }
 
   // Listen to incoming FCM messages
