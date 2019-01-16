@@ -56,10 +56,12 @@ export class AccountPage {
 
   getSales() {
     this.apiProvider.getSales().subscribe(data => {
-      console.log("account getSales()", data["d"]);
+      //console.log("account getSales()", data["d"]);
 
       const lines = data["d"].Lines;
-      console.log(lines);
+      
+      //console.log(lines);
+      
       if (lines.length > 0) {
 
         this.lines = lines;
@@ -95,6 +97,7 @@ export class AccountPage {
   }
 
   deleteLine(line) {
+    console.log("#", line);
     this.apiProvider.deleteLine(line).subscribe(data => {
       this.getSales();
     });
@@ -130,6 +133,7 @@ export class AccountPage {
   }
 
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
+
     this.devicePlatform = this.platform.platforms().toString();
     this.deviceHasCordova = window.hasOwnProperty('cordova');
     
@@ -142,6 +146,7 @@ export class AccountPage {
     }).catch(e => console.log(e));
 
     this.getRoot();
+
     if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
       this.getSales();

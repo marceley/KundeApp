@@ -23,8 +23,7 @@
   <div>
     <ion-list>
       <ion-list-header>Pushbeskeder</ion-list-header>
-      <ion-item>Push list<ion-toggle [(ngModel)]="test"></ion-toggle>
-      </ion-item>
+      <ion-item *ngFor="let group of groups">{{group|json}} Push list<ion-toggle [(ngModel)]="test"></ion-toggle></ion-item>
     </ion-list>
   </div>
 

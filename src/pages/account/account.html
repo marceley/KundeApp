@@ -25,54 +25,54 @@
       <button ion-item (click)="getSettings()">Indstillinger</button>
     </ion-list>
 
-    <ion-list *ngIf="subscriptions">
-      <ion-item-sliding #item *ngFor="let subscription of subscriptions">
-        <ion-item class="list-item list-item--pushdown" text-wrap>
+    <div *ngIf="subscriptions?.length > 0">
+      <p padding>Du har ikke nogen leveringer i de næste 5 uger, men du har følgende aktive abonnementer</p>
+      <ion-list-header>Dine aktive abonnementer</ion-list-header>
+      <ion-list>
+        <ion-item class="list-item list-item--pushdown" text-wrap #item *ngFor="let subscription of subscriptions">
           <div class="list-image" item-start>
             <img class="tile-image" src="{{subscription.Image}}" />
           </div>
           <h2 class="list-header">{{subscription.Title}}</h2>
           <div class="list-subtitle">{{subscription.PersonsDaysText}}</div>
           <div class="list-subtitle" text-lowercase>{{subscription.FrequencyText}}</div>
-        </ion-item>
-        <ion-item-options side="right">
           <button ion-button color="danger" (click)="deleteLine(subscription.Id)">Fjern</button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+        </ion-item>
+      </ion-list>
+    </div>
 
-    <div *ngIf="lines?.length === 0" padding>
+    <div *ngIf="groups?.length === 0" padding>
       Du har ingen bestillinger
     </div>
 
-    <ion-list *ngFor="let group of groups">
-      <ion-list-header>{{group.date | date }}</ion-list-header>
-      <ion-item-sliding #item *ngFor="let line of group.lines">
-        <ion-item class="list-item list-item--pushdown" *ngIf="!line.Fee" text-wrap>
-          <div class="list-image" item-start>
-            <img class="tile-image" src="{{line.ImageUri}}" />
-          </div>
-          <h2 class="list-header">{{line.Description}}</h2>
-          <div class="list-subtitle">{{line.SubTitle}}</div>
-          <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
-          <div class="list-price">
-            <span class="discount-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
-            <span class="price">{{line.PriceDetail.NormalPrice}}</span>
-          </div>
-        </ion-item>
-        <ion-item class="list-item" *ngIf="line.Fee">
-          <div class="list-header">{{line.Description}}</div>
-          <div class="list-price-not-positioned" item-end>{{line.LinePrice}}</div>
-        </ion-item>
-        <ion-item-options side="right" *ngIf="!line.IsReadOnly">
-          <button ion-button color="danger" (click)="deleteLine(line)">Fjern</button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-
+    <div *ngIf="groups?.length > 0">
+      <ion-list-header>Dine kommende bestillinger</ion-list-header>
+      <ion-list *ngFor="let group of groups">
+        <ion-list-header>{{group.date | date }}</ion-list-header>
+        <ion-item-sliding #item *ngFor="let line of group.lines">
+          <ion-item class="list-item list-item--pushdown" *ngIf="!line.Fee" text-wrap>
+            <div class="list-image" item-start>
+              <img class="tile-image" src="{{line.ImageUri}}" />
+            </div>
+            <h2 class="list-header">{{line.Description}}</h2>
+            <div class="list-subtitle">{{line.SubTitle}}</div>
+            <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
+            <div class="list-price">
+              <span class="discount-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
+              <span class="price">{{line.PriceDetail.NormalPrice}}</span>
+            </div>
+          </ion-item>
+          <ion-item class="list-item" *ngIf="line.Fee">
+            <div class="list-header">{{line.Description}}</div>
+            <div class="list-price-not-positioned" item-end>{{line.LinePrice}}</div>
+          </ion-item>
+          <ion-item-options side="right" *ngIf="!line.IsReadOnly">
+            <button ion-button color="danger" (click)="deleteLine(line)">Fjern</button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
   </div>
-
-  <!-- <div>User isAuthenticated?: {{isAuthenticated}}</div>-->
 
   <div *ngIf="!isAuthenticated" text-center>
     <p>[BACKGROUND-VIDEO]</p>

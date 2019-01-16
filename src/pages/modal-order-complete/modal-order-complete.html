@@ -5,10 +5,18 @@
   Ionic pages and navigation.
 -->
 
+<ion-header>
 
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
 
-<ion-content padding>
-Din bestilling er gået igennem.
-<button ion-button full (click)="goToAccount()">Gå til mine leveringer</button>
-<button ion-button full (click)="dismiss()" color="secondary">Luk</button>
+</ion-header>
+
+<ion-content class="content" padding>
+
+  <p>Din bestilling er gået igennem.</p>
+  <button ion-button full (click)="goToAccount()">Gå til mine leveringer</button>
+  <button ion-button full (click)="dismiss()" color="secondary">Luk</button>
+
 </ion-content>

@@ -23,6 +23,8 @@ export class SettingsPage {
 
   test: boolean = true;
 
+  groups: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
 
   }
@@ -30,12 +32,13 @@ export class SettingsPage {
   getPushMessages(){
     this.apiProvider.getPushMessages().subscribe(data => {
       console.log("getting pushes", data);
+      this.groups = data["d"];
     });
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad SettingsPage');
-    //this.getPushMessages(); // TODO: where to get token?
+    this.getPushMessages(); // TODO: where to get token?
   }
 
 }
