@@ -1,3 +1,4 @@
+import { ApiProvider } from './../api/api';
 import { AngularFirestore} from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Firebase } from '@ionic-native/firebase';
@@ -8,6 +9,7 @@ import { Platform } from 'ionic-angular';
 export class FcmProvider {
 
   constructor(
+    public api: ApiProvider,
     public firebaseNative: Firebase,
     public afs: AngularFirestore,
     private platform: Platform
@@ -31,12 +33,16 @@ export class FcmProvider {
   // Save the token to firestore
   private saveTokenToFirestore(token) {
     if(!token) return;
-    const devicesRef = this.afs.collection("devices");
-    const docData = {
-      token,
-      userId: 'testUser' // TODO: get NAV ID?
-    };
-    return devicesRef.doc(token).set(docData);
+
+    return this.api.getUserProps().then(props => {
+      console.log("props", props);
+      const devicesRef = this.afs.collection("devices");
+      const docData = {
+        token,
+        userId: 'marc' // TODO: get NAV ID?
+      };
+      return devicesRef.doc(token).set(docData);
+    });
   }
 
   // Listen to incoming FCM messages

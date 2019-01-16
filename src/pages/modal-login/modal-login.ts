@@ -30,7 +30,7 @@ export class ModalLoginPage {
     this.apiProvider.login(this.username, this.password).subscribe(apiUser => {
       if(apiUser["d"].Status === "Authenticated"){
         console.log("YES!! user authenticated!", apiUser);
-        this.apiProvider.addUserToStorage(this.username, this.password);
+        this.apiProvider.addUserToStorage(this.username, this.password, apiUser["d"]);
         this.apiProvider.setUserUnauthenticated(true);
         this.viewCtrl.dismiss({ reload: true });
       } else {

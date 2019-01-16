@@ -28,8 +28,8 @@ export class ApiProvider {
 
   proxyApiUrl = 'https://aarsmobileapi.herokuapp.com';
   aarsApiUrl = 'https://mobileapi.aarstiderne.com';
-  //apiVersion: String = 'v7';
-  apiVersion: String = 'v6-shape';
+  apiVersion: String = 'v7';
+  //apiVersion: String = 'v6-shape';
 
   username: string = "";
   password: string = "";
@@ -149,9 +149,24 @@ export class ApiProvider {
     this.storage.remove("user");
   }
 
-  addUserToStorage(username, password) {
+  addUserToStorage(username, password, props) {
     this.storage.set("user", { username: username, password: password });
+    this.storage.set("userProps", props);
+    /*
+      Billeder: "images"
+      CId: "100064490"
+      Id: "100064490"
+      MyRecipes: "myrecipies"
+      Name: "Marc Eley"
+      Ordre: "sales"
+      Status: "Authenticated"
+  */
   }
+
+  getUserProps() {
+    return this.storage.get('userProps');
+  }
+
 
   fakeUser() {
     console.warn("FAKING USER LOGIN!")
@@ -167,7 +182,7 @@ export class ApiProvider {
         this.login(user.username, user.password).subscribe(apiUser => {
           if (apiUser["d"].Status === "Authenticated") {
             console.log("- autologin(): user is authenticated...", JSON.stringify(apiUser));
-            this.addUserToStorage(this.username, this.password);
+            this.addUserToStorage(this.username, this.password, apiUser["d"]);
             this.isAuthenticated = true;
           } else {
             console.log("- autologin(): Sorry! Aser is NOT authenticated...", apiUser);
