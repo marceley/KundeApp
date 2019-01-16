@@ -28,6 +28,8 @@ export class ApiProvider {
 
   proxyApiUrl = 'https://aarsmobileapi.herokuapp.com';
   aarsApiUrl = 'https://mobileapi.aarstiderne.com';
+  //apiVersion: String = 'v7';
+  apiVersion: String = 'v6-shape';
 
   username: string = "";
   password: string = "";
@@ -48,31 +50,31 @@ export class ApiProvider {
   }
 
   getRoot() {
-    return this.http.get(this.proxyApiUrl + '/v7/root', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/root', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl, 'Accept-Language': 'da-DK;q=1, en-DK;q=0.9' })
     });
   }
 
   getNewitems() {
-    return this.http.get(this.proxyApiUrl + '/v7/products/newitems', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/products/newitems', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getBoxes() {
-    return this.http.get(this.proxyApiUrl + '/v7/products/boxes', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/products/boxes', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getMealboxes() {
-    return this.http.get(this.proxyApiUrl + '/v7/products/families', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/products/families', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getExtras() {
-    return this.http.get(this.proxyApiUrl + '/v7/products/extra', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/products/extra', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
@@ -99,20 +101,20 @@ export class ApiProvider {
   }
 
   getAddOnTypes() {
-    return this.http.get(this.proxyApiUrl + '/v7/products/addontypes', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/products/addontypes', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   placeOrderCombined(orders) {
-    var url = this.proxyApiUrl + "/v7/sales/createmultiple";
+    var url = this.proxyApiUrl + '/' + this.apiVersion + '/sales/createmultiple';
     return this.http.post(url, orders, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   placeOrder(order) {
-    var url = this.proxyApiUrl + "/v7/sales";
+    var url = this.proxyApiUrl + '/' + this.apiVersion + '/sales';
     //console.log(">>>", order, url);
     return this.http.post(url, order, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
@@ -192,7 +194,7 @@ export class ApiProvider {
   login(username, password) {
     console.log("Running api.ts:login()");
     this.setAuthorizationHeaderValue(username, password);
-    return this.http.get(this.proxyApiUrl + '/v7/user', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/user', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
@@ -212,37 +214,37 @@ export class ApiProvider {
   }
 
   getSales() {
-    return this.http.get(this.proxyApiUrl + '/v7/sales', {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/sales', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   deleteLine(line) {
-    return this.http.delete(this.proxyApiUrl + '/v7/sales/' + line.LineId, {
+    return this.http.delete(this.proxyApiUrl + '/' + this.apiVersion + '/sales/' + line.LineId, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   calculatePrice(products) {
-    return this.http.post(this.proxyApiUrl + '/v7/sales/calculateprice', products, {
+    return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/sales/calculateprice', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getAddOns(itemNo, unitCode) {
-    return this.http.get(this.proxyApiUrl + '/v7/addonsbyid/' + itemNo + "/" + unitCode, {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/addonsbyid/' + itemNo + "/" + unitCode, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getMealboxOrderingOptions(products) {
-    return this.http.post(this.proxyApiUrl + '/v7/sales/multipleorderingoptionscombined', products, {
+    return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/sales/multipleorderingoptionscombined', products, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
-  getHasSubscriptions(){
-    return this.http.get(this.proxyApiUrl + '/v7/sales/hassubscriptions', {
+  getHasSubscriptions() {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/sales/hassubscriptions', {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
@@ -268,25 +270,25 @@ export class ApiProvider {
   private icloudToken: string = "B8FB4A8BFBCA876665FAFBFDFC213B11474FCB807D9CF32412D8F2A9BEB2D006"; //"7CD4F20C376420B1670CCC8FC7CDF81CC43B79B99D94A492349C61760863EE7C";
 
   getPushMessages() {
-    return this.http.get(this.proxyApiUrl + '/v7/pushmessagelist/' + this.icloudToken, {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessagelist/' + this.icloudToken, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   getPushMessageGroups() {
-    return this.http.get(this.proxyApiUrl + "/v7/pushmessagelist/" + this.icloudToken, {
+    return this.http.get(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessagelist/' + this.icloudToken, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   setPushMessage(type) {
-    return this.http.post(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
+    return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
 
   deletePushMessage(type) {
-    this.http.delete(this.proxyApiUrl + "/v7/pushmessages/" + type + "/" + this.icloudToken, {
+    this.http.delete(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, {
       headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
     });
   }
