@@ -14,7 +14,7 @@
 
 
 <ion-content>
-  
+
   <div class="change-password" ion-item no-lines>
     Skift kodeord
     <button ion-button color="danger" item-end>Rediger</button>
@@ -23,12 +23,14 @@
   <div>
     <ion-list *ngFor="let group of groups">
       <ion-list-header>{{group?.Title}}</ion-list-header>
+
+
       <ion-item *ngFor="let subscription of group.Subscriptions">
-          <div>{{subscription | json}} </div>
+        <ion-label>
           <h5>{{subscription.Title}}</h5>
-          <p>{{subscription.Description}} [{{subscription.Subscribed}}] [{{subscription.Type}}]</p>
-        
-        <ion-toggle [(ngModel)]="test"></ion-toggle>
+          <p *ngIf="subscription.Description" >{{subscription.Description}}</p>
+        </ion-label>
+        <ion-toggle [(ngModel)]="subscription.Subscribed"></ion-toggle>
       </ion-item>
     </ion-list>
   </div>

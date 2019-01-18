@@ -31,7 +31,7 @@ export class SettingsPage {
 
   getPushMessages(){
     this.apiProvider.getPushMessages().subscribe(data => {
-      console.log("getting pushes", data);
+      console.log("---getting pushes", data["d"][0].Subscriptions);
       this.groups = data["d"];
     });
   }
