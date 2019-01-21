@@ -11,6 +11,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Globalization } from '@ionic-native/globalization';
+import { Camera } from '@ionic-native/camera';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 import { Firebase } from "@ionic-native/firebase";
 import { AngularFireModule } from "@angular/fire";
@@ -107,7 +110,12 @@ const firebase = {
     ApiProvider,
     Firebase,
     FirebaseMessaging,
-    FcmProvider
+    FcmProvider,
+    Camera,
+    FileTransfer,
+    //FileUploadOptions,
+    FileTransferObject,
+    File
   ]
 })
 export class AppModule {}

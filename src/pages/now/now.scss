@@ -17,11 +17,13 @@ page-now {
         &-image {
             flex: 1 0 auto;
             img  {
+                min-width: 151px;
+                min-height: 151px;
                 display: block;
                 height: auto;
                 width: 440px;
                 margin: 1rem auto;
-                }
+            }
         }
 
         &-name {

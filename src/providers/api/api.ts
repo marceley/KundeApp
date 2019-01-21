@@ -42,6 +42,16 @@ export class ApiProvider {
     console.log('Hello ApiProvider Provider');
   }
 
+  getAuth(){
+    return this.auth;
+  }
+  getProxyApiUrl(){
+    return this.proxyApiUrl;
+  }
+  getAarsApiUrl (){
+    return this.aarsApiUrl;
+  }
+
   getLocaleName() {
     return this.globalization.getLocaleName();
   }
@@ -279,7 +289,24 @@ export class ApiProvider {
     });
   }
 
+  getRecipeUserImages(url) {
+    var url = url.replace(this.aarsApiUrl, this.proxyApiUrl);
+    return this.http.get(url, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
 
+  uploadRecipeImage(recipeId) {
+    return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/image/' + recipeId, {
+      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+    });
+  }
+
+  getUploadRecipeUrl(recipeId) {
+    return this.proxyApiUrl + '/' + this.apiVersion + '/image/' + recipeId;
+  }
+
+  
 
   // icoud token https://ionicframework.com/docs/native/cloud-settings/
   private icloudToken: string = "B8FB4A8BFBCA876665FAFBFDFC213B11474FCB807D9CF32412D8F2A9BEB2D006"; //"7CD4F20C376420B1670CCC8FC7CDF81CC43B79B99D94A492349C61760863EE7C";

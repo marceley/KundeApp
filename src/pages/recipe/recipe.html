@@ -34,10 +34,32 @@
     <ion-list>
       <ion-list-header>Indkøbsliste</ion-list-header>
       <ion-item *ngFor="let ingredient of details.Ingredients" text-wrap>
-        {{ ingredient.Amount }} {{ ingredient.Name }} <span *ngIf="ingredient.Note">({{ ingredient.Note }})</span>
+        {{ ingredient.Amount }} {{ ingredient.Unit }} {{ ingredient.Name }} <span *ngIf="ingredient.Note">({{
+          ingredient.Note }})</span>
       </ion-item>
     </ion-list>
 
+  </div>
+
+  <div style="word-break: break-all">{{uploadErrorString}}</div>
+
+  <ion-item>
+    <h4>Image Preview</h4>
+    <img [src]="imageFileName" *ngIf="imageFileName" alt="Ionic File" width="300" />
+  </ion-item>
+
+
+  <div class="camera">
+    <ion-list-header>Andres billeder</ion-list-header>
+    <button ion-button (click)="takePhoto()">Tag billede</button>
+    <button ion-button (click)="selectPhotoFromLibrary()">Vælg billede</button>
+    <p><img *ngIf="image" [src]="image" width="25%" height="auto"></p>
+  </div>
+
+  <div class="userImages" *ngIf="userImages">
+    <div class="grid-images">
+      <img [src]="image" *ngFor="let image of userImages" width="50%" height="auto" />
+    </div>
   </div>
 
 </ion-content>
