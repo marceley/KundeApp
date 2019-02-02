@@ -55,7 +55,10 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "cordova-plugin-camera": "~4.0.3",
+    "cordova-plugin-file-transfer": "~1.7.1",
+    "cordova-android": "~7.1.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.1",
@@ -79,7 +82,8 @@
       "cordova-plugin-file-transfer": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
