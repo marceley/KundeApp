@@ -68,7 +68,7 @@ export class RecipePage {
 
   selectPhotoFromLibrary() {
     const options: CameraOptions = {
-      quality: 50,
+      quality: 1,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -98,14 +98,16 @@ export class RecipePage {
 
     let options: FileUploadOptions = {
       fileKey: 'image',
-      fileName: 'image.jpg',
-      chunkedMode: false,
-      mimeType: "image/jpeg",
+      //fileName: 'image.jpg',
+      //chunkedMode: false,
+      //mimeType: "image/jpeg",
       headers: {
+        "Accept": "application/json",
+        //"Accept-Language": "da-DK;q=1, en-DK;q=0.9",
         "Authorization": this.apiProvider.getAuth(), 
         "Target-URL": this.apiProvider.getAarsApiUrl(),
-        "Connection": "close",
-        "Content-type": "multipart/form-data"
+        //"Connection": "close",
+        //"Content-Type": "multipart/form-data; boundary=Boundary+15C7DAC7AFA65873" //"multipart/form-data"
       }
     }
 
@@ -125,7 +127,7 @@ export class RecipePage {
         console.log("Error uploading", JSON.stringify(err));
         this.uploadErrorString = JSON.stringify(err);
         loader.dismiss();
-        this.presentToast(err);
+        this.presentToast(err.Text);
       });
   }
 

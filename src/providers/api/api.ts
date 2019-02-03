@@ -180,12 +180,12 @@ export class ApiProvider {
 
   fakeUser() {
     console.warn("FAKING USER LOGIN!")
-    this.storage.set('user', { "username": "mae@aarstiderne.com", "password": "gulerod" });
+    this.storage.set('user', { "username": "mae@aarstiderne.com", "password": "Jukilo90" });
   }
 
   tryAutoLogin() {
     console.log("Running autologin()");
-    //this.fakeUser();
+    this.fakeUser();
     this.storage.get('user').then(user => {
       if (user && user.username && user.password) {
         console.log("- autologin(): have user in storage...");
