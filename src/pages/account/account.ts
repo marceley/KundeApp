@@ -77,7 +77,7 @@ export class AccountPage {
       } else {
         this.apiProvider.getHasSubscriptions().subscribe(subscriptions => {
           this.subscriptions = subscriptions["d"];
-          console.log(this.subscriptions);
+          //console.log(this.subscriptions);
         }, e => {
           console.log(e);
         });
@@ -92,12 +92,12 @@ export class AccountPage {
   showDetails(line) {
     console.log(line);
     this.apiProvider.getDetails(line).subscribe(data => {
-      console.log(data["d"]);
+      //console.log(data["d"]);
     });
   }
 
   deleteLine(line) {
-    console.log("#", line);
+    //console.log("#", line);
     this.apiProvider.deleteLine(line).subscribe(data => {
       this.getSales();
     });

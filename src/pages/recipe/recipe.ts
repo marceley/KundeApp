@@ -54,9 +54,8 @@ export class RecipePage {
     this.camera.getPicture(options).then((imageData) => {
 
       this.image = normalizeURL(imageData);
-      console.log(this.image);
       this.imageURI = normalizeURL(imageData);
-      console.log(this.image, this.imageURI);
+      //console.log("Image", this.image, "ImageURI", this.imageURI);
 
       this.uploadFile();
 
@@ -68,7 +67,7 @@ export class RecipePage {
 
   selectPhotoFromLibrary() {
     const options: CameraOptions = {
-      quality: 1,
+      quality: 10,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -79,7 +78,7 @@ export class RecipePage {
 
       this.image = normalizeURL(imageData);
       this.imageURI = normalizeURL(imageData);
-      console.log(this.image, this.imageURI);
+      //console.log("HALLO", this.image, this.imageURI);
 
       this.uploadFile();
     }, (err) => {
@@ -97,25 +96,22 @@ export class RecipePage {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     let options: FileUploadOptions = {
-      fileKey: 'image',
-      //fileName: 'image.jpg',
-      //chunkedMode: false,
-      //mimeType: "image/jpeg",
+      chunkedMode: false,
+      fileName: "image.jpg",
       headers: {
-        "Accept": "application/json",
+        //"Accept": "application/json",
         //"Accept-Language": "da-DK;q=1, en-DK;q=0.9",
+        "Connection": "close",
         "Authorization": this.apiProvider.getAuth(), 
-        "Target-URL": this.apiProvider.getAarsApiUrl(),
-        //"Connection": "close",
-        //"Content-Type": "multipart/form-data; boundary=Boundary+15C7DAC7AFA65873" //"multipart/form-data"
+        "Content-Type": "multipart/form-data; boundary=Boundary+15C7DAC7AFA65873" //"multipart/form-data"
       }
     }
 
-    console.log("---", JSON.stringify(options.headers));
+    //console.log("---", JSON.stringify(options.headers));
 
-    console.log("---", this.details.Id);
+    //console.log("---", this.details.Id);
     var uploadUrl = this.apiProvider.getUploadRecipeUrl(this.details.Id)
-    console.log("...", uploadUrl);
+    //console.log("...", uploadUrl);
 
     fileTransfer.upload(this.imageURI, uploadUrl, options)
       .then((data) => {
@@ -128,6 +124,8 @@ export class RecipePage {
         this.uploadErrorString = JSON.stringify(err);
         loader.dismiss();
         this.presentToast(err.Text);
+      }).catch(err => {
+        this.uploadErrorString = "Catch: " + JSON.stringify(err);
       });
   }
 

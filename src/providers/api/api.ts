@@ -26,8 +26,8 @@ Accept-Language: da-DK;q=1, en-DK;q=0.9
 @Injectable()
 export class ApiProvider {
 
-  proxyApiUrl = 'https://aarsmobileapi.herokuapp.com';
   aarsApiUrl = 'https://mobileapi.aarstiderne.com';
+  proxyApiUrl = 'https://aarscors2.herokuapp.com/' + this.aarsApiUrl;
   apiVersion: String = 'v7';
   //apiVersion: String = 'v6-shape';
 
