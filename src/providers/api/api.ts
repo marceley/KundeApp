@@ -185,7 +185,7 @@ export class ApiProvider {
 
   tryAutoLogin() {
     console.log("Running autologin()");
-    this.fakeUser();
+    //this.fakeUser();
     this.storage.get('user').then(user => {
       if (user && user.username && user.password) {
         console.log("- autologin(): have user in storage...");
