@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ModalSelectPersonsPage } from './../modal-select-persons/modal-select-persons';
 import { DetailsMealboxPage } from './../details-mealbox/details-mealbox';
 import { ApiProvider } from './../../providers/api/api';
@@ -30,7 +31,13 @@ export class MealboxesPage {
   error: Boolean = false;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public apiProvider: ApiProvider, private storage: Storage) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController, 
+    public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider, 
+    private storage: Storage) {
   }
 
   getMealboxes() {
@@ -88,6 +95,7 @@ export class MealboxesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MealboxesPage');
+    this.fcmProvider.setScreenName("Mealboxes");
     this.getMealboxes();
   }
 

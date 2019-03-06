@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { DetailsPage } from './../details/details';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
@@ -24,7 +25,7 @@ export class BoxesPage {
   error: Boolean = false;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public fcmProvider: FcmProvider) {
   }
 
   showDetails(product) {
@@ -47,6 +48,7 @@ export class BoxesPage {
   }
   
   ionViewDidLoad(){
+    this.fcmProvider.setScreenName("Boxes");
     this.getBoxes();   
   }
 

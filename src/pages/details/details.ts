@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { DetailsIngredientPage } from './../details-ingredient/details-ingredient';
 import { OrderPage } from './../order/order';
@@ -34,6 +35,7 @@ export class DetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider,
     public translate: TranslateService,
     public modalCtrl: ModalController) {
 
@@ -92,6 +94,7 @@ export class DetailsPage {
 
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
     console.log('ionViewWillEnter DetailsPage', this.apiProvider.userIsAuthenticated());
+    this.fcmProvider.setScreenName("Details");
     //console.log("just checking", this.apiProvider.userIsAuthenticated());
     var params = this.navParams.data;
     this.getDetails(params.product);

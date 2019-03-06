@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { MealboxConfiguratorOptionsPage } from './../mealbox-configurator-options/mealbox-configurator-options';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
@@ -41,6 +42,7 @@ export class MealboxConfiguratorPage {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider,
     private storage: Storage) {
   }
 
@@ -179,6 +181,7 @@ export class MealboxConfiguratorPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter MealboxConfiguratorPage');
+    this.fcmProvider.setScreenName("MealboxConfigurator");
     this.details = this.navParams.data.details;
     console.log(">>>>", this.details);
     if (this.details && this.details.MealboxOptions) {

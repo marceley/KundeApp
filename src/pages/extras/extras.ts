@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -25,7 +26,7 @@ export class ExtrasPage {
   error: Boolean = false;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public fcmProvider: FcmProvider) {
   }
 
   getExtras() {
@@ -48,6 +49,7 @@ export class ExtrasPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ExtrasPage');
+    this.fcmProvider.setScreenName("Extras");
     this.getExtras();
   }
 

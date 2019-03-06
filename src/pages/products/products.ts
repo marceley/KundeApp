@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { Component } from '@angular/core';
 import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 
@@ -19,7 +20,7 @@ export class ProductsPage {
   title: any;
   products: any;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public fcmProvider: FcmProvider) {
   }
 
   showDetails(product) {
@@ -30,6 +31,7 @@ export class ProductsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductsPage');
+    this.fcmProvider.setScreenName("Products");
     this.title = this.navParams.data.category;
     this.products = this.navParams.data.products;    
   }

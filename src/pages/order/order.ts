@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { Component } from '@angular/core';
 import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -37,7 +38,13 @@ export class OrderPage {
 
   showSuccess: Boolean = false;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
+  constructor(
+    public appCtrl: App, 
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider, 
+    public fcmProvider: FcmProvider,
+    public translate: TranslateService) {
 
   }
 
@@ -110,6 +117,7 @@ export class OrderPage {
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter OrderPage', this.apiProvider.userIsAuthenticated());
+    this.fcmProvider.setScreenName("Order");
     if(this.apiProvider.userIsAuthenticated()){
       this.isAuthenticated = true;
       this.getOrderingOptions(this.navParams["data"]);

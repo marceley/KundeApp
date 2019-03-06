@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { AccountPage } from './../account/account';
 import { Component } from '@angular/core';
 import { IonicPage, App, NavController, ViewController, NavParams } from 'ionic-angular';
@@ -16,7 +17,12 @@ import { IonicPage, App, NavController, ViewController, NavParams } from 'ionic-
 })
 export class ModalOrderCompletePage {
 
-  constructor(public navCtrl: NavController, public appCtrl: App, public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public appCtrl: App, 
+    public viewCtrl: ViewController, 
+    public fcmProvider: FcmProvider,
+    public navParams: NavParams) {
   }
 
   goToAccount(){
@@ -33,6 +39,7 @@ export class ModalOrderCompletePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalOrderCompletePage');
+    this.fcmProvider.setScreenName("OrderCompleteModal");
   }
 
 }

@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
@@ -23,11 +24,13 @@ export class ChefPage {
   error: Boolean = false;
   errorMessage: String = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public fcmProvider: FcmProvider, public translate: TranslateService) {
   }
 
   ionViewDidLoad(){
     console.log('ionViewDidLoad ChefPage');
+
+    this.fcmProvider.setScreenName("Chef");
 
     var chef = this.navParams.get("chef");
 

@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { DetailsPage } from './../details/details';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
@@ -25,7 +26,13 @@ export class NowPage {
   error: Boolean = false;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public translate: TranslateService ) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider, 
+    public fcmProvider: FcmProvider, 
+    public translate: TranslateService 
+  ) {
       // this language will be used as a fallback when a translation isn't found in the current language
       translate.setDefaultLang('da');
 
@@ -54,6 +61,7 @@ export class NowPage {
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad NowPage');
+    this.fcmProvider.setScreenName("Now");
     this.getNewItems();
   }
 

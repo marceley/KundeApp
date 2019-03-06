@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
@@ -22,7 +23,12 @@ export class ModalLoginPage {
   error: Boolean = true;
   errorMessage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider,
+    public viewCtrl: ViewController) {
 
   }
 
@@ -62,6 +68,7 @@ export class ModalLoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalLoginPage');
+    this.fcmProvider.setScreenName("LoginModal");
   }
 
 }

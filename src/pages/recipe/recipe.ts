@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { normalizeURL } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -36,6 +37,7 @@ export class RecipePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider,
     public translate: TranslateService,
     private camera: Camera,
     private transfer: FileTransfer,
@@ -148,6 +150,7 @@ export class RecipePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecipePage');
 
+    this.fcmProvider.setScreenName("Recipe");
     var recipe = this.navParams.get("recipe");
 
     this.apiProvider.getRecipe(recipe.Details)

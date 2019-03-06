@@ -30,8 +30,8 @@ export class FcmProvider {
     return this.saveTokenToFirestore(token);
   }
 
-  private getPushMessages(){
-    //this.firebase.
+  public setScreenName(screenName){
+    this.firebase.setScreenName(screenName);
   }
 
   // Save the token to firestore

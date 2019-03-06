@@ -38,12 +38,14 @@ export class SettingsPage {
     this.fcmProvider.getToken().then(() => {
       console.log("Subscribe to ", topic);
       if(topic === "catalog"){
+        console.log(this.pushTopicCatalog);
         if(this.pushTopicCatalog){
           this.fcmProvider.subscribeToTopic(topic);
         } else {
           this.fcmProvider.unsubscribeToTopic(topic);
         }
       } else if(topic === "arrangements"){
+        console.log(this.pushTopicArrangements);
         if(this.pushTopicArrangements){
           this.fcmProvider.subscribeToTopic(topic);
         } else {
@@ -62,6 +64,7 @@ export class SettingsPage {
 
   ionViewWillEnter() {
     console.log('ionViewDidLoad SettingsPage');
+    this.fcmProvider.setScreenName("Settings");
     this.getPushMessages(); // TODO: where to get token?
   }
 

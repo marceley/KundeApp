@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
@@ -18,7 +19,11 @@ export class ModalSelectPersonsPage {
   categories: any;
   selectedPersons: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController,
+    public fcmProvider: FcmProvider) {
   }
 
   dismiss() {
@@ -33,6 +38,7 @@ export class ModalSelectPersonsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalSelectPersonsPage');
+    this.fcmProvider.setScreenName("SelectPersonsModal");
 
     this.categories = this.navParams.get("categories");
     this.selectedPersons = this.navParams.get("selectedPersons");

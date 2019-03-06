@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
@@ -34,7 +35,13 @@ export class MealboxConfiguratorOptionsPage {
 
   showSuccess: Boolean = false;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
+  constructor(
+    public appCtrl: App, 
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public apiProvider: ApiProvider,
+    public fcmProvider: FcmProvider
+  ) {
   }
 
   setFrequency(frequency) {
@@ -101,6 +108,7 @@ export class MealboxConfiguratorOptionsPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter MealboxConfiguratorOptionsPage');
+    this.fcmProvider.setScreenName("MealboxConfiguratorOptions");
     if (this.apiProvider.userIsAuthenticated()) {
       this.isAuthenticated = true;
       this.details = this.navParams.data.details;
