@@ -35,20 +35,22 @@ export class SettingsPage {
   }
 
   subscribeToPushTopic (topic){
-    console.log("Subscribe to ", topic);
-    if(topic === "catalog"){
-      if(this.pushTopicCatalog){
-        this.fcmProvider.subscribeToTopic(topic);
-      } else {
-        this.fcmProvider.unsubscribeToTopic(topic);
+    this.fcmProvider.getToken().then(() => {
+      console.log("Subscribe to ", topic);
+      if(topic === "catalog"){
+        if(this.pushTopicCatalog){
+          this.fcmProvider.subscribeToTopic(topic);
+        } else {
+          this.fcmProvider.unsubscribeToTopic(topic);
+        }
+      } else if(topic === "arrangements"){
+        if(this.pushTopicArrangements){
+          this.fcmProvider.subscribeToTopic(topic);
+        } else {
+          this.fcmProvider.unsubscribeToTopic(topic);
+        }
       }
-    } else if(topic === "arrangements"){
-      if(this.pushTopicArrangements){
-        this.fcmProvider.subscribeToTopic(topic);
-      } else {
-        this.fcmProvider.unsubscribeToTopic(topic);
-      }
-    }
+    });
   }
 
   getPushMessages(){

@@ -30,6 +30,10 @@ export class FcmProvider {
     return this.saveTokenToFirestore(token);
   }
 
+  private getPushMessages(){
+    //this.firebase.
+  }
+
   // Save the token to firestore
   private saveTokenToFirestore(token) {
     if(!token) return;

@@ -308,7 +308,7 @@ export class ApiProvider {
 
   
 
-  // icoud token https://ionicframework.com/docs/native/cloud-settings/
+  // icloud token https://ionicframework.com/docs/native/cloud-settings/
   private icloudToken: string = "B8FB4A8BFBCA876665FAFBFDFC213B11474FCB807D9CF32412D8F2A9BEB2D006"; //"7CD4F20C376420B1670CCC8FC7CDF81CC43B79B99D94A492349C61760863EE7C";
 
   getPushMessages() {

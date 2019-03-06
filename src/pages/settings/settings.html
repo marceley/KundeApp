@@ -26,14 +26,14 @@
       <ion-list-header>Firebase push {{firebaseToken}}</ion-list-header>
       <ion-item text-wrap>
         <ion-label>
-          <h5>Jeg vil gerne modtage beskeder om vores varesortiment generelt</h5>
+          <h5>Varesortiment generelt</h5>
           <p>Mere forklaring</p>
         </ion-label>
         <ion-toggle [(ngModel)]="pushTopicCatalog" (click)="subscribeToPushTopic('catalog')"></ion-toggle>
       </ion-item>
       <ion-item text-wrap>
         <ion-label>
-          <h5>Jeg vil gerne modtage beskeder om vores arrangementer</h5>
+          <h5>Arrangementer</h5>
           <p>Mere forklaring</p>
         </ion-label>
         <ion-toggle [(ngModel)]="pushTopicArrangements" (click)="subscribeToPushTopic('arrangements')"></ion-toggle>
