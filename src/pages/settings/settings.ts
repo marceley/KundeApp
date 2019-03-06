@@ -1,3 +1,4 @@
+import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -25,8 +26,29 @@ export class SettingsPage {
 
   groups: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider) {
+  pushTopicCatalog: boolean;
+  pushTopicArrangements: boolean;
+  firebaseToken: any;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiProvider: ApiProvider, private fcmProvider: FcmProvider) {
+
+  }
+
+  subscribeToPushTopic (topic){
+    console.log("Subscribe to ", topic);
+    if(topic === "catalog"){
+      if(this.pushTopicCatalog){
+        this.fcmProvider.subscribeToTopic(topic);
+      } else {
+        this.fcmProvider.unsubscribeToTopic(topic);
+      }
+    } else if(topic === "arrangements"){
+      if(this.pushTopicArrangements){
+        this.fcmProvider.subscribeToTopic(topic);
+      } else {
+        this.fcmProvider.unsubscribeToTopic(topic);
+      }
+    }
   }
 
   getPushMessages(){
@@ -40,5 +62,7 @@ export class SettingsPage {
     console.log('ionViewDidLoad SettingsPage');
     this.getPushMessages(); // TODO: where to get token?
   }
+
+
 
 }

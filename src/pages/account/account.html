@@ -31,7 +31,7 @@
       <ion-list>
         <ion-item class="list-item list-item--pushdown" text-wrap #item *ngFor="let subscription of subscriptions">
           <div class="list-image" item-start>
-            <img class="tile-image" src="{{subscription.Image}}" />
+            <img class="tile-image" ng-src="subscription.Image" />
           </div>
           <h2 class="list-header">{{subscription.Title}}</h2>
           <div class="list-subtitle">{{subscription.PersonsDaysText}}</div>
@@ -58,8 +58,8 @@
             <div class="list-subtitle">{{line.SubTitle}}</div>
             <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
             <div class="list-price">
-              <span class="discount-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
-              <span class="price">{{line.PriceDetail.NormalPrice}}</span>
+              <span ng-class="" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
+              <span ng-class="{ 'before-price': line.PriceDetail.DiscountPct }">{{line.PriceDetail.NormalPrice}}</span>
             </div>
           </ion-item>
           <ion-item class="list-item" *ngIf="line.Fee">

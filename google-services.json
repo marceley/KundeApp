@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "387341916630",
+    "firebase_url": "https://aarstiderne-96d75.firebaseio.com",
+    "project_id": "aarstiderne-96d75",
+    "storage_bucket": "aarstiderne-96d75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387341916630:android:ea0972097c107c74",
+        "android_client_info": {
+          "package_name": "dk.eley.ionic.aarstiderne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387341916630-uc6s485pbbj6ipdelrlgb0okhj6h0oo7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCprIlKla4Cq-8gDdBImw4MJRntxH35ymI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

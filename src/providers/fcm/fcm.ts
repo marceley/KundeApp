@@ -10,7 +10,7 @@ export class FcmProvider {
 
   constructor(
     public api: ApiProvider,
-    public firebaseNative: Firebase,
+    public firebase: Firebase,
     public afs: AngularFirestore,
     private platform: Platform
   ) {}
@@ -19,13 +19,13 @@ export class FcmProvider {
   async getToken() { 
     let token;
     if( this.platform.is("android")){
-      //token = await this.firebaseNative.getToken();
+      //token = await this.firebase.getToken();
     }
     if(this.platform.is("ios")){
       console.log("FCM prov. = ios = getting token?");
-      token = await this.firebaseNative.getToken();
+      token = await this.firebase.getToken();
       console.log("- token = ", token);
-      await this.firebaseNative.grantPermission();
+      await this.firebase.grantPermission();
     }
     return this.saveTokenToFirestore(token);
   }
@@ -44,7 +44,15 @@ export class FcmProvider {
 
   // Listen to incoming FCM messages
   listenToNotifications() {
-    return this.firebaseNative.onNotificationOpen();
+    return this.firebase.onNotificationOpen();
+  }
+
+  subscribeToTopic(topic){
+    return this.firebase.subscribe(topic);
+  }
+
+  unsubscribeToTopic(topic){
+    return this.firebase.unsubscribe(topic);
   }
 
 }
