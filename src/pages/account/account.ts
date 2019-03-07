@@ -1,3 +1,4 @@
+import { Firebase } from '@ionic-native/firebase';
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { Platform, ToastController } from 'ionic-angular';
 import { tap } from 'rxjs/operators';
@@ -50,7 +51,8 @@ export class AccountPage {
     public navCtrl: NavController, 
     public modalCtrl: ModalController, 
     public navParams: NavParams, 
-    public apiProvider: ApiProvider) {
+    public apiProvider: ApiProvider,
+    public firebase: Firebase) {
 
   }
 
@@ -135,35 +137,33 @@ export class AccountPage {
 
   initPush(){
     if (this.platform.is("cordova")) {
-      console.log("Is Cordova so will try to init Firebase push");
+      this.firebase.hasPermission().then((data) => {
+        if (!data.isEnabled) {
+            console.log("App does NOT have IOS Notification Permission");
+        } else {
+          //this.firebase.getToken().then();
+          console.log("App does have IOS Notification Permission " + data.isEnabled);
+        }
+
+        // Get a FCM token
+      var token = this.fcm.getToken();
+      console.log("TOKEN:", token);
+ 
+    });
 
       //TODO: fix android bug: https://angularfirebase.com/lessons/ionic-native-with-firebase-fcm-push-notifications-ios-android/
-
-      // Get a FCM token
-      this.fcm.getToken();
- 
-      // Listen to incoming messages
-      this.fcm.listenToNotifications().pipe(
-        tap(msg => {
-          // show a toast
-          const toast = this.toastCtrl.create({
-            message: msg.body,
-            duration: 3000
-          });
-          toast.present();
-        })
-      ).subscribe();
 
     }
   }
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
 
     this.devicePlatform = this.platform.platforms().toString();
-    this.deviceHasCordova = window.hasOwnProperty('cordova');
+    this.deviceHasCordova = this.platform.is('cordova');
     
     this.apiProvider.getLocaleName().then(locale => {
       this.deviceLocale = locale.value;
     }).catch(e => console.log(e));
+    
     this.apiProvider.getPreferredLanguage().then(lang => {
       console.log(lang);
       this.deviceLanguage = lang.value;

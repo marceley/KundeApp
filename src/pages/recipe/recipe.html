@@ -18,6 +18,27 @@
   <div class="error" *ngIf="error">{{ errorMessage | json }}</div>
   <div class="loading" *ngIf="loading">{{ 'loadingText' | translate }}</div>
 
+  <div style="word-break: break-all">{{uploadErrorString}}</div>
+
+  <ion-item>
+    <h4>Image Preview</h4>
+    <img [src]="image" *ngIf="image" alt="Ionic File" width="300" />
+  </ion-item>
+
+
+  <div class="camera">
+    <ion-list-header>Andres billeder</ion-list-header>
+    <button ion-button (click)="takePhoto()">Tag billede</button>
+    <button ion-button (click)="selectPhotoFromLibrary()">Vælg billede</button>
+    <p><img *ngIf="image" [src]="image" width="25%" height="auto"></p>
+  </div>
+
+  <div class="userImages" *ngIf="userImages">
+    <div class="grid-images">
+      <img [src]="image" *ngFor="let image of userImages" width="50%" height="auto" />
+    </div>
+  </div>
+
   <div ion-list *ngIf="details">
     <div class="details-image">
       <img src="{{details?.ImageUri}}" />
@@ -39,27 +60,6 @@
       </ion-item>
     </ion-list>
 
-  </div>
-
-  <div style="word-break: break-all">{{uploadErrorString}}</div>
-
-  <ion-item>
-    <h4>Image Preview</h4>
-    <img [src]="imageFileName" *ngIf="imageFileName" alt="Ionic File" width="300" />
-  </ion-item>
-
-
-  <div class="camera">
-    <ion-list-header>Andres billeder</ion-list-header>
-    <button ion-button (click)="takePhoto()">Tag billede</button>
-    <button ion-button (click)="selectPhotoFromLibrary()">Vælg billede</button>
-    <p><img *ngIf="image" [src]="image" width="25%" height="auto"></p>
-  </div>
-
-  <div class="userImages" *ngIf="userImages">
-    <div class="grid-images">
-      <img [src]="image" *ngFor="let image of userImages" width="50%" height="auto" />
-    </div>
   </div>
 
 </ion-content>

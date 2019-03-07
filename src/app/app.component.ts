@@ -1,3 +1,5 @@
+import { Firebase } from '@ionic-native/firebase';
+import { FcmProvider } from './../providers/fcm/fcm';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -13,7 +15,9 @@ export class MyApp {
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen) {
+    splashScreen: SplashScreen,
+    public fcmProvider: FcmProvider,
+    public firebase: Firebase) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

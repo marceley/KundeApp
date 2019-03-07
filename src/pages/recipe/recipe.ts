@@ -57,9 +57,9 @@ export class RecipePage {
 
       this.image = normalizeURL(imageData);
       this.imageURI = normalizeURL(imageData);
-      //console.log("Image", this.image, "ImageURI", this.imageURI);
+      console.log("Image", this.image, "ImageURI", this.imageURI);
 
-      this.uploadFile();
+      this.uploadFile(this.imageURI);
 
     }, (err) => {
       // Handle error
@@ -80,16 +80,16 @@ export class RecipePage {
 
       this.image = normalizeURL(imageData);
       this.imageURI = normalizeURL(imageData);
-      //console.log("HALLO", this.image, this.imageURI);
+      console.log("HALLO", imageData, normalizeURL(imageData));
 
-      this.uploadFile();
+      this.uploadFile(this.imageURI);
     }, (err) => {
       // Handle error
     });
 
   }
 
-  uploadFile() {
+  uploadFile(imageURI) {
     let loader = this.loadingCtrl.create({
       content: "Uploading..."
     });
@@ -99,7 +99,9 @@ export class RecipePage {
 
     let options: FileUploadOptions = {
       chunkedMode: false,
-      fileName: "image.jpg",
+      fileKey: "image",
+      fileName: imageURI,
+      mimeType: "image/jpeg",
       headers: {
         //"Accept": "application/json",
         //"Accept-Language": "da-DK;q=1, en-DK;q=0.9",
@@ -115,7 +117,7 @@ export class RecipePage {
     var uploadUrl = this.apiProvider.getUploadRecipeUrl(this.details.Id)
     //console.log("...", uploadUrl);
 
-    fileTransfer.upload(this.imageURI, uploadUrl, options)
+    fileTransfer.upload(imageURI, uploadUrl, options)
       .then((data) => {
         console.log(data + " Uploaded Successfully");
         this.imageFileName = uploadUrl; //"http://192.168.0.7:8080/static/images/ionicfile.jpg"
