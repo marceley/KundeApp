@@ -1,4 +1,3 @@
-import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 
 import { NowPage } from '../now/now';
@@ -18,10 +17,7 @@ export class TabsPage {
   tab4Root = ExtrasPage;
   tab5Root = AccountPage;
 
-  constructor(
-    public apiProvider: ApiProvider) {
-    this.apiProvider.tryAutoLogin();
-  }
+  constructor() {}
 
   ionViewDidLoad(){
     

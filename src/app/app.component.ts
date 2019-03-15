@@ -1,3 +1,4 @@
+import { ApiProvider } from './../providers/api/api';
 import { Firebase } from '@ionic-native/firebase';
 import { FcmProvider } from './../providers/fcm/fcm';
 import { Component } from '@angular/core';
@@ -16,6 +17,7 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    public apiProvider: ApiProvider,
     public fcmProvider: FcmProvider,
     public firebase: Firebase) {
 
@@ -23,10 +25,12 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-      statusBar.backgroundColorByHexString('#ffffff');
+      statusBar.backgroundColorByHexString('#0d7548');
 
       splashScreen.hide();
 
+      this.apiProvider.tryAutoLogin();
+      
     });
   }
 }

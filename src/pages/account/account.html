@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar><!-- hideBackButton="true" -->
     <ion-buttons left *ngIf="isAuthenticated">
       <button ion-button (click)="logout()">Log ud</button>
     </ion-buttons>
@@ -58,8 +58,13 @@
             <div class="list-subtitle">{{line.SubTitle}}</div>
             <div class="list-subtitle" text-lowercase>{{line.Amount}}</div>
             <div class="list-price">
-              <span ng-class="" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
-              <span ng-class="{ 'before-price': line.PriceDetail.DiscountPct }">{{line.PriceDetail.NormalPrice}}</span>
+              <div *ngIf="line.PriceDetail.DiscountPrice">
+                  <span class="before-price">{{line.PriceDetail.NormalPrice}}</span>
+                  <span class="current-price" *ngIf="line.PriceDetail.DiscountPrice">{{line.PriceDetail.DiscountPrice}}</span>
+              </div>
+              <div *ngIf="!line.PriceDetail.DiscountPrice">
+                  <span class="current-price">{{line.PriceDetail.NormalPrice}}</span>
+              </div>
             </div>
           </ion-item>
           <ion-item class="list-item" *ngIf="line.Fee">
@@ -85,7 +90,7 @@
   </div>
 
   <div padding>
-    <p>Build 0.1.0 (19)</p>
+    <p>Build 0.1.0 (20)</p>
     <p>Culture from server: {{rootData?.d.Culture}}</p>
     <p>Device locale: {{deviceLocale}}</p>
     <p>Device language: {{deviceLanguage}}</p>

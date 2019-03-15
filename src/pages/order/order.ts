@@ -1,9 +1,8 @@
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { Component } from '@angular/core';
-import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiProvider } from './../../providers/api/api';
-import { AccountPage } from './../account/account';
 import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 
 /**
@@ -36,12 +35,13 @@ export class OrderPage {
 
   isAuthenticated: Boolean = false;
 
-  showSuccess: Boolean = false;
+  //showSuccess: Boolean = false;
 
   constructor(
     public appCtrl: App, 
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public modalCtrl: ModalController,
     public apiProvider: ApiProvider, 
     public fcmProvider: FcmProvider,
     public translate: TranslateService) {
@@ -77,6 +77,14 @@ export class OrderPage {
     this.selectedDeliveryDay = deliveryDay;
   }
 
+  presentOrderCompletedModal() {
+    let orderCompletedModal = this.modalCtrl.create(ModalOrderCompletePage);
+    orderCompletedModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    orderCompletedModal.present();
+  }
+
   placeOrder(){
     console.log("Placing order", this.selectedFrequency, this.selectedDeliveryDay);
     
@@ -95,23 +103,12 @@ export class OrderPage {
       this.error = false;
       this.errorMessage = "";
       this.creatingOrder = false;
-      //this.showSuccess = true; // TODO remove in favour of modal page
-
-      this.navCtrl.push(ModalOrderCompletePage, { success: true });
-
+      this.presentOrderCompletedModal();
     }, error => {
       console.log(error);
       this.error = true;
       this.errorMessage = error;
       this.creatingOrder = false;
-      this.showSuccess = false;
-    });
-  }
-
-  goToAccount(){
-    // clear navigation and go to account page
-    this.navCtrl.popToRoot().then(() => {
-      this.appCtrl.getRootNav().push(AccountPage);
     });
   }
 

@@ -1,3 +1,4 @@
+import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { DetailsIngredientPage } from './../details-ingredient/details-ingredient';
@@ -68,7 +69,7 @@ export class DetailsPage {
     loginModal.onDidDismiss(data => {
       console.log(data);
       if (data && data.reload) {
-        this.apiProvider.setUserUnauthenticated(true)
+        this.apiProvider.setUserUnauthenticated(true);
         this.isAuthenticated = true;
       }
     });
@@ -93,6 +94,7 @@ export class DetailsPage {
   //}
 
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
+
     console.log('ionViewWillEnter DetailsPage', this.apiProvider.userIsAuthenticated());
     this.fcmProvider.setScreenName("Details");
     //console.log("just checking", this.apiProvider.userIsAuthenticated());
@@ -104,6 +106,7 @@ export class DetailsPage {
     } else {
       this.isAuthenticated = false;
     }
+
   }
 
 }

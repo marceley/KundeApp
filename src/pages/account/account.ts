@@ -53,7 +53,6 @@ export class AccountPage {
     public navParams: NavParams, 
     public apiProvider: ApiProvider,
     public firebase: Firebase) {
-
   }
 
   getSales() {
@@ -155,6 +154,7 @@ export class AccountPage {
 
     }
   }
+
   ionViewWillEnter() { // will always reload the view compared to ionViewDidLoad
 
     this.devicePlatform = this.platform.platforms().toString();
@@ -175,7 +175,6 @@ export class AccountPage {
       this.isAuthenticated = true;
       this.getSales();
     }
-
 
   }
 

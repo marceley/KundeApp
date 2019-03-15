@@ -19,7 +19,10 @@ export class FcmProvider {
   async getToken() { 
     let token;
     if( this.platform.is("android")){
-      //token = await this.firebase.getToken();
+      console.log("FCM prov. = android = getting token?");
+      token = await this.firebase.getToken();
+      console.log("- token = ", token);
+      await this.firebase.grantPermission();
     }
     if(this.platform.is("ios")){
       console.log("FCM prov. = ios = getting token?");

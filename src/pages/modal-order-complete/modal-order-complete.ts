@@ -26,11 +26,10 @@ export class ModalOrderCompletePage {
   }
 
   goToAccount(){
-    console.log("til mine leveringer");
     // clear navigation and go to account page
-    this.navCtrl.popToRoot(); // TODO make work in modals
     this.viewCtrl.dismiss();
-    this.appCtrl.getRootNav().push(AccountPage);
+    this.appCtrl.getRootNavById("navRoot");
+    this.navCtrl.push(AccountPage);
   }
 
   dismiss(){

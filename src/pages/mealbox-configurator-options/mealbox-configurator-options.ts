@@ -1,7 +1,8 @@
+import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
-import { IonicPage, App, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AccountPage } from './../account/account';
 
 /**
@@ -39,6 +40,7 @@ export class MealboxConfiguratorOptionsPage {
     public appCtrl: App, 
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public modalCtrl: ModalController,
     public apiProvider: ApiProvider,
     public fcmProvider: FcmProvider
   ) {
@@ -83,14 +85,14 @@ export class MealboxConfiguratorOptionsPage {
       };
       orders.push(order);
     });
-    //console.log("ordering: ", orders);
 
     this.apiProvider.placeOrderCombined(orders).subscribe(data => {
       console.log("Ha! bought multiple products", data);
       this.error = false;
       this.errorMessage = "";
       this.creatingOrder = false;
-      this.showSuccess = true;
+      //this.showSuccess = true;
+      this.presentOrderCompletedModal();
     }, error => {
       console.log(error);
       this.error = true;
@@ -100,10 +102,16 @@ export class MealboxConfiguratorOptionsPage {
     });
   }
 
-  goToAccount() {
-    // clear navigation and go to account page
-    this.navCtrl.popToRoot(); // TODO make work in modals
-    this.appCtrl.getRootNav().push(AccountPage);
+  presentOrderCompletedModal() {
+    let orderCompletedModal = this.modalCtrl.create(ModalOrderCompletePage);
+    orderCompletedModal.onDidDismiss(data => {
+      console.log(data);
+      if (data && data.reload) {
+        //this.apiProvider.setUserUnauthenticated(true);
+        //this.isAuthenticated = true;
+      }
+    });
+    orderCompletedModal.present();
   }
 
   ionViewWillEnter() {

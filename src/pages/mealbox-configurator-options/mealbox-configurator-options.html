@@ -20,10 +20,6 @@
     Du skal være logget ind for at bestille varer.
   </div>
 
-  <div padding *ngIf="showSuccess">
-    <ion-icon name="alert"></ion-icon> <button (click)="goToAccount()">Gå til mine leveringer</button>
-  </div>
-
   <div class="error" *ngIf="error">
     <h2>{{ errorMessage.error.Header}}</h2>
     <div>{{ errorMessage.error.Text}}</div>
@@ -47,12 +43,11 @@
       <div class="configurator__label">Leveringsdato</div>
       <button [disabled]="option.Status == 'Soldout'" class="aars-button" [ngClass]="{ 'selected': option.ShipmentDate === selectedDeliveryDay }" *ngFor="let option of options?.Options"
         (click)="setDeliveryDay(option.ShipmentDate)">
-        <div *ngIf="option.Status == 'Soldout'; else dayText">Udsolgt</div> 
+        <div *ngIf="option.Status == 'Soldout'; else dayText">Udsolgt</div>
         <ng-template #dayText>{{option?.DayText}}</ng-template>
-
         <div>{{option?.DateText}}</div>
         <div class="note" *ngIf="option.Note">{{option?.Note}}</div>
-    </button>
+      </button>
     </div>
     <div class="popup" padding>
       <h2>{{options?.DeviationTitle}}</h2>
@@ -70,7 +65,6 @@
   <ion-item>
     <div>Pris {{details?.PriceDetail.NormalPrice}}</div>
     <div><span [innerHTML]="calculatedPrice"></span></div>
-    <!--<div>{{details?.SubTitle}}</div>-->
     <button type="submit" [disabled]="!selectedDeliveryDay" (click)="placeOrder()" ion-button large full>Bestil</button>
   </ion-item>
 </ion-footer>
