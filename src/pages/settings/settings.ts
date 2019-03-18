@@ -64,6 +64,13 @@ export class SettingsPage {
     });
   }
 
+  setPushMessage(type, state){
+    this.apiProvider.setPushMessage(type, state).subscribe(data => {
+      console.log("---set push ", type, data);
+      //this.groups = data["d"];
+    });
+  }
+
   ionViewWillEnter() {
     console.log('ionViewDidLoad SettingsPage');
     this.getPushMessages(); // TODO: where to get token?

@@ -323,10 +323,17 @@ export class ApiProvider {
     });
   }
 
-  setPushMessage(type) {
-    return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, {
-      headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
-    });
+  setPushMessage(type, state) {
+    console.log("###", this.auth, state);
+    if(state){
+      return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, true, {
+        headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+      });  
+    } else {
+      return this.http.delete(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, {
+        headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
+      });  
+    }
   }
 
   deletePushMessage(type) {

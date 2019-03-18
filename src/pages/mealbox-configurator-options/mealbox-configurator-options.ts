@@ -3,7 +3,6 @@ import { FcmProvider } from './../../providers/fcm/fcm';
 import { ApiProvider } from './../../providers/api/api';
 import { Component } from '@angular/core';
 import { IonicPage, App, NavController, NavParams, ModalController } from 'ionic-angular';
-import { AccountPage } from './../account/account';
 
 /**
  * Generated class for the MealboxConfiguratorOptionsPage page.
