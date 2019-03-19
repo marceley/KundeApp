@@ -59,15 +59,14 @@ export class SettingsPage {
 
   getPushMessages(){
     this.apiProvider.getPushMessages().subscribe(data => {
-      console.log("---getting pushes", data["d"][0].Subscriptions);
+      //console.log("---getting pushes", data["d"][0].Subscriptions);
       this.groups = data["d"];
     });
   }
 
   setPushMessage(type, state){
     this.apiProvider.setPushMessage(type, state).subscribe(data => {
-      console.log("---set push ", type, data);
-      //this.groups = data["d"];
+      // TODO: handle error?
     });
   }
 

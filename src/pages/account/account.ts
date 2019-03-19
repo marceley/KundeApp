@@ -1,7 +1,6 @@
 import { Firebase } from '@ionic-native/firebase';
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { Platform, ToastController } from 'ionic-angular';
-import { tap } from 'rxjs/operators';
 
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { SettingsPage } from '../settings/settings';

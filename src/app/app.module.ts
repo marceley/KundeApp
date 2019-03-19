@@ -1,3 +1,4 @@
+import { CloudSettings } from '@ionic-native/cloud-settings';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -114,7 +115,8 @@ const firebase = {
     Camera,
     FileTransfer,
     FileTransferObject,
-    File
+    File,
+    CloudSettings
   ]
 })
 export class AppModule {}

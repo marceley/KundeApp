@@ -1,4 +1,3 @@
-import { ModalOrderCompletePage } from './../modal-order-complete/modal-order-complete';
 import { FcmProvider } from './../../providers/fcm/fcm';
 import { ModalLoginPage } from './../modal-login/modal-login';
 import { DetailsIngredientPage } from './../details-ingredient/details-ingredient';
@@ -67,7 +66,7 @@ export class DetailsPage {
   presentLoginModal() {
     let loginModal = this.modalCtrl.create(ModalLoginPage);
     loginModal.onDidDismiss(data => {
-      console.log(data);
+      //console.log(data);
       if (data && data.reload) {
         this.apiProvider.setUserUnauthenticated(true);
         this.isAuthenticated = true;
@@ -77,7 +76,7 @@ export class DetailsPage {
   }
 
   showIngredientDetails(ingredient) {
-    console.log(ingredient);
+    //console.log(ingredient);
     this.navCtrl.push(DetailsIngredientPage, ingredient);
   }
 

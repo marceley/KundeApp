@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Globalization } from '@ionic-native/globalization';
 
+
+
 /*
   Generated class for the ApiProvider provider.
 
@@ -142,9 +144,6 @@ export class ApiProvider {
   getDefaultPersons(persons) {
     this.storage.get("selectedPersons");
   }
-
-
-
 
   // USERS API
   removeAuthorizationHeaderValue() {
@@ -324,7 +323,6 @@ export class ApiProvider {
   }
 
   setPushMessage(type, state) {
-    console.log("###", this.auth, state);
     if(state){
       return this.http.post(this.proxyApiUrl + '/' + this.apiVersion + '/pushmessages/' + type + '/' + this.icloudToken, true, {
         headers: new HttpHeaders({ "Authorization": this.auth, "Target-URL": this.aarsApiUrl })
